@@ -1,4 +1,4 @@
-package com.example.mapsy
+package com.elipair.mapsy
 
 import io.flutter.embedding.android.FlutterActivity
 

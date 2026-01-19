@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "993358352828",
+    "project_id": "mapsy-40e92",
+    "storage_bucket": "mapsy-40e92.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993358352828:android:9dad0af2c665a9b69b5bb9",
+        "android_client_info": {
+          "package_name": "com.elipair.mapsy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993358352828-p76ccqmp4dr5ll9uflkafntra3aeif5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZq9GmRc8-B6wA7ER2etiVIUfsPlNvI_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993358352828-p76ccqmp4dr5ll9uflkafntra3aeif5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
