@@ -1,11 +1,29 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-19T08:58:02Z",
-    "currentVersion": "1.0.9",
+    "lastUpdated": "2026-01-19T11:49:01Z",
+    "currentVersion": "1.0.10",
     "projectType": "flutter",
-    "totalReleases": 2
+    "totalReleases": 3
   },
   "releases": [
+    {
+      "version": "1.0.10",
+      "project_type": "flutter",
+      "date": "2026-01-19",
+      "pr_number": 5,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트\n\n* **Chores**\n  * 애플리케이션 버전을 1.0.10으로 업데이트했습니다.\n  * iOS 최소 배포 대상을 버전 15.0으로 설정했습니다.\n  * 빌드 시스템 구성을 개선했습니다.",
+      "parsed_changes": {
+        "chores": {
+          "title": "Chores",
+          "items": [
+            "애플리케이션 버전을 1.0.10으로 업데이트했습니다.",
+            "iOS 최소 배포 대상을 버전 15.0으로 설정했습니다.",
+            "빌드 시스템 구성을 개선했습니다."
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "1.0.9",
       "project_type": "flutter",
