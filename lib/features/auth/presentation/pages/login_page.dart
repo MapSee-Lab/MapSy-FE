@@ -86,7 +86,7 @@ class LoginPage extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Login', style: AppTextStyles.heading01),
+            Text('로그인', style: AppTextStyles.heading01),
             SizedBox(height: AppSpacing.vertical40),
 
             // TODO: Google 로그인 버튼 디자인 만들어지면 바뀌어야함
