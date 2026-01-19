@@ -66,7 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '993358352828',
     projectId: 'mapsy-40e92',
     storageBucket: 'mapsy-40e92.firebasestorage.app',
-    iosClientId: '993358352828-esehccg0b6bb1lo1gof18sqvr1ndo1rr.apps.googleusercontent.com',
+    iosClientId:
+        '993358352828-esehccg0b6bb1lo1gof18sqvr1ndo1rr.apps.googleusercontent.com',
     iosBundleId: 'com.example.mapsy',
   );
 

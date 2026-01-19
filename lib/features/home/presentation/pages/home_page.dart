@@ -37,18 +37,11 @@ class HomePage extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.map,
-              size: 100,
-              color: Colors.blue,
-            ),
+            const Icon(Icons.map, size: 100, color: Colors.blue),
             const SizedBox(height: 24),
             const Text(
               'MapSy 홈 화면',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             authState.when(
@@ -65,10 +58,7 @@ class HomePage extends ConsumerWidget {
             const SizedBox(height: 32),
             const Text(
               'TODO: 실제 기능 구현 필요',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-              ),
+              style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
           ],
         ),

@@ -81,9 +81,7 @@ class LoginPage extends ConsumerWidget {
     final authState = ref.watch(authNotifierProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login', style: AppTextStyles.subHeading),
-      ),
+      appBar: AppBar(title: Text('Login', style: AppTextStyles.subHeading)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -97,7 +95,7 @@ class LoginPage extends ConsumerWidget {
                   ? null // 로딩 중에는 버튼 비활성화
                   : () => _handleGoogleSignIn(context, ref),
               icon: const Icon(Icons.login),
-              label: const Text('Google 로그인'),
+              label: const Text('Google Login'),
               style: ElevatedButton.styleFrom(
                 padding: AppPadding.buttonPadding,
                 textStyle: AppTextStyles.label,
@@ -113,7 +111,7 @@ class LoginPage extends ConsumerWidget {
                     ? null // 로딩 중에는 버튼 비활성화
                     : () => _handleAppleSignIn(context, ref),
                 icon: const Icon(Icons.apple),
-                label: const Text('Apple 로그인'),
+                label: const Text('Apple Login'),
                 style: ElevatedButton.styleFrom(
                   padding: AppPadding.buttonPadding,
                   textStyle: AppTextStyles.label,
