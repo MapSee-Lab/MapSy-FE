@@ -1,8 +1,7 @@
 name: mapsy
 description: "MapSy - Flutter Application"
 publish_to: "none"
-version: 1.0.0+1
-
+version: 1.0.1+1
 environment:
   sdk: ^3.9.2
 dependencies:
@@ -43,7 +42,6 @@ dependencies:
   # 기기 정보
   package_info_plus: ^9.0.0 # 앱 정보 수집 (버전 등)
   device_info_plus: ^10.1.2 # 기기 정보 수집 (FCM 기기 식별용)
-
 # --------------------------------------------
 # 개발 의존성 (개발/빌드 시에만 필요한 패키지)
 # --------------------------------------------
@@ -61,7 +59,6 @@ dev_dependencies:
   # 앱 통합 관리 도구
   flutter_launcher_icons: ^0.14.4 # 앱 런처 아이콘 자동 생성
   change_app_package_name: ^1.5.0 # 앱 패키지명 변경 자동화
-
 flutter:
   uses-material-design: true
   assets:
