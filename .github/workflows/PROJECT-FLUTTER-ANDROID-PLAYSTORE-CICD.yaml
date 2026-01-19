@@ -152,6 +152,7 @@ jobs:
     name: Android AAB 빌드
     runs-on: ubuntu-latest
     needs: prepare-build
+    timeout-minutes: 45
 
     steps:
       - name: Checkout repository
@@ -232,8 +233,10 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle*', '**/gradle-wrapper.properties') }}
+            ~/.gradle/buildOutputCleanup
+          key: ${{ runner.os }}-gradle-8.12-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/gradle.properties') }}
           restore-keys: |
+            ${{ runner.os }}-gradle-8.12-
             ${{ runner.os }}-gradle-
 
       # Android build.gradle.kts 수정 (release 서명 설정)
@@ -281,6 +284,43 @@ jobs:
           echo "🔄 Flutter clean 및 의존성 재설치..."
           flutter clean
           flutter pub get
+
+          # Gradle 네트워크 연결 테스트
+          echo "🔍 Gradle 서버 연결 테스트..."
+          if ! curl -I --max-time 30 https://services.gradle.org/distributions/gradle-8.12-all.zip 2>&1 | grep -q "200\|302"; then
+            echo "⚠️ Gradle 서버 응답 느림 또는 실패, 재시도 중..."
+            sleep 5
+            if ! curl -I --max-time 30 https://services.gradle.org/distributions/gradle-8.12-all.zip 2>&1 | grep -q "200\|302"; then
+              echo "❌ Gradle 서버 접근 실패, 하지만 계속 진행..."
+            else
+              echo "✅ Gradle 서버 연결 성공 (재시도)"
+            fi
+          else
+            echo "✅ Gradle 서버 연결 정상"
+          fi
+
+          # Gradle wrapper 권한 및 사전 준비
+          echo "🔧 Gradle wrapper 준비..."
+          chmod +x android/gradlew
+
+          # Gradle 버전 확인 (Gradle 다운로드 트리거, 타임아웃 포함)
+          echo "📦 Gradle 다운로드 및 초기화 중..."
+          cd android
+          timeout 300s ./gradlew --version --no-daemon --info || {
+            EXIT_CODE=$?
+            if [ $EXIT_CODE -eq 124 ]; then
+              echo "⚠️ Gradle 초기화 타임아웃 (300초), 재시도 중..."
+              timeout 300s ./gradlew --version --no-daemon --info || {
+                echo "❌ Gradle 초기화 재시도 실패"
+                exit 1
+              }
+            else
+              echo "❌ Gradle 초기화 실패 (Exit code: $EXIT_CODE)"
+              exit 1
+            fi
+          }
+          cd ..
+          echo "✅ Gradle 다운로드 및 초기화 완료"
 
           # local.properties에 버전 정보 추가 (Flutter 플래그가 무시되는 문제 해결)
           echo "🔧 local.properties에 버전 정보 설정..."
