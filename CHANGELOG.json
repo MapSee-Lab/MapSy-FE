@@ -1,11 +1,49 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-19T08:09:59Z",
-    "currentVersion": "1.0.7",
+    "lastUpdated": "2026-01-19T08:58:02Z",
+    "currentVersion": "1.0.9",
     "projectType": "flutter",
-    "totalReleases": 1
+    "totalReleases": 2
   },
   "releases": [
+    {
+      "version": "1.0.9",
+      "project_type": "flutter",
+      "date": "2026-01-19",
+      "pr_number": 3,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트\n\n* **Chores**\n  * Android 및 Flutter CI/CD 워크플로우 최적화로 빌드 성능 및 안정성 개선\n  * 네트워크 타임아웃 및 병렬 처리 설정 추가로 Gradle 빌드 안정성 강화\n  * iOS 배포 대상 통일화로 호환성 문제 해결\n\n* **Documentation**\n  * iOS 빌드 스크립트 설정 가이드 추가\n  * Crashlytics 심볼 업로드 프로세스 문서화\n\n* **New Features**\n  * Flutter 코드 품질 검사 자동화 워크플로우 추가\n  * iOS 공유 확장 프로그램 활성화 규칙 개선\n\n* **Chores (버전)**\n  * 버전 v1.0.9로 업데이트",
+      "parsed_changes": {
+        "chores": {
+          "title": "Chores",
+          "items": [
+            "Android 및 Flutter CI/CD 워크플로우 최적화로 빌드 성능 및 안정성 개선",
+            "네트워크 타임아웃 및 병렬 처리 설정 추가로 Gradle 빌드 안정성 강화",
+            "iOS 배포 대상 통일화로 호환성 문제 해결"
+          ]
+        },
+        "documentation": {
+          "title": "Documentation",
+          "items": [
+            "iOS 빌드 스크립트 설정 가이드 추가",
+            "Crashlytics 심볼 업로드 프로세스 문서화"
+          ]
+        },
+        "new_features": {
+          "title": "New Features",
+          "items": [
+            "Flutter 코드 품질 검사 자동화 워크플로우 추가",
+            "iOS 공유 확장 프로그램 활성화 규칙 개선"
+          ]
+        },
+        "chores__버전": {
+          "title": "Chores (버전)",
+          "items": [
+            "버전 v1.0.9로 업데이트"
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "1.0.7",
       "project_type": "flutter",
