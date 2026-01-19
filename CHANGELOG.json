@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-01-19T08:09:59Z",
+    "currentVersion": "1.0.7",
+    "projectType": "flutter",
+    "totalReleases": 1
+  },
+  "releases": [
+    {
+      "version": "1.0.7",
+      "project_type": "flutter",
+      "date": "2026-01-19",
+      "pr_number": 2,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트\n\n* **새로운 기능**\n  * Share Extension 지원 추가\n\n* **설명서**\n  * GitHub Actions 시크릿 설정 가이드 추가\n\n* **정리**\n  * 버전 1.0.7로 업데이트\n  * 로그인 페이지 사용자 인터페이스 텍스트 한영혼용에서 영문으로 통일\n  * 안드로이드 부팅 알림 권한 제거\n  * 코드 포매팅 최적화",
+      "parsed_changes": {
+        "새로운_기능": {
+          "title": "새로운 기능",
+          "items": [
+            "Share Extension 지원 추가"
+          ]
+        },
+        "설명서": {
+          "title": "설명서",
+          "items": [
+            "GitHub Actions 시크릿 설정 가이드 추가"
+          ]
+        },
+        "정리": {
+          "title": "정리",
+          "items": [
+            "버전 1.0.7로 업데이트",
+            "로그인 페이지 사용자 인터페이스 텍스트 한영혼용에서 영문으로 통일",
+            "안드로이드 부팅 알림 권한 제거",
+            "코드 포매팅 최적화"
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    }
+  ]
+}
