@@ -10,7 +10,6 @@ import '../../../../core/services/fcm/firebase_messaging_service.dart';
 import '../../data/datasources/firebase_auth_datasource.dart';
 import '../../data/models/sign_in_response.dart';
 import '../../data/repositories/auth_repository_impl.dart';
-import '../../domain/repositories/auth_repository.dart';
 import '../../domain/utils/firebase_auth_error_handler.dart';
 
 part 'auth_provider.g.dart';

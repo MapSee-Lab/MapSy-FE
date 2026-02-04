@@ -26,8 +26,8 @@ Dio dio(Ref ref) {
     BaseOptions(
       baseUrl: ApiEndpoints.baseUrl,
       connectTimeout: const Duration(seconds: 30),
-      receiveTimeout: const Duration(seconds: 30),
-      sendTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(minutes: 30), // LLM 처리 시간 고려
+      sendTimeout: const Duration(minutes: 30), // LLM 처리 시간 고려
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

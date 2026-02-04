@@ -21,9 +21,6 @@ import '../features/onboarding/presentation/pages/birth_date_step_page.dart';
 import '../features/onboarding/presentation/pages/gender_step_page.dart';
 import '../features/onboarding/presentation/pages/nickname_step_page.dart';
 
-// Token Storage for onboarding state
-import '../core/network/token_storage.dart';
-
 /// GoRouter 인스턴스를 제공하는 Riverpod Provider
 ///
 /// 앱 전체의 네비게이션을 관리하며, 인증 상태에 따라

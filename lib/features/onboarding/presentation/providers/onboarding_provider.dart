@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/errors/app_exception.dart';
 import '../../../auth/domain/entities/onboarding_step.dart';
 import '../../data/models/gender_request.dart';
-import '../../data/models/profile_request.dart';
 import '../../data/repositories/onboarding_repository_impl.dart';
 import '../../domain/repositories/onboarding_repository.dart';
 
