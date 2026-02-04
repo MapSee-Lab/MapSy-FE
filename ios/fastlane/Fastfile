@@ -59,10 +59,10 @@ platform :ios do
     upload_to_testflight(
       api_key: api_key,
       ipa: ipa_path,
-      changelog: release_notes,
+      changelog: release_notes.dup,
       localized_build_info: {
-        "ko" => { whats_new: release_notes },
-        "en-US" => { whats_new: release_notes }
+        "ko" => { whats_new: release_notes.dup },
+        "en-US" => { whats_new: release_notes.dup }
       },
       skip_waiting_for_build_processing: ENV["SKIP_WAITING_FOR_BUILD_PROCESSING"] == "true",
       distribute_external: false,

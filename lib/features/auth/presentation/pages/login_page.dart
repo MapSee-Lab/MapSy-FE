@@ -22,7 +22,9 @@ class LoginPage extends ConsumerWidget {
   /// Google 로그인을 수행하고 에러 발생 시 SnackBar를 표시합니다.
   Future<void> _handleGoogleSignIn(BuildContext context, WidgetRef ref) async {
     // AuthNotifier로 로그인 수행 (백엔드 응답 포함)
-    final signInResponse = await ref.read(authNotifierProvider.notifier).signInWithGoogle();
+    final signInResponse = await ref
+        .read(authNotifierProvider.notifier)
+        .signInWithGoogle();
 
     // 에러 체크 및 SnackBar 표시
     if (!context.mounted) return;
@@ -56,7 +58,9 @@ class LoginPage extends ConsumerWidget {
   /// Apple 로그인을 수행하고 에러 발생 시 SnackBar를 표시합니다.
   Future<void> _handleAppleSignIn(BuildContext context, WidgetRef ref) async {
     // AuthNotifier로 로그인 수행 (백엔드 응답 포함)
-    final signInResponse = await ref.read(authNotifierProvider.notifier).signInWithApple();
+    final signInResponse = await ref
+        .read(authNotifierProvider.notifier)
+        .signInWithApple();
 
     // 에러 체크 및 SnackBar 표시
     if (!context.mounted) return;

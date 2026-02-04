@@ -25,13 +25,15 @@ class ErrorInterceptor extends Interceptor {
     debugPrint('   Status: ${err.response?.statusCode}');
 
     // DioException을 유지하되, error 필드에 AppException을 담아서 전달
-    handler.next(DioException(
-      requestOptions: err.requestOptions,
-      response: err.response,
-      type: err.type,
-      error: exception,
-      message: exception.message,
-    ));
+    handler.next(
+      DioException(
+        requestOptions: err.requestOptions,
+        response: err.response,
+        type: err.type,
+        error: exception,
+        message: exception.message,
+      ),
+    );
   }
 
   /// DioException을 AppException으로 변환
@@ -65,7 +67,8 @@ class ErrorInterceptor extends Interceptor {
     String? serverMessage;
     String? serverCode;
     if (responseData is Map<String, dynamic>) {
-      serverMessage = responseData['message'] as String? ??
+      serverMessage =
+          responseData['message'] as String? ??
           responseData['error'] as String?;
       serverCode = responseData['code'] as String?;
     }

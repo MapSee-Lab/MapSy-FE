@@ -57,7 +57,8 @@ class ApiEndpoints {
   static const String onboardingTerms = '/api/members/onboarding/terms';
 
   /// 온보딩: 생년월일
-  static const String onboardingBirthDate = '/api/members/onboarding/birth-date';
+  static const String onboardingBirthDate =
+      '/api/members/onboarding/birth-date';
 
   /// 온보딩: 성별
   static const String onboardingGender = '/api/members/onboarding/gender';

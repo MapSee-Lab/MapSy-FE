@@ -66,10 +66,7 @@ class _BirthDateStepPageState extends ConsumerState<BirthDateStepPage> {
               SizedBox(height: 8.h),
               Text(
                 '맞춤 콘텐츠 추천을 위해 사용됩니다.',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: AppColors.gray600,
-                ),
+                style: TextStyle(fontSize: 14.sp, color: AppColors.gray600),
               ),
               SizedBox(height: 48.h),
 
@@ -88,7 +85,10 @@ class _BirthDateStepPageState extends ConsumerState<BirthDateStepPage> {
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primary,
                   side: const BorderSide(color: AppColors.primary),
-                  padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 24.w,
+                    vertical: 12.h,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.r),
                   ),
@@ -101,10 +101,7 @@ class _BirthDateStepPageState extends ConsumerState<BirthDateStepPage> {
               if (state.errorMessage != null) ...[
                 Text(
                   state.errorMessage!,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: AppColors.error,
-                  ),
+                  style: TextStyle(fontSize: 14.sp, color: AppColors.error),
                 ),
                 SizedBox(height: 8.h),
               ],
@@ -147,9 +144,7 @@ class _BirthDateStepPageState extends ConsumerState<BirthDateStepPage> {
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               decoration: const BoxDecoration(
                 color: AppColors.gray100,
-                border: Border(
-                  bottom: BorderSide(color: AppColors.gray200),
-                ),
+                border: Border(bottom: BorderSide(color: AppColors.gray200)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -208,10 +203,7 @@ class _DateDisplay extends StatelessWidget {
   final DateTime date;
   final VoidCallback onTap;
 
-  const _DateDisplay({
-    required this.date,
-    required this.onTap,
-  });
+  const _DateDisplay({required this.date, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -245,10 +237,7 @@ class _DateBox extends StatelessWidget {
   final String value;
   final String label;
 
-  const _DateBox({
-    required this.value,
-    required this.label,
-  });
+  const _DateBox({required this.value, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -265,10 +254,7 @@ class _DateBox extends StatelessWidget {
         SizedBox(height: 4.h),
         Text(
           label,
-          style: TextStyle(
-            fontSize: 14.sp,
-            color: AppColors.gray500,
-          ),
+          style: TextStyle(fontSize: 14.sp, color: AppColors.gray500),
         ),
       ],
     );

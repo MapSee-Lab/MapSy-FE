@@ -61,7 +61,9 @@ class AuthRepositoryImpl implements AuthRepository {
       requiresOnboarding: response.requiresOnboarding,
       onboardingStep: response.onboardingStep,
     );
-    debugPrint('✅ Onboarding state saved: requiresOnboarding=${response.requiresOnboarding}');
+    debugPrint(
+      '✅ Onboarding state saved: requiresOnboarding=${response.requiresOnboarding}',
+    );
 
     return response;
   }

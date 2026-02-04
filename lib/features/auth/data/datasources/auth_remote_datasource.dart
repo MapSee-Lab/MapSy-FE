@@ -36,7 +36,9 @@ class AuthRemoteDataSource {
   /// Throws: DioException (network errors), AppException (converted errors)
   Future<SignInResponse> signIn(SignInRequest request) async {
     debugPrint('🔐 Calling sign-in API...');
-    debugPrint('   Firebase ID Token length: ${request.firebaseIdToken.length}');
+    debugPrint(
+      '   Firebase ID Token length: ${request.firebaseIdToken.length}',
+    );
 
     final response = await _dio.post(
       ApiEndpoints.signIn,

@@ -87,10 +87,7 @@ class _NicknameStepPageState extends ConsumerState<NicknameStepPage> {
               SizedBox(height: 8.h),
               Text(
                 '다른 사용자에게 표시되는 이름입니다.',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: AppColors.gray600,
-                ),
+                style: TextStyle(fontSize: 14.sp, color: AppColors.gray600),
               ),
               SizedBox(height: 48.h),
 
@@ -100,10 +97,7 @@ class _NicknameStepPageState extends ConsumerState<NicknameStepPage> {
                 focusNode: _focusNode,
                 onChanged: (value) => _onNicknameChanged(value, notifier),
                 maxLength: 20,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  color: AppColors.gray900,
-                ),
+                style: TextStyle(fontSize: 16.sp, color: AppColors.gray900),
                 decoration: InputDecoration(
                   hintText: '닉네임 입력 (2-20자)',
                   hintStyle: TextStyle(
@@ -118,9 +112,7 @@ class _NicknameStepPageState extends ConsumerState<NicknameStepPage> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.r),
-                    borderSide: BorderSide(
-                      color: _getBorderColor(state),
-                    ),
+                    borderSide: BorderSide(color: _getBorderColor(state)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.r),
@@ -192,19 +184,11 @@ class _NicknameStepPageState extends ConsumerState<NicknameStepPage> {
     }
 
     if (state.nicknameAvailable == true) {
-      return Icon(
-        Icons.check_circle,
-        color: AppColors.success,
-        size: 24.w,
-      );
+      return Icon(Icons.check_circle, color: AppColors.success, size: 24.w);
     }
 
     if (state.nicknameAvailable == false) {
-      return Icon(
-        Icons.error,
-        color: AppColors.error,
-        size: 24.w,
-      );
+      return Icon(Icons.error, color: AppColors.error, size: 24.w);
     }
 
     return null;
@@ -214,20 +198,14 @@ class _NicknameStepPageState extends ConsumerState<NicknameStepPage> {
     if (state.nicknameAvailable == true) {
       return Text(
         '사용 가능한 닉네임입니다.',
-        style: TextStyle(
-          fontSize: 13.sp,
-          color: AppColors.success,
-        ),
+        style: TextStyle(fontSize: 13.sp, color: AppColors.success),
       );
     }
 
     if (state.errorMessage != null) {
       return Text(
         state.errorMessage!,
-        style: TextStyle(
-          fontSize: 13.sp,
-          color: AppColors.error,
-        ),
+        style: TextStyle(fontSize: 13.sp, color: AppColors.error),
       );
     }
 
@@ -278,18 +256,11 @@ class _RuleItem extends StatelessWidget {
       padding: EdgeInsets.only(top: 4.h),
       child: Row(
         children: [
-          Icon(
-            Icons.check,
-            size: 14.w,
-            color: AppColors.gray500,
-          ),
+          Icon(Icons.check, size: 14.w, color: AppColors.gray500),
           SizedBox(width: 6.w),
           Text(
             text,
-            style: TextStyle(
-              fontSize: 13.sp,
-              color: AppColors.gray600,
-            ),
+            style: TextStyle(fontSize: 13.sp, color: AppColors.gray600),
           ),
         ],
       ),

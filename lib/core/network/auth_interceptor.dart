@@ -15,10 +15,7 @@ class AuthInterceptor extends Interceptor {
   final Ref _ref;
 
   /// 인증이 필요 없는 경로 목록
-  static const _publicPaths = [
-    '/api/auth/sign-in',
-    '/api/auth/reissue',
-  ];
+  static const _publicPaths = ['/api/auth/sign-in', '/api/auth/reissue'];
 
   AuthInterceptor(this._ref);
 
