@@ -340,66 +340,30 @@ jobs:
       - name: Pull latest changes
         run: git pull origin ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.branch_name || github.ref_name }}
 
-      # Debug Keystore 설정 (선택적)
-      - name: Setup Debug Keystore
-        run: |
-          mkdir -p ~/.android
-          if [ -n "${{ secrets.DEBUG_KEYSTORE }}" ]; then
-            echo "${{ secrets.DEBUG_KEYSTORE }}" | base64 -d > ~/.android/debug.keystore
-            echo "✅ Debug Keystore created from secrets"
-          else
-            echo "ℹ️ DEBUG_KEYSTORE secret not provided, using default"
-          fi
-          ls -la ~/.android/ || true
-
       # .env 파일 생성
       - name: Create .env file
         run: |
-          cat << 'EOF' > ${{ env.ENV_FILE_PATH }}
-          ${{ secrets.ENV_FILE || secrets.ENV }}
-          EOF
+          echo "${{ secrets.ENV_FILE || secrets.ENV }}" > ${{ env.ENV_FILE_PATH }}
           echo "✅ ${{ env.ENV_FILE_PATH }} file created"
 
-      # Keystore와 key.properties 설정
-      - name: Setup Keystore and key.properties
+      # Release Keystore 설정 (Play Store 워크플로우와 동일한 방식)
+      - name: Setup Release Keystore
         run: |
-          # build.gradle.kts에서 rootProject.file()을 사용하므로 android/ 기준으로 경로 설정
           mkdir -p android/keystore
+          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > android/keystore/key.jks
+          echo "✅ Release Keystore 생성 완료"
+          ls -la android/keystore/
 
-          # Release Keystore 우선 사용 (권장)
-          if [ -n "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" ]; then
-            echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > android/keystore/key.jks
-            echo "✅ Keystore created from RELEASE_KEYSTORE_BASE64"
-
-            cat > android/key.properties << EOF
+      # key.properties 생성 (Release 서명 정보)
+      - name: Create key.properties
+        run: |
+          cat > android/key.properties << EOF
           storeFile=keystore/key.jks
           storePassword=${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
           keyAlias=${{ secrets.RELEASE_KEY_ALIAS }}
           keyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}
           EOF
-            echo "✅ key.properties created with release signing"
-
-          # Debug Keystore 대체 사용
-          elif [ -n "${{ secrets.DEBUG_KEYSTORE }}" ]; then
-            echo "${{ secrets.DEBUG_KEYSTORE }}" | base64 -d > android/keystore/key.jks
-            echo "✅ Keystore created from DEBUG_KEYSTORE"
-
-            cat > android/key.properties << EOF
-          storeFile=keystore/key.jks
-          storePassword=android
-          keyAlias=androiddebugkey
-          keyPassword=android
-          EOF
-            echo "✅ key.properties created with debug signing"
-
-          else
-            echo "❌ 오류: RELEASE_KEYSTORE_BASE64 또는 DEBUG_KEYSTORE secret이 필요합니다"
-            echo "Release 빌드를 위해서는 서명 설정이 필수입니다."
-            exit 1
-          fi
-
-          ls -la android/ || true
-          ls -la android/keystore/ || true
+          echo "✅ key.properties 생성 완료"
 
       # google-services.json 생성 (선택적)
       - name: Create google-services.json
