@@ -360,22 +360,45 @@ jobs:
           EOF
           echo "✅ ${{ env.ENV_FILE_PATH }} file created"
 
-      # Keystore와 key.properties 설정 (선택적)
+      # Keystore와 key.properties 설정
       - name: Setup Keystore and key.properties
         run: |
           mkdir -p android/app/keystore
-          if [ -n "${{ secrets.DEBUG_KEYSTORE }}" ]; then
+
+          # Release Keystore 우선 사용 (권장)
+          if [ -n "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" ]; then
+            echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > android/app/keystore/key.jks
+            echo "✅ Keystore created from RELEASE_KEYSTORE_BASE64"
+
+            cat > android/key.properties << EOF
+          storeFile=keystore/key.jks
+          storePassword=${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+          keyAlias=${{ secrets.RELEASE_KEY_ALIAS }}
+          keyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}
+          EOF
+            echo "✅ key.properties created with release signing"
+
+          # Debug Keystore 대체 사용
+          elif [ -n "${{ secrets.DEBUG_KEYSTORE }}" ]; then
             echo "${{ secrets.DEBUG_KEYSTORE }}" | base64 -d > android/app/keystore/key.jks
             echo "✅ Keystore created from DEBUG_KEYSTORE"
-            echo "storeFile=keystore/key.jks" > android/key.properties
-            echo "storePassword=android" >> android/key.properties
-            echo "keyAlias=androiddebugkey" >> android/key.properties
-            echo "keyPassword=android" >> android/key.properties
-            echo "✅ key.properties created"
+
+            cat > android/key.properties << EOF
+          storeFile=keystore/key.jks
+          storePassword=android
+          keyAlias=androiddebugkey
+          keyPassword=android
+          EOF
+            echo "✅ key.properties created with debug signing"
+
           else
-            echo "ℹ️ DEBUG_KEYSTORE not provided, skipping keystore setup"
+            echo "❌ 오류: RELEASE_KEYSTORE_BASE64 또는 DEBUG_KEYSTORE secret이 필요합니다"
+            echo "Release 빌드를 위해서는 서명 설정이 필수입니다."
+            exit 1
           fi
+
           ls -la android/ || true
+          ls -la android/app/keystore/ || true
 
       # google-services.json 생성 (선택적)
       - name: Create google-services.json
