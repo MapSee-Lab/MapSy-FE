@@ -52,10 +52,7 @@ class GenderStepPage extends ConsumerWidget {
               SizedBox(height: 8.h),
               Text(
                 '맞춤 콘텐츠 추천을 위해 사용됩니다.',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: AppColors.gray600,
-                ),
+                style: TextStyle(fontSize: 14.sp, color: AppColors.gray600),
               ),
               SizedBox(height: 48.h),
 
@@ -95,10 +92,7 @@ class GenderStepPage extends ConsumerWidget {
               if (state.errorMessage != null) ...[
                 Text(
                   state.errorMessage!,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: AppColors.error,
-                  ),
+                  style: TextStyle(fontSize: 14.sp, color: AppColors.error),
                 ),
                 SizedBox(height: 8.h),
               ],
@@ -147,7 +141,9 @@ class _GenderButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 24.h),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary.withValues(alpha: 0.1) : AppColors.gray100,
+          color: isSelected
+              ? AppColors.primary.withValues(alpha: 0.1)
+              : AppColors.gray100,
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
             color: isSelected ? AppColors.primary : AppColors.gray200,

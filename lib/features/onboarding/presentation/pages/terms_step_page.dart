@@ -48,16 +48,16 @@ class TermsStepPage extends ConsumerWidget {
               SizedBox(height: 8.h),
               Text(
                 '원활한 서비스 이용을 위해 필수 약관에 동의가 필요합니다.',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: AppColors.gray600,
-                ),
+                style: TextStyle(fontSize: 14.sp, color: AppColors.gray600),
               ),
               SizedBox(height: 32.h),
 
               // 전체 동의
               _AllAgreeItem(
-                isChecked: state.serviceAgreed && state.privacyAgreed && state.marketingAgreed,
+                isChecked:
+                    state.serviceAgreed &&
+                    state.privacyAgreed &&
+                    state.marketingAgreed,
                 onTap: notifier.agreeAll,
               ),
               SizedBox(height: 16.h),
@@ -92,10 +92,7 @@ class TermsStepPage extends ConsumerWidget {
               if (state.errorMessage != null) ...[
                 Text(
                   state.errorMessage!,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: AppColors.error,
-                  ),
+                  style: TextStyle(fontSize: 14.sp, color: AppColors.error),
                 ),
                 SizedBox(height: 8.h),
               ],
@@ -141,10 +138,7 @@ class TermsStepPage extends ConsumerWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
               ),
               SizedBox(height: 16.h),
               Expanded(
@@ -193,10 +187,7 @@ class _AllAgreeItem extends StatelessWidget {
   final bool isChecked;
   final VoidCallback onTap;
 
-  const _AllAgreeItem({
-    required this.isChecked,
-    required this.onTap,
-  });
+  const _AllAgreeItem({required this.isChecked, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -206,7 +197,9 @@ class _AllAgreeItem extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: isChecked ? AppColors.primary.withValues(alpha: 0.1) : AppColors.gray100,
+          color: isChecked
+              ? AppColors.primary.withValues(alpha: 0.1)
+              : AppColors.gray100,
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
             color: isChecked ? AppColors.primary : AppColors.gray200,
@@ -266,10 +259,7 @@ class _AgreementItem extends StatelessWidget {
               SizedBox(width: 8.w),
               Text(
                 title,
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  color: AppColors.gray700,
-                ),
+                style: TextStyle(fontSize: 15.sp, color: AppColors.gray700),
               ),
             ],
           ),

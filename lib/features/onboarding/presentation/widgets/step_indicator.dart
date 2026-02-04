@@ -19,10 +19,7 @@ class StepIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-        totalSteps,
-        (index) => _buildDot(index),
-      ),
+      children: List.generate(totalSteps, (index) => _buildDot(index)),
     );
   }
 

@@ -46,10 +46,7 @@ class OnboardingButton extends StatelessWidget {
               )
             : Text(
                 text,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
               ),
       ),
     );
@@ -61,11 +58,7 @@ class OnboardingTextButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
 
-  const OnboardingTextButton({
-    super.key,
-    required this.text,
-    this.onPressed,
-  });
+  const OnboardingTextButton({super.key, required this.text, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

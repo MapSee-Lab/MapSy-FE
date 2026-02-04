@@ -31,7 +31,7 @@ class TokenRefreshInterceptor extends Interceptor {
 
   /// 갱신 완료 대기 중인 요청들
   final List<({RequestOptions options, ErrorInterceptorHandler handler})>
-      _pendingRequests = [];
+  _pendingRequests = [];
 
   TokenRefreshInterceptor(this._ref, this._mainDio, this._refreshDio);
 

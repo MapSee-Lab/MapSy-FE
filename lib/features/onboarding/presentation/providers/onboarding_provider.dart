@@ -55,7 +55,8 @@ class OnboardingNotifier extends _$OnboardingNotifier {
     return const OnboardingState();
   }
 
-  OnboardingRepository get _repository => ref.read(onboardingRepositoryProvider);
+  OnboardingRepository get _repository =>
+      ref.read(onboardingRepositoryProvider);
 
   /// 현재 단계 설정 (라우터에서 호출)
   void setCurrentStep(OnboardingStep step) {
@@ -255,7 +256,9 @@ class OnboardingNotifier extends _$OnboardingNotifier {
       state = state.copyWith(
         isLoading: false,
         nicknameAvailable: response.available,
-        errorMessage: response.available ? null : response.message ?? '이미 사용 중인 닉네임입니다.',
+        errorMessage: response.available
+            ? null
+            : response.message ?? '이미 사용 중인 닉네임입니다.',
       );
 
       return response.available;

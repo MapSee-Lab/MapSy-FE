@@ -33,10 +33,7 @@ class OnboardingRemoteDataSource {
   Future<void> submitTerms(TermsRequest request) async {
     debugPrint('📤 OnboardingRemoteDataSource: Submitting terms agreement...');
 
-    await _dio.post(
-      ApiEndpoints.onboardingTerms,
-      data: request.toJson(),
-    );
+    await _dio.post(ApiEndpoints.onboardingTerms, data: request.toJson());
 
     debugPrint('✅ Terms agreement submitted successfully');
   }
@@ -47,10 +44,7 @@ class OnboardingRemoteDataSource {
   Future<void> submitBirthDate(BirthDateRequest request) async {
     debugPrint('📤 OnboardingRemoteDataSource: Submitting birth date...');
 
-    await _dio.post(
-      ApiEndpoints.onboardingBirthDate,
-      data: request.toJson(),
-    );
+    await _dio.post(ApiEndpoints.onboardingBirthDate, data: request.toJson());
 
     debugPrint('✅ Birth date submitted successfully');
   }
@@ -61,10 +55,7 @@ class OnboardingRemoteDataSource {
   Future<void> submitGender(GenderRequest request) async {
     debugPrint('📤 OnboardingRemoteDataSource: Submitting gender...');
 
-    await _dio.post(
-      ApiEndpoints.onboardingGender,
-      data: request.toJson(),
-    );
+    await _dio.post(ApiEndpoints.onboardingGender, data: request.toJson());
 
     debugPrint('✅ Gender submitted successfully');
   }
@@ -75,10 +66,7 @@ class OnboardingRemoteDataSource {
   Future<void> submitProfile(ProfileRequest request) async {
     debugPrint('📤 OnboardingRemoteDataSource: Submitting profile...');
 
-    await _dio.post(
-      ApiEndpoints.memberProfile,
-      data: request.toJson(),
-    );
+    await _dio.post(ApiEndpoints.memberProfile, data: request.toJson());
 
     debugPrint('✅ Profile submitted successfully');
   }
