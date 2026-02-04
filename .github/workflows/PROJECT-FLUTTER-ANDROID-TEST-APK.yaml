@@ -363,11 +363,12 @@ jobs:
       # Keystore와 key.properties 설정
       - name: Setup Keystore and key.properties
         run: |
-          mkdir -p android/app/keystore
+          # build.gradle.kts에서 rootProject.file()을 사용하므로 android/ 기준으로 경로 설정
+          mkdir -p android/keystore
 
           # Release Keystore 우선 사용 (권장)
           if [ -n "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" ]; then
-            echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > android/app/keystore/key.jks
+            echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > android/keystore/key.jks
             echo "✅ Keystore created from RELEASE_KEYSTORE_BASE64"
 
             cat > android/key.properties << EOF
@@ -380,7 +381,7 @@ jobs:
 
           # Debug Keystore 대체 사용
           elif [ -n "${{ secrets.DEBUG_KEYSTORE }}" ]; then
-            echo "${{ secrets.DEBUG_KEYSTORE }}" | base64 -d > android/app/keystore/key.jks
+            echo "${{ secrets.DEBUG_KEYSTORE }}" | base64 -d > android/keystore/key.jks
             echo "✅ Keystore created from DEBUG_KEYSTORE"
 
             cat > android/key.properties << EOF
@@ -398,7 +399,7 @@ jobs:
           fi
 
           ls -la android/ || true
-          ls -la android/app/keystore/ || true
+          ls -la android/keystore/ || true
 
       # google-services.json 생성 (선택적)
       - name: Create google-services.json
