@@ -57,13 +57,14 @@ jobs:
           ls -la
 
       # Keystore와 key.properties 설정
+      # build.gradle.kts에서 rootProject.file()을 사용하므로 android/ 기준으로 경로 설정
       - name: Setup Keystore and key.properties
         run: |
-          mkdir -p android/app/keystore
-          echo "${{ secrets.DEBUG_KEYSTORE }}" | base64 -d > android/app/keystore/key.jks || echo "Base64 decoding failed"
+          mkdir -p android/keystore
+          echo "${{ secrets.DEBUG_KEYSTORE }}" | base64 -d > android/keystore/key.jks || echo "Base64 decoding failed"
           echo "Keystore created from DEBUG_KEYSTORE"
-          ls -la android/app/keystore
-          echo "storeFile=app/keystore/key.jks" > android/key.properties
+          ls -la android/keystore
+          echo "storeFile=keystore/key.jks" > android/key.properties
           echo "storePassword=android" >> android/key.properties
           echo "keyAlias=androiddebugkey" >> android/key.properties
           echo "keyPassword=android" >> android/key.properties

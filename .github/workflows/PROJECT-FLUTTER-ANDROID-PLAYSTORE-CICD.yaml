@@ -178,12 +178,13 @@ jobs:
           echo "✅ .env 파일 생성됨 (크기: $(wc -c < .env) bytes)"
 
       # Release Keystore 설정
+      # build.gradle.kts에서 rootProject.file()을 사용하므로 android/ 기준으로 경로 설정
       - name: Setup Release Keystore
         run: |
-          mkdir -p android/app/keystore
-          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > android/app/keystore/key.jks
+          mkdir -p android/keystore
+          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > android/keystore/key.jks
           echo "✅ Release Keystore 생성 완료"
-          ls -la android/app/keystore/
+          ls -la android/keystore/
 
       # key.properties 생성 (Release 서명 정보)
       - name: Create key.properties

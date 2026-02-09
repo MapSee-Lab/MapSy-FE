@@ -51,18 +51,18 @@ platform :ios do
 
     UI.message("📦 IPA 경로: #{ipa_path}")
 
-    # 릴리즈 노트 설정
-    release_notes = ENV["RELEASE_NOTES"] || "새로운 빌드가 업로드되었습니다."
+    # 릴리즈 노트 설정 (Ruby 3.4+ frozen string 호환을 위해 .dup 사용)
+    release_notes = (ENV["RELEASE_NOTES"] || "새로운 빌드가 업로드되었습니다.").dup
     UI.message("📝 릴리즈 노트: #{release_notes}")
 
     # TestFlight 업로드 (upload_to_testflight = pilot)
     upload_to_testflight(
       api_key: api_key,
       ipa: ipa_path,
-      changelog: release_notes,
+      changelog: release_notes.dup,
       localized_build_info: {
-        "ko" => { whats_new: release_notes },
-        "en-US" => { whats_new: release_notes }
+        "ko" => { whats_new: release_notes.dup },
+        "en-US" => { whats_new: release_notes.dup }
       },
       skip_waiting_for_build_processing: ENV["SKIP_WAITING_FOR_BUILD_PROCESSING"] == "true",
       distribute_external: false,
