@@ -50,12 +50,12 @@ final authStateProvider = AutoDisposeStreamProvider<User?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AuthStateRef = AutoDisposeStreamProviderRef<User?>;
-String _$authNotifierHash() => r'a210c385ebe3d6b5df10f0b2e8bf2944c575a0fe';
+String _$authNotifierHash() => r'87bb81e1bbb34e5e9f9027d8a5f1924024f2f374';
 
 /// 인증 상태를 관리하는 Notifier
 ///
-/// Google 로그인, 로그아웃 등의 인증 작업을 수행하며
-/// 로딩/에러 상태를 관리합니다.
+/// Google/Apple 로그인, 로그아웃 등의 인증 작업을 수행하며
+/// Firebase 인증 후 백엔드 로그인까지 완료합니다.
 ///
 /// Copied from [AuthNotifier].
 @ProviderFor(AuthNotifier)

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -81,7 +82,10 @@ class AuthNotifier extends _$AuthNotifier {
       debugPrint('❌ Stack trace: $stack');
       await _cleanupSessionOnFailure('google');
       state = AsyncValue.error(
-        AuthException(message: '알 수 없는 오류가 발생했습니다.', originalException: e),
+        AuthException(
+          message: _extractErrorMessage(e),
+          originalException: e,
+        ),
         stack,
       );
       return null;
@@ -120,7 +124,10 @@ class AuthNotifier extends _$AuthNotifier {
       debugPrint('❌ Stack trace: $stack');
       await _cleanupSessionOnFailure('apple');
       state = AsyncValue.error(
-        AuthException(message: '알 수 없는 오류가 발생했습니다.', originalException: e),
+        AuthException(
+          message: _extractErrorMessage(e),
+          originalException: e,
+        ),
         stack,
       );
       return null;
@@ -171,29 +178,63 @@ class AuthNotifier extends _$AuthNotifier {
   }
 
   /// 로그아웃
+  ///
+  /// 1. Firebase 유저 정보 + 기기 정보 수집
+  /// 2. 백엔드 로그아웃 API 호출 (AuthRequest body 포함)
+  /// 3. Firebase 로그아웃
   Future<void> signOut() async {
     state = const AsyncValue.loading();
 
     try {
-      // Firebase 로그아웃
+      // 1. Firebase 로그아웃 전에 유저 정보 수집
       final dataSource = ref.read(firebaseAuthDataSourceProvider);
-      await dataSource.signOut();
+      final currentUser = dataSource.currentUser;
 
-      // 백엔드 로그아웃 + 토큰 삭제
+      // 2. FCM 토큰 + 기기 정보 수집
+      String? fcmToken;
+      String? deviceType;
+      String? deviceId;
+      try {
+        final fcmService = ref.read(firebaseMessagingServiceProvider);
+        fcmToken = await fcmService.getFcmToken();
+      } catch (_) {}
+      try {
+        final deviceInfoService = ref.read(deviceInfoServiceProvider);
+        final deviceInfo = await deviceInfoService.getDeviceInfo();
+        deviceType = deviceInfo.deviceType;
+        deviceId = deviceInfo.deviceId;
+      } catch (_) {}
+
+      // 3. 백엔드 로그아웃 API 호출 (Firebase 로그아웃 전에 수행)
       final authRepository = ref.read(authRepositoryProvider);
-      await authRepository.logout();
+      await authRepository.logout(
+        socialPlatform: 'GOOGLE',
+        email: currentUser?.email,
+        name: currentUser?.displayName,
+        fcmToken: fcmToken,
+        deviceType: deviceType,
+        deviceId: deviceId,
+      );
+
+      // 4. Firebase 로그아웃
+      await dataSource.signOut();
 
       state = const AsyncValue.data(null);
       debugPrint('✅ Sign out success');
     } catch (e, stack) {
-      // 에러가 발생해도 로컬 토큰은 삭제
+      // 에러가 발생해도 로컬 토큰은 삭제하고 Firebase 로그아웃
       try {
+        final dataSource = ref.read(firebaseAuthDataSourceProvider);
+        await dataSource.signOut();
         final tokenStorage = ref.read(tokenStorageProvider);
         await tokenStorage.clearTokens();
       } catch (_) {}
 
       state = AsyncValue.error(
-        AuthException(message: '로그아웃에 실패했습니다.', originalException: e),
+        AuthException(
+          message: _extractErrorMessage(e),
+          originalException: e,
+        ),
         stack,
       );
     }
@@ -216,7 +257,10 @@ class AuthNotifier extends _$AuthNotifier {
       debugPrint('✅ Withdraw success');
     } catch (e, stack) {
       state = AsyncValue.error(
-        AuthException(message: '회원 탈퇴에 실패했습니다.', originalException: e),
+        AuthException(
+          message: _extractErrorMessage(e),
+          originalException: e,
+        ),
         stack,
       );
     }
@@ -261,6 +305,28 @@ class AuthNotifier extends _$AuthNotifier {
       debugPrint('❌ Get onboarding step failed: $e');
       return null;
     }
+  }
+
+  /// 에러에서 백엔드 메시지를 추출
+  ///
+  /// ErrorInterceptor가 변환한 AppException → DioException의 response에서
+  /// 백엔드가 보낸 원본 메시지를 그대로 추출합니다.
+  String _extractErrorMessage(dynamic error) {
+    // ErrorInterceptor가 변환한 AppException
+    if (error is DioException && error.error is AppException) {
+      return (error.error as AppException).message;
+    }
+    // AppException 직접 전달된 경우
+    if (error is AppException) {
+      return error.message;
+    }
+    // DioException response에서 직접 추출
+    if (error is DioException && error.response?.data is Map<String, dynamic>) {
+      final data = error.response!.data as Map<String, dynamic>;
+      final message = data['message'] as String?;
+      if (message != null) return message;
+    }
+    return error.toString();
   }
 
   /// 로그인 실패 시 세션 정리
