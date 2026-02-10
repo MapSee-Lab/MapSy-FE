@@ -7,8 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 /// Base URL configuration managed via environment variables (.env)
 ///
 /// **사용 가능한 환경 변수**:
-/// - `API_BASE_URL`: 백엔드 API Base URL (기본값: https://api.mapsy.suhsaechan.kr)
-/// - `WS_URL`: WebSocket 연결 URL
+/// - `API_BASE_URL`: 백엔드 API Base URL (필수)
 /// - `USE_MOCK_API`: Mock API 사용 여부 (true/false)
 class ApiEndpoints {
   // Private 생성자 - 인스턴스화 방지
@@ -18,13 +17,12 @@ class ApiEndpoints {
   // Base URL (환경 변수에서 로드)
   // ============================================
 
-  /// API Base URL (.env에서 로드, 기본값: 개발 서버)
-  static String get baseUrl =>
-      dotenv.env['API_BASE_URL'] ?? 'https://api.mapsy.suhsaechan.kr';
-
-  /// WebSocket URL (.env에서 로드)
-  static String get wsUrl =>
-      dotenv.env['WS_URL'] ?? 'wss://api.mapsy.suhsaechan.kr/ws';
+  /// API Base URL (.env에서 로드)
+  static String get baseUrl {
+    final url = dotenv.env['API_BASE_URL'];
+    assert(url != null, 'API_BASE_URL이 .env 파일에 설정되지 않았습니다.');
+    return url!;
+  }
 
   /// Mock API 사용 여부 (.env에서 로드)
   static bool get useMockApi =>

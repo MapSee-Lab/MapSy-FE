@@ -77,6 +77,8 @@ class AuthNotifier extends _$AuthNotifier {
       );
       return null;
     } catch (e, stack) {
+      debugPrint('❌ Google 로그인 에러: $e');
+      debugPrint('❌ Stack trace: $stack');
       await _cleanupSessionOnFailure('google');
       state = AsyncValue.error(
         AuthException(message: '알 수 없는 오류가 발생했습니다.', originalException: e),
@@ -114,6 +116,8 @@ class AuthNotifier extends _$AuthNotifier {
       );
       return null;
     } catch (e, stack) {
+      debugPrint('❌ Apple 로그인 에러: $e');
+      debugPrint('❌ Stack trace: $stack');
       await _cleanupSessionOnFailure('apple');
       state = AsyncValue.error(
         AuthException(message: '알 수 없는 오류가 발생했습니다.', originalException: e),
