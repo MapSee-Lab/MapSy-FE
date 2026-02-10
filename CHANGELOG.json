@@ -1,11 +1,50 @@
 {
   "metadata": {
-    "lastUpdated": "2026-02-10T00:58:00Z",
-    "currentVersion": "1.0.31",
+    "lastUpdated": "2026-02-10T22:24:23Z",
+    "currentVersion": "1.0.32",
     "projectType": "flutter",
-    "totalReleases": 8
+    "totalReleases": 9
   },
   "releases": [
+    {
+      "version": "1.0.32",
+      "project_type": "flutter",
+      "date": "2026-02-10",
+      "pr_number": 32,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트\n\n* **New Features**\n  * 회원 가입 단계에서 서버에서 제공한 닉네임 지원 추가\n  * 성별 선택 UI 개선: \"기타\" 옵션을 \"선택 안 함\"으로 변경\n  * 닉네임 중복 확인 버튼 추가로 명시적 검증 지원\n\n* **Improvements**\n  * 회원 가입 단계에서 뒤로 가기 네비게이션 제거하여 일관된 진행 경험 제공\n  * Google/Apple 로그인 시 더 자세한 오류 메시지 표시\n  * 로그아웃 시 더 상세한 기기 정보 전송\n\n* **Documentation**\n  * API 사양 및 OpenAPI 명세 문서 추가\n\n* **Chores**\n  * 버전 1.0.32로 업데이트\n  * CI/CD 파이프라인 개선으로 빠른 빌드 피드백 제공",
+      "parsed_changes": {
+        "new_features": {
+          "title": "New Features",
+          "items": [
+            "회원 가입 단계에서 서버에서 제공한 닉네임 지원 추가",
+            "성별 선택 UI 개선: \"기타\" 옵션을 \"선택 안 함\"으로 변경",
+            "닉네임 중복 확인 버튼 추가로 명시적 검증 지원"
+          ]
+        },
+        "improvements": {
+          "title": "Improvements",
+          "items": [
+            "회원 가입 단계에서 뒤로 가기 네비게이션 제거하여 일관된 진행 경험 제공",
+            "Google/Apple 로그인 시 더 자세한 오류 메시지 표시",
+            "로그아웃 시 더 상세한 기기 정보 전송"
+          ]
+        },
+        "documentation": {
+          "title": "Documentation",
+          "items": [
+            "API 사양 및 OpenAPI 명세 문서 추가"
+          ]
+        },
+        "chores": {
+          "title": "Chores",
+          "items": [
+            "버전 1.0.32로 업데이트",
+            "CI/CD 파이프라인 개선으로 빠른 빌드 피드백 제공"
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "1.0.31",
       "project_type": "flutter",
