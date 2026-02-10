@@ -36,9 +36,8 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
     debugPrint('📝 OnboardingRepository: Submitting terms...');
 
     final request = TermsRequest(
-      serviceAgreement: serviceAgreement,
-      privacyAgreement: privacyAgreement,
-      marketingAgreement: marketingAgreement,
+      isServiceTermsAndPrivacyAgreed: serviceAgreement && privacyAgreement,
+      isMarketingAgreed: marketingAgreement,
     );
 
     await _remoteDataSource.submitTerms(request);
@@ -75,11 +74,11 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
   }
 
   @override
-  Future<void> submitGender(Gender gender) async {
+  Future<String?> submitGender(Gender gender) async {
     debugPrint('📝 OnboardingRepository: Submitting gender...');
 
     final request = GenderRequest(gender: gender);
-    await _remoteDataSource.submitGender(request);
+    final tempNickname = await _remoteDataSource.submitGender(request);
 
     // 온보딩 단계 업데이트: GENDER → NICKNAME
     await _tokenStorage.saveOnboardingState(
@@ -88,13 +87,31 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
     );
 
     debugPrint('✅ Gender submitted, next step: NICKNAME');
+    return tempNickname;
   }
 
   @override
-  Future<void> submitProfile(String name) async {
+  Future<void> submitProfile(
+    String name, {
+    Gender? gender,
+    DateTime? birthDate,
+  }) async {
     debugPrint('📝 OnboardingRepository: Submitting profile...');
 
-    final request = ProfileRequest(name: name);
+    // 생년월일을 YYYY-MM-DD 형식으로 변환
+    String? formattedBirthDate;
+    if (birthDate != null) {
+      final year = birthDate.year.toString();
+      final month = birthDate.month.toString().padLeft(2, '0');
+      final day = birthDate.day.toString().padLeft(2, '0');
+      formattedBirthDate = '$year-$month-$day';
+    }
+
+    final request = ProfileRequest(
+      name: name,
+      gender: gender,
+      birthDate: formattedBirthDate,
+    );
     await _remoteDataSource.submitProfile(request);
 
     // 온보딩 완료

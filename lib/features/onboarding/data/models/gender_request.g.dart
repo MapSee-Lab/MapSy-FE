@@ -15,5 +15,5 @@ Map<String, dynamic> _$$GenderRequestImplToJson(_$GenderRequestImpl instance) =>
 const _$GenderEnumMap = {
   Gender.male: 'MALE',
   Gender.female: 'FEMALE',
-  Gender.other: 'OTHER',
+  Gender.notSelected: 'NOT_SELECTED',
 };
