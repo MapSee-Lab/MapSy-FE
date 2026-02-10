@@ -30,7 +30,21 @@ abstract class AuthRepository {
   /// 로그아웃
   ///
   /// 서버에 로그아웃을 알리고 로컬 토큰을 삭제합니다.
-  Future<void> logout();
+  ///
+  /// [socialPlatform]: 로그인 플랫폼 (GOOGLE, KAKAO 등)
+  /// [email]: 사용자 이메일
+  /// [name]: 사용자 닉네임
+  /// [fcmToken]: FCM 토큰 (선택)
+  /// [deviceType]: 디바이스 타입 (선택)
+  /// [deviceId]: 디바이스 ID (선택)
+  Future<void> logout({
+    String? socialPlatform,
+    String? email,
+    String? name,
+    String? fcmToken,
+    String? deviceType,
+    String? deviceId,
+  });
 
   /// 회원 탈퇴
   ///
