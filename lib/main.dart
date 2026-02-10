@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'firebase_options.dart';
@@ -19,12 +20,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // ═══════════════════════════════════════════════════════════════════════
-  // 2. Firebase 초기화 (플랫폼별 설정 자동 적용)
+  // 2. 환경 변수 로드 (.env 파일)
+  // ═══════════════════════════════════════════════════════════════════════
+  await dotenv.load(fileName: '.env');
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // 3. Firebase 초기화 (플랫폼별 설정 자동 적용)
   // ═══════════════════════════════════════════════════════════════════════
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // ═══════════════════════════════════════════════════════════════════════
-  // 3. Firebase Crashlytics 설정
+  // 4. Firebase Crashlytics 설정
   // ═══════════════════════════════════════════════════════════════════════
   // Flutter 프레임워크 에러를 Crashlytics에 자동 전송
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
@@ -36,7 +42,7 @@ void main() async {
   };
 
   // ═══════════════════════════════════════════════════════════════════════
-  // 4. FCM 및 로컬 알림 서비스 초기화
+  // 5. FCM 및 로컬 알림 서비스 초기화
   // ═══════════════════════════════════════════════════════════════════════
   final localNotificationsService = LocalNotificationsService.instance();
   await localNotificationsService.init();
@@ -46,7 +52,7 @@ void main() async {
   );
 
   // ═══════════════════════════════════════════════════════════════════════
-  // 5. 앱 실행
+  // 6. 앱 실행
   // ═══════════════════════════════════════════════════════════════════════
   runApp(const ProviderScope(child: MyApp()));
 }

@@ -7,22 +7,36 @@ part of 'profile_request.dart';
 // **************************************************************************
 
 _$ProfileRequestImpl _$$ProfileRequestImplFromJson(Map<String, dynamic> json) =>
-    _$ProfileRequestImpl(name: json['name'] as String);
+    _$ProfileRequestImpl(
+      name: json['name'] as String,
+      gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']),
+      birthDate: json['birthDate'] as String?,
+    );
 
 Map<String, dynamic> _$$ProfileRequestImplToJson(
   _$ProfileRequestImpl instance,
-) => <String, dynamic>{'name': instance.name};
+) => <String, dynamic>{
+  'name': instance.name,
+  'gender': _$GenderEnumMap[instance.gender],
+  'birthDate': instance.birthDate,
+};
+
+const _$GenderEnumMap = {
+  Gender.male: 'MALE',
+  Gender.female: 'FEMALE',
+  Gender.notSelected: 'NOT_SELECTED',
+};
 
 _$CheckNameResponseImpl _$$CheckNameResponseImplFromJson(
   Map<String, dynamic> json,
 ) => _$CheckNameResponseImpl(
-  available: json['available'] as bool,
-  message: json['message'] as String?,
+  isAvailable: json['isAvailable'] as bool,
+  name: json['name'] as String?,
 );
 
 Map<String, dynamic> _$$CheckNameResponseImplToJson(
   _$CheckNameResponseImpl instance,
 ) => <String, dynamic>{
-  'available': instance.available,
-  'message': instance.message,
+  'isAvailable': instance.isAvailable,
+  'name': instance.name,
 };

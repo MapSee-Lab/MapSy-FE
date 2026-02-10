@@ -21,14 +21,11 @@ TermsRequest _$TermsRequestFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TermsRequest {
-  /// 서비스 이용약관 동의 여부
-  bool get serviceAgreement => throw _privateConstructorUsedError;
-
-  /// 개인정보 처리방침 동의 여부
-  bool get privacyAgreement => throw _privateConstructorUsedError;
+  /// 서비스 이용약관 + 개인정보 처리방침 동의 여부 (통합)
+  bool get isServiceTermsAndPrivacyAgreed => throw _privateConstructorUsedError;
 
   /// 마케팅 정보 수신 동의 여부 (선택)
-  bool get marketingAgreement => throw _privateConstructorUsedError;
+  bool get isMarketingAgreed => throw _privateConstructorUsedError;
 
   /// Serializes this TermsRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,11 +44,7 @@ abstract class $TermsRequestCopyWith<$Res> {
     $Res Function(TermsRequest) then,
   ) = _$TermsRequestCopyWithImpl<$Res, TermsRequest>;
   @useResult
-  $Res call({
-    bool serviceAgreement,
-    bool privacyAgreement,
-    bool marketingAgreement,
-  });
+  $Res call({bool isServiceTermsAndPrivacyAgreed, bool isMarketingAgreed});
 }
 
 /// @nodoc
@@ -69,23 +62,19 @@ class _$TermsRequestCopyWithImpl<$Res, $Val extends TermsRequest>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? serviceAgreement = null,
-    Object? privacyAgreement = null,
-    Object? marketingAgreement = null,
+    Object? isServiceTermsAndPrivacyAgreed = null,
+    Object? isMarketingAgreed = null,
   }) {
     return _then(
       _value.copyWith(
-            serviceAgreement: null == serviceAgreement
-                ? _value.serviceAgreement
-                : serviceAgreement // ignore: cast_nullable_to_non_nullable
+            isServiceTermsAndPrivacyAgreed:
+                null == isServiceTermsAndPrivacyAgreed
+                ? _value.isServiceTermsAndPrivacyAgreed
+                : isServiceTermsAndPrivacyAgreed // ignore: cast_nullable_to_non_nullable
                       as bool,
-            privacyAgreement: null == privacyAgreement
-                ? _value.privacyAgreement
-                : privacyAgreement // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            marketingAgreement: null == marketingAgreement
-                ? _value.marketingAgreement
-                : marketingAgreement // ignore: cast_nullable_to_non_nullable
+            isMarketingAgreed: null == isMarketingAgreed
+                ? _value.isMarketingAgreed
+                : isMarketingAgreed // ignore: cast_nullable_to_non_nullable
                       as bool,
           )
           as $Val,
@@ -102,11 +91,7 @@ abstract class _$$TermsRequestImplCopyWith<$Res>
   ) = __$$TermsRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    bool serviceAgreement,
-    bool privacyAgreement,
-    bool marketingAgreement,
-  });
+  $Res call({bool isServiceTermsAndPrivacyAgreed, bool isMarketingAgreed});
 }
 
 /// @nodoc
@@ -123,23 +108,18 @@ class __$$TermsRequestImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? serviceAgreement = null,
-    Object? privacyAgreement = null,
-    Object? marketingAgreement = null,
+    Object? isServiceTermsAndPrivacyAgreed = null,
+    Object? isMarketingAgreed = null,
   }) {
     return _then(
       _$TermsRequestImpl(
-        serviceAgreement: null == serviceAgreement
-            ? _value.serviceAgreement
-            : serviceAgreement // ignore: cast_nullable_to_non_nullable
+        isServiceTermsAndPrivacyAgreed: null == isServiceTermsAndPrivacyAgreed
+            ? _value.isServiceTermsAndPrivacyAgreed
+            : isServiceTermsAndPrivacyAgreed // ignore: cast_nullable_to_non_nullable
                   as bool,
-        privacyAgreement: null == privacyAgreement
-            ? _value.privacyAgreement
-            : privacyAgreement // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        marketingAgreement: null == marketingAgreement
-            ? _value.marketingAgreement
-            : marketingAgreement // ignore: cast_nullable_to_non_nullable
+        isMarketingAgreed: null == isMarketingAgreed
+            ? _value.isMarketingAgreed
+            : isMarketingAgreed // ignore: cast_nullable_to_non_nullable
                   as bool,
       ),
     );
@@ -150,30 +130,25 @@ class __$$TermsRequestImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TermsRequestImpl implements _TermsRequest {
   const _$TermsRequestImpl({
-    required this.serviceAgreement,
-    required this.privacyAgreement,
-    this.marketingAgreement = false,
+    required this.isServiceTermsAndPrivacyAgreed,
+    this.isMarketingAgreed = false,
   });
 
   factory _$TermsRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$TermsRequestImplFromJson(json);
 
-  /// 서비스 이용약관 동의 여부
+  /// 서비스 이용약관 + 개인정보 처리방침 동의 여부 (통합)
   @override
-  final bool serviceAgreement;
-
-  /// 개인정보 처리방침 동의 여부
-  @override
-  final bool privacyAgreement;
+  final bool isServiceTermsAndPrivacyAgreed;
 
   /// 마케팅 정보 수신 동의 여부 (선택)
   @override
   @JsonKey()
-  final bool marketingAgreement;
+  final bool isMarketingAgreed;
 
   @override
   String toString() {
-    return 'TermsRequest(serviceAgreement: $serviceAgreement, privacyAgreement: $privacyAgreement, marketingAgreement: $marketingAgreement)';
+    return 'TermsRequest(isServiceTermsAndPrivacyAgreed: $isServiceTermsAndPrivacyAgreed, isMarketingAgreed: $isMarketingAgreed)';
   }
 
   @override
@@ -181,21 +156,22 @@ class _$TermsRequestImpl implements _TermsRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TermsRequestImpl &&
-            (identical(other.serviceAgreement, serviceAgreement) ||
-                other.serviceAgreement == serviceAgreement) &&
-            (identical(other.privacyAgreement, privacyAgreement) ||
-                other.privacyAgreement == privacyAgreement) &&
-            (identical(other.marketingAgreement, marketingAgreement) ||
-                other.marketingAgreement == marketingAgreement));
+            (identical(
+                  other.isServiceTermsAndPrivacyAgreed,
+                  isServiceTermsAndPrivacyAgreed,
+                ) ||
+                other.isServiceTermsAndPrivacyAgreed ==
+                    isServiceTermsAndPrivacyAgreed) &&
+            (identical(other.isMarketingAgreed, isMarketingAgreed) ||
+                other.isMarketingAgreed == isMarketingAgreed));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
     runtimeType,
-    serviceAgreement,
-    privacyAgreement,
-    marketingAgreement,
+    isServiceTermsAndPrivacyAgreed,
+    isMarketingAgreed,
   );
 
   /// Create a copy of TermsRequest
@@ -214,25 +190,20 @@ class _$TermsRequestImpl implements _TermsRequest {
 
 abstract class _TermsRequest implements TermsRequest {
   const factory _TermsRequest({
-    required final bool serviceAgreement,
-    required final bool privacyAgreement,
-    final bool marketingAgreement,
+    required final bool isServiceTermsAndPrivacyAgreed,
+    final bool isMarketingAgreed,
   }) = _$TermsRequestImpl;
 
   factory _TermsRequest.fromJson(Map<String, dynamic> json) =
       _$TermsRequestImpl.fromJson;
 
-  /// 서비스 이용약관 동의 여부
+  /// 서비스 이용약관 + 개인정보 처리방침 동의 여부 (통합)
   @override
-  bool get serviceAgreement;
-
-  /// 개인정보 처리방침 동의 여부
-  @override
-  bool get privacyAgreement;
+  bool get isServiceTermsAndPrivacyAgreed;
 
   /// 마케팅 정보 수신 동의 여부 (선택)
   @override
-  bool get marketingAgreement;
+  bool get isMarketingAgreed;
 
   /// Create a copy of TermsRequest
   /// with the given fields replaced by the non-null parameter values.

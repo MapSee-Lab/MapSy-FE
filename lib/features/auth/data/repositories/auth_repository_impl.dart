@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../core/network/token_storage.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_datasource.dart';
+import '../models/auth_request.dart';
 import '../models/sign_in_request.dart';
 import '../models/sign_in_response.dart';
 import '../models/reissue_request.dart';
@@ -88,12 +89,26 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> logout() async {
+  Future<void> logout({
+    String? socialPlatform,
+    String? email,
+    String? name,
+    String? fcmToken,
+    String? deviceType,
+    String? deviceId,
+  }) async {
     debugPrint('🚪 AuthRepository: Logging out...');
 
     try {
-      // 서버에 로그아웃 알림
-      await _remoteDataSource.logout();
+      final request = AuthRequest(
+        socialPlatform: socialPlatform,
+        email: email,
+        name: name,
+        fcmToken: fcmToken,
+        deviceType: deviceType,
+        deviceId: deviceId,
+      );
+      await _remoteDataSource.logout(request);
     } catch (e) {
       // 서버 로그아웃 실패해도 로컬 토큰은 삭제
       debugPrint('⚠️ Server logout failed, clearing local tokens anyway: $e');

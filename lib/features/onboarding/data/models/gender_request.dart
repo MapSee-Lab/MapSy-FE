@@ -9,8 +9,8 @@ enum Gender {
   male,
   @JsonValue('FEMALE')
   female,
-  @JsonValue('OTHER')
-  other,
+  @JsonValue('NOT_SELECTED')
+  notSelected,
 }
 
 /// 성별 요청 모델
