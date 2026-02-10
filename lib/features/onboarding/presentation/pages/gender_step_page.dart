@@ -24,10 +24,7 @@ class GenderStepPage extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: AppColors.gray700),
-          onPressed: () => context.go(RoutePaths.onboardingBirthDate),
-        ),
+        automaticallyImplyLeading: false,
       ),
       body: SafeArea(
         child: Padding(
@@ -78,12 +75,25 @@ class GenderStepPage extends ConsumerWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 12.h),
-              _GenderButton(
-                label: '기타',
-                icon: Icons.person_outline,
-                isSelected: state.gender == Gender.other,
-                onTap: () => notifier.setGender(Gender.other),
+              SizedBox(height: 16.h),
+              Center(
+                child: GestureDetector(
+                  onTap: () => notifier.setGender(Gender.notSelected),
+                  child: Text(
+                    '선택 안 함',
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                      color: state.gender == Gender.notSelected
+                          ? AppColors.primary
+                          : AppColors.gray500,
+                      decoration: TextDecoration.underline,
+                      decorationColor: state.gender == Gender.notSelected
+                          ? AppColors.primary
+                          : AppColors.gray500,
+                    ),
+                  ),
+                ),
               ),
 
               const Spacer(),

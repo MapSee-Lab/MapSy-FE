@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,32 +20,46 @@ class NicknameStepPage extends ConsumerStatefulWidget {
 class _NicknameStepPageState extends ConsumerState<NicknameStepPage> {
   final _controller = TextEditingController();
   final _focusNode = FocusNode();
-  Timer? _debounce;
+
+  /// 서버에서 배정받은 초기 닉네임 (변경 여부 비교용)
+  String? _initialNickname;
 
   @override
   void initState() {
     super.initState();
-    _focusNode.requestFocus();
+    // 서버에서 배정받은 임시 닉네임으로 초기화
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final state = ref.read(onboardingNotifierProvider);
+      if (state.nickname != null && state.nickname!.isNotEmpty) {
+        _controller.text = state.nickname!;
+        _initialNickname = state.nickname;
+      }
+      _focusNode.requestFocus();
+      setState(() {}); // canSubmit 재계산을 위한 rebuild 트리거
+    });
   }
 
   @override
   void dispose() {
     _controller.dispose();
     _focusNode.dispose();
-    _debounce?.cancel();
     super.dispose();
+  }
+
+  /// 닉네임이 서버 배정값에서 변경되었는지 여부
+  bool get _isNicknameChanged {
+    if (_initialNickname == null) return true;
+    return _controller.text.trim() != _initialNickname;
   }
 
   void _onNicknameChanged(String value, OnboardingNotifier notifier) {
     notifier.setNickname(value);
+    setState(() {}); // 중복확인 버튼 상태 갱신
+  }
 
-    // 디바운스: 입력 후 500ms 후에 중복 확인
-    _debounce?.cancel();
-    if (value.length >= 2) {
-      _debounce = Timer(const Duration(milliseconds: 500), () {
-        notifier.checkNickname();
-      });
-    }
+  Future<void> _onCheckDuplicate(OnboardingNotifier notifier) async {
+    FocusScope.of(context).unfocus();
+    await notifier.checkNickname();
   }
 
   @override
@@ -54,15 +67,23 @@ class _NicknameStepPageState extends ConsumerState<NicknameStepPage> {
     final state = ref.watch(onboardingNotifierProvider);
     final notifier = ref.read(onboardingNotifierProvider.notifier);
 
+    final nickname = state.nickname ?? '';
+    final isFormatValid = notifier.isNicknameFormatValid(nickname);
+    final canCheck =
+        nickname.isNotEmpty && isFormatValid && !state.isLoading;
+
+    // 서버 닉네임 미변경 시: 중복확인 없이 바로 완료 가능
+    // 서버 닉네임 변경 시: 중복확인 통과 필요
+    final canSubmit = !_isNicknameChanged
+        ? (nickname.isNotEmpty && isFormatValid)
+        : notifier.canSubmitNickname;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: AppColors.gray700),
-          onPressed: () => context.go(RoutePaths.onboardingGender),
-        ),
+        automaticallyImplyLeading: false,
       ),
       body: SafeArea(
         child: Padding(
@@ -91,7 +112,7 @@ class _NicknameStepPageState extends ConsumerState<NicknameStepPage> {
               ),
               SizedBox(height: 48.h),
 
-              // 닉네임 입력 필드
+              // 닉네임 입력 필드 + 중복 확인 버튼
               TextField(
                 controller: _controller,
                 focusNode: _focusNode,
@@ -121,9 +142,55 @@ class _NicknameStepPageState extends ConsumerState<NicknameStepPage> {
                       width: 2,
                     ),
                   ),
-                  contentPadding: EdgeInsets.all(16.w),
+                  contentPadding: EdgeInsets.only(
+                    left: 16.w,
+                    top: 16.w,
+                    bottom: 16.w,
+                    right: 100.w,
+                  ),
                   counterText: '',
-                  suffixIcon: _buildSuffixIcon(state),
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.only(right: 8.w),
+                    child: state.isLoading
+                        ? SizedBox(
+                            width: 24.w,
+                            height: 24.h,
+                            child: const CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: AppColors.primary,
+                            ),
+                          )
+                        : SizedBox(
+                            height: 36.h,
+                            child: ElevatedButton(
+                              onPressed: canCheck && _isNicknameChanged
+                                  ? () => _onCheckDuplicate(notifier)
+                                  : null,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.primary,
+                                disabledBackgroundColor: AppColors.gray300,
+                                foregroundColor: Colors.white,
+                                disabledForegroundColor: AppColors.gray500,
+                                elevation: 0,
+                                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                ),
+                              ),
+                              child: Text(
+                                '중복 확인',
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                  ),
+                  suffixIconConstraints: BoxConstraints(
+                    minWidth: 90.w,
+                    minHeight: 36.h,
+                  ),
                 ),
               ),
               SizedBox(height: 8.h),
@@ -142,7 +209,7 @@ class _NicknameStepPageState extends ConsumerState<NicknameStepPage> {
               OnboardingButton(
                 text: '완료',
                 isLoading: state.isLoading,
-                onPressed: notifier.canSubmitNickname
+                onPressed: canSubmit
                     ? () async {
                         final success = await notifier.submitProfile();
                         if (success && context.mounted) {
@@ -160,6 +227,10 @@ class _NicknameStepPageState extends ConsumerState<NicknameStepPage> {
   }
 
   Color _getBorderColor(OnboardingState state) {
+    // 서버 닉네임 미변경 시 성공 표시
+    if (!_isNicknameChanged && _initialNickname != null) {
+      return AppColors.success;
+    }
     if (state.nicknameAvailable == true) {
       return AppColors.success;
     } else if (state.nicknameAvailable == false) {
@@ -168,44 +239,50 @@ class _NicknameStepPageState extends ConsumerState<NicknameStepPage> {
     return AppColors.gray200;
   }
 
-  Widget? _buildSuffixIcon(OnboardingState state) {
-    if (state.isLoading) {
-      return Padding(
-        padding: EdgeInsets.all(12.w),
-        child: SizedBox(
-          width: 20.w,
-          height: 20.h,
-          child: const CircularProgressIndicator(
-            strokeWidth: 2,
-            color: AppColors.primary,
+  Widget _buildStatusMessage(OnboardingState state) {
+    // 서버 닉네임 미변경 시
+    if (!_isNicknameChanged && _initialNickname != null) {
+      return Row(
+        children: [
+          Icon(Icons.check_circle, color: AppColors.success, size: 16.w),
+          SizedBox(width: 4.w),
+          Expanded(
+            child: Text(
+              '서버에서 배정된 닉네임입니다. 그대로 사용하거나 변경할 수 있어요.',
+              style: TextStyle(fontSize: 12.sp, color: AppColors.success),
+            ),
           ),
-        ),
+        ],
       );
     }
 
     if (state.nicknameAvailable == true) {
-      return Icon(Icons.check_circle, color: AppColors.success, size: 24.w);
-    }
-
-    if (state.nicknameAvailable == false) {
-      return Icon(Icons.error, color: AppColors.error, size: 24.w);
-    }
-
-    return null;
-  }
-
-  Widget _buildStatusMessage(OnboardingState state) {
-    if (state.nicknameAvailable == true) {
-      return Text(
-        '사용 가능한 닉네임입니다.',
-        style: TextStyle(fontSize: 13.sp, color: AppColors.success),
+      return Row(
+        children: [
+          Icon(Icons.check_circle, color: AppColors.success, size: 16.w),
+          SizedBox(width: 4.w),
+          Expanded(
+            child: Text(
+              '사용 가능한 닉네임입니다.',
+              style: TextStyle(fontSize: 13.sp, color: AppColors.success),
+            ),
+          ),
+        ],
       );
     }
 
     if (state.errorMessage != null) {
-      return Text(
-        state.errorMessage!,
-        style: TextStyle(fontSize: 13.sp, color: AppColors.error),
+      return Row(
+        children: [
+          Icon(Icons.error, color: AppColors.error, size: 16.w),
+          SizedBox(width: 4.w),
+          Expanded(
+            child: Text(
+              state.errorMessage!,
+              style: TextStyle(fontSize: 13.sp, color: AppColors.error),
+            ),
+          ),
+        ],
       );
     }
 
