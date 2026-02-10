@@ -181,16 +181,16 @@ jobs:
       # build.gradle.kts에서 rootProject.file()을 사용하므로 android/ 기준으로 경로 설정
       - name: Setup Release Keystore
         run: |
-          mkdir -p android/keystore
-          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > android/keystore/key.jks
+          mkdir -p android/app/keystore
+          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > android/app/keystore/key.jks
           echo "✅ Release Keystore 생성 완료"
-          ls -la android/keystore/
+          ls -la android/app/keystore/
 
       # key.properties 생성 (Release 서명 정보)
       - name: Create key.properties
         run: |
           cat > android/key.properties << EOF
-          storeFile=keystore/key.jks
+          storeFile=app/keystore/key.jks
           storePassword=${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
           keyAlias=${{ secrets.RELEASE_KEY_ALIAS }}
           keyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}
