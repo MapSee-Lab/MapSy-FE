@@ -38,10 +38,7 @@ class _BirthDateStepPageState extends ConsumerState<BirthDateStepPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: AppColors.gray700),
-          onPressed: () => context.go(RoutePaths.onboardingTerms),
-        ),
+        automaticallyImplyLeading: false,
       ),
       body: SafeArea(
         child: Padding(

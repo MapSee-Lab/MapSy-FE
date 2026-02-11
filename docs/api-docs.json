@@ -1,0 +1,1868 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "📚 Mapsy 📚",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "",
+      "description": "메인 서버"
+    },
+    {
+      "url": "",
+      "description": "로컬 서버"
+    }
+  ],
+  "security": [
+    {
+      "Bearer Token": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "AI 서버 API",
+      "description": "AI 서버 연동 관련 API 제공"
+    },
+    {
+      "name": "회원 관리",
+      "description": "회원 생성, 조회 등의 기능을 제공하는 API"
+    },
+    {
+      "name": "인증 API",
+      "description": "회원 인증(소셜 로그인) 관련 API 제공"
+    }
+  ],
+  "paths": {
+    "/api/place/{placeId}/save": {
+      "post": {
+        "tags": ["place-controller"],
+        "summary": "장소 저장",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터\n- **`placeId`**: 저장할 장소 ID (필수, Path Variable)\n\n## 반환값 (SavePlaceResponse)\n- **`memberPlaceId`**: 회원 장소 ID\n- **`placeId`**: 장소 ID\n- **`savedStatus`**: 저장 상태 (SAVED)\n- **`savedAt`**: 저장 일시\n\n## 특이사항\n- 임시 저장 상태(TEMPORARY)의 장소를 저장 상태(SAVED)로 변경합니다.\n- 저장 시점의 시간이 기록됩니다.\n\n## 에러코드\n- **`PLACE_NOT_FOUND`**: 장소를 찾을 수 없습니다.\n- **`MEMBER_PLACE_NOT_FOUND`**: 회원의 장소 정보를 찾을 수 없습니다.\n- **`MEMBER_NOT_FOUND`**: 회원을 찾을 수 없습니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.24\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/103\" target=\"_blank\"\u003E#103\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E장소 저장 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "savePlace",
+        "parameters": [
+          {
+            "name": "placeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavePlaceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members": {
+      "get": {
+        "tags": ["회원 관리"],
+        "summary": "전체 회원 목록 조회",
+        "description": "## 인증(JWT): **불필요**\n\n## 요청 파라미터\n- 없음\n\n## 반환값 (List\u003CMemberDto\u003E)\n- 전체 회원 목록을 반환합니다.\n- 각 회원의 상세 정보가 포함됩니다.\n\n## 특이사항\n- 모든 회원 데이터를 조회합니다.\n- 삭제되지 않은 회원만 조회됩니다.\n\n## 에러코드\n- **`INTERNAL_SERVER_ERROR`**: 서버에 문제가 발생했습니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.10.16\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/22\" target=\"_blank\"\u003E#22\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E북마크 관련 API 추가 필요\u003C/td\u003E\u003Ctd\u003E회원 관리 API 문서화\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "getAllMembers",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MemberDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["회원 관리"],
+        "summary": "회원 생성",
+        "description": "## 인증(JWT): **불필요**\n\n## 요청 파라미터 (MemberDto)\n- **`email`**: 회원 이메일 (필수)\n- **`name`**: 회원 닉네임 (필수)\n- **`profileImageUrl`**: 프로필 이미지 URL (선택)\n- **`socialPlatform`**: 소셜 플랫폼 (KAKAO, GOOGLE)\n- **`memberRole`**: 회원 권한 (ROLE_USER, ROLE_ADMIN)\n- **`status`**: 회원 상태 (ACTIVE, INACTIVE, DELETED)\n\n## 반환값 (MemberDto)\n- **`memberId`**: 생성된 회원 ID\n- **`email`**: 회원 이메일\n- **`name`**: 회원 닉네임\n- **`profileImageUrl`**: 프로필 이미지 URL\n- **`socialPlatform`**: 소셜 플랫폼\n- **`memberRole`**: 회원 권한\n- **`status`**: 회원 상태\n- **`createdAt`**: 생성일시\n- **`updatedAt`**: 수정일시\n\n## 특이사항\n- 새로운 회원을 생성합니다.\n- 이메일 중복 검사가 수행됩니다.\n\n## 에러코드\n- **`EMAIL_ALREADY_EXISTS`**: 이미 가입된 이메일입니다.\n- **`INVALID_INPUT_VALUE`**: 유효하지 않은 입력값입니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.10.16\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/22\" target=\"_blank\"\u003E#22\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E북마크 관련 API 추가 필요\u003C/td\u003E\u003Ctd\u003E회원 관리 API 문서화\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "createMember",
+        "requestBody": {
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/MemberDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/profile": {
+      "post": {
+        "tags": ["회원 관리"],
+        "summary": "회원 프로필 설정(수정)",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터 (ProfileUpdateRequest)\n- **`name`**: 이름 (필수)\n- **`gender`**: 성별 (MALE, FEMALE, NONE)\n- **`birthDate`**: 생년월일 (LocalDate 형식)\n\n## 반환값 (MemberDto)\n- **`memberId`**: 회원 ID\n- **`email`**: 회원 이메일\n- **`name`**: 회원 이름\n- **`gender`**: 성별\n- **`birthDate`**: 생년월일\n- **`onboardingStatus`**: 온보딩 상태\n\n## 특이사항\n- 회원 프로필 정보를 업데이트합니다.\n- 이름 중복 검사가 수행됩니다.\n\n## 에러코드\n- **`MEMBER_NOT_FOUND`**: 회원을 찾을 수 없습니다.\n- **`NAME_ALREADY_EXISTS`**: 이미 사용 중인 이름입니다.\n- **`INVALID_INPUT_VALUE`**: 유효하지 않은 입력값입니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.10.16\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/22\" target=\"_blank\"\u003E#22\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E북마크 관련 API 추가 필요\u003C/td\u003E\u003Ctd\u003E회원 관리 API 문서화\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "updateProfile",
+        "requestBody": {
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/onboarding/terms": {
+      "post": {
+        "tags": ["회원 관리"],
+        "summary": "약관 동의",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터 (TermAgreementRequest)\n- **`isServiceTermsAndPrivacyAgreed`**: 서비스 이용약관 및 개인정보처리방침 동의 여부 (필수, true)\n- **`isMarketingAgreed`**: 마케팅 수신 동의 여부 (선택)\n\n## 반환값 (UpdateServiceAgreementTermsResponse)\n- **`currentStep`**: 현재 온보딩 단계 (TERMS, BIRTH_DATE, GENDER, COMPLETED)\n- **`onboardingStatus`**: 온보딩 상태 (NOT_STARTED, IN_PROGRESS, COMPLETED)\n- **`member`**: 회원 정보 (디버깅용)\n\n## 특이사항\n- 서비스 이용약관 및 개인정보처리방침 동의는 필수입니다.\n- 마케팅 수신 동의는 선택 사항입니다.\n- 약관 동의 후 온보딩 상태가 IN_PROGRESS로 변경됩니다.\n\n## 에러코드\n- **`MEMBER_NOT_FOUND`**: 회원을 찾을 수 없습니다.\n- **`MEMBER_TERMS_REQUIRED_NOT_AGREED`**: 필수 약관에 동의하지 않았습니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.01.15\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/22\" target=\"_blank\"\u003E#22\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E북마크 관련 API 추가 필요\u003C/td\u003E\u003Ctd\u003E온보딩 약관 동의 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "agreeMemberTerms",
+        "requestBody": {
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateServiceAgreementTermsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateServiceAgreementTermsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/onboarding/gender": {
+      "post": {
+        "tags": ["회원 관리"],
+        "summary": "성별 설정",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터 (UpdateGenderRequest)\n- **`gender`**: 성별 (필수, MALE 또는 FEMALE)\n\n## 반환값 (OnboardingResponse)\n- **`currentStep`**: 현재 온보딩 단계\n- **`onboardingStatus`**: 온보딩 상태\n- **`member`**: 회원 정보 (디버깅용)\n\n## 특이사항\n- 온보딩 단계 중 성별 설정 단계를 완료합니다.\n\n## 에러코드\n- **`MEMBER_NOT_FOUND`**: 회원을 찾을 수 없습니다.\n- **`INVALID_INPUT_VALUE`**: 유효하지 않은 입력값입니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.01.15\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/22\" target=\"_blank\"\u003E#22\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E북마크 관련 API 추가 필요\u003C/td\u003E\u003Ctd\u003E온보딩 성별 설정 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "updateGender",
+        "requestBody": {
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateGenderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/OnboardingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/onboarding/birth-date": {
+      "post": {
+        "tags": ["회원 관리"],
+        "summary": "생년월일 설정",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터 (UpdateBirthDateRequest)\n- **`birthDate`**: 생년월일 (필수, LocalDate 형식)\n\n## 반환값 (OnboardingResponse)\n- **`currentStep`**: 현재 온보딩 단계\n- **`onboardingStatus`**: 온보딩 상태\n- **`member`**: 회원 정보 (디버깅용)\n\n## 특이사항\n- 온보딩 단계 중 생년월일 설정 단계를 완료합니다.\n\n## 에러코드\n- **`MEMBER_NOT_FOUND`**: 회원을 찾을 수 없습니다.\n- **`INVALID_INPUT_VALUE`**: 유효하지 않은 입력값입니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.01.15\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/22\" target=\"_blank\"\u003E#22\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E북마크 관련 API 추가 필요\u003C/td\u003E\u003Ctd\u003E온보딩 생년월일 설정 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "updateBirthDate",
+        "requestBody": {
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBirthDateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/OnboardingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/content/analyze": {
+      "post": {
+        "tags": ["content-controller"],
+        "summary": "SNS URL로 콘텐츠 생성 및 장소 추출 요청",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터\n- **`snsUrl`**: SNS URL (Instagram, YouTube Shorts 등)\n\n## 반환값\n- **`contentId`**: 생성된 콘텐츠 ID\n- **`status`**: 장소 추출 상태 (PENDING, ANALYZING, COMPLETED, FAILED, DELETED)\n\n## 동작 방식\n- SNS URL을 받아 콘텐츠를 생성하고 AI 서버에 장소 추출을 요청합니다.\n- 초기 상태는 `PENDING`이며, AI 서버 처리 완료 시 Webhook으로 상태가 업데이트됩니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.21\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/88\" target=\"_blank\"\u003E#88\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003EContentController 리팩토링에 따른 DOCS 간소화\u003C/td\u003E\u003C/tr\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.02\u003C/td\u003E\u003Ctd\u003E강지윤\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/54\" target=\"_blank\"\u003E#54\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E콘텐츠 Docs 추가 및 리팩토링\u003C/td\u003E\u003C/tr\u003E\u003Ctr\u003E\u003Ctd\u003E2025.10.15\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/22\" target=\"_blank\"\u003E#22\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E북마크 관련 API 추가 필요\u003C/td\u003E\u003Ctd\u003E온보딩 성별 설정 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "requestPlaceExtraction",
+        "requestBody": {
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestPlaceExtractionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestPlaceExtractionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/sign-in": {
+      "post": {
+        "tags": ["인증 API"],
+        "summary": "소셜 로그인",
+        "description": "## 인증(JWT): **불필요**\n\n## 요청 파라미터 (SignInRequest)\n- **`socialPlatform`**: 로그인 플랫폼 (KAKAO, GOOGLE)\n- **`email`**: 사용자 이메일 (필수)\n- **`name`**: 사용자 닉네임 (필수)\n- **`profileUrl`**: 사용자 프로필 url (선택)\n- **`fcmToken`**: FCM 푸시 알림 토큰 (선택)\n- **`deviceType`**: 디바이스 타입 - IOS, ANDROID (fcmToken 제공 시 필수)\n- **`deviceId`**: 디바이스 고유 식별자 UUID (fcmToken 제공 시 필수)\n\n## 반환값 (SignInResponse)\n- **`accessToken`**: 발급된 AccessToken\n- **`refreshToken`**: 발급된 RefreshToken\n- **`isFirstLogin`**: 최초 로그인 여부\n- **`requiresOnboarding`**: 온보딩 필요 여부\n- **`onboardingStep`**: 현재 온보딩 단계\n\n## 특이사항\n- 클라이언트에서 Kakao/Google OAuth 처리 후 받은 사용자 정보로 서버에 JWT 토큰을 요청합니다.\n- 액세스 토큰은 1시간, 리프레시 토큰은 7일 유효합니다.\n- **FCM 토큰을 전송하면 푸시 알림을 받을 수 있습니다. (멀티 디바이스 지원)**\n- fcmToken, deviceType, deviceId는 3개 모두 함께 전송하거나 모두 전송하지 않아야 합니다.\n- **@Valid 검증이 적용됩니다**: email, name은 필수 필드입니다.\n\n## 에러코드\n- **`INVALID_SOCIAL_TOKEN`**: 유효하지 않은 소셜 인증 토큰입니다.\n- **`SOCIAL_AUTH_FAILED`**: 소셜 로그인 인증에 실패하였습니다.\n- **`MEMBER_NOT_FOUND`**: 회원 정보를 찾을 수 없습니다.\n- **`INVALID_INPUT_VALUE`**: FCM 토큰 관련 필드가 올바르지 않습니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.23\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003C/td\u003E\u003Ctd\u003E\u003C/td\u003E\u003Ctd\u003EFCM 토큰 멀티 디바이스 지원 추가\u003C/td\u003E\u003C/tr\u003E\u003Ctr\u003E\u003Ctd\u003E2025.10.16\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/22\" target=\"_blank\"\u003E#22\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E북마크 관련 API 추가 필요\u003C/td\u003E\u003Ctd\u003E인증 모듈 추가 및 기본 OAuth 로그인 구현\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "signIn",
+        "requestBody": {
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/SignInRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignInResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/reissue": {
+      "post": {
+        "tags": ["인증 API"],
+        "summary": "토큰 재발급",
+        "description": "## 인증(JWT): **불필요**\n\n## 요청 파라미터 (ReissueRequest)\n- **`refreshToken`**: 리프레시 토큰 (필수)\n\n## 반환값 (ReissueResponse)\n- **`accessToken`**: 재발급된 AccessToken\n- **`refreshToken`**: 리프레시 토큰 (변경되지 않음)\n- **`isFirstLogin`**: 최초 로그인 여부\n\n## 특이사항\n- 만료된 액세스 토큰을 리프레시 토큰으로 재발급합니다.\n- **@Valid 검증이 적용됩니다**: refreshToken은 필수 필드입니다.\n\n## 에러코드\n- **`REFRESH_TOKEN_NOT_FOUND`**: 리프레시 토큰을 찾을 수 없습니다.\n- **`INVALID_REFRESH_TOKEN`**: 유효하지 않은 리프레시 토큰입니다.\n- **`EXPIRED_REFRESH_TOKEN`**: 만료된 리프레시 토큰입니다.\n- **`MEMBER_NOT_FOUND`**: 회원 정보를 찾을 수 없습니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.10.16\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/22\" target=\"_blank\"\u003E#22\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E북마크 관련 API 추가 필요\u003C/td\u003E\u003Ctd\u003E토큰 재발급 기능 구현\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "reissue",
+        "requestBody": {
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/ReissueRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReissueResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": ["인증 API"],
+        "summary": "로그아웃",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터 (AuthRequest)\n- **`accessToken`**: 엑세스 토큰 (Header에서 자동 추출)\n- **`refreshToken`**: 리프레시 토큰\n\n## 반환값\n- 성공 시 상태코드 200 (OK)와 빈 응답 본문\n\n## 동작 설명\n- 액세스 토큰을 블랙리스트에 등록하여 무효화 처리\n- Redis에 저장된 리프레시 토큰 삭제\n\n## 에러코드\n- **`INVALID_TOKEN`**: 유효하지 않은 토큰입니다.\n- **`UNAUTHORIZED`**: 인증이 필요한 요청입니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.10.16\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/22\" target=\"_blank\"\u003E#22\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E북마크 관련 API 추가 필요\u003C/td\u003E\u003Ctd\u003E로그아웃 기능 구현\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "logout",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ai/callback": {
+      "post": {
+        "tags": ["AI 서버 API"],
+        "summary": "AI 서버 Webhook Callback",
+        "description": "## 인증(API Key): **필요** (Header: X-API-Key)\n\n## 요청 파라미터 (AiCallbackRequest)\n- **`contentId`**: Content UUID (필수)\n- **`resultStatus`**: 처리 결과 상태 (SUCCESS/FAILED) (필수)\n- **`snsPlatform`**: SNS 플랫폼 (INSTAGRAM/YOUTUBE/YOUTUBE_SHORTS/TIKTOK/FACEBOOK/TWITTER) (필수)\n- **`contentInfo`**: 콘텐츠 정보 (SUCCESS 시 필수)\n  - **`title`**: 콘텐츠 제목\n  - **`contentUrl`**: 콘텐츠 URL\n  - **`thumbnailUrl`**: 썸네일 URL\n  - **`platformUploader`**: 업로더 아이디\n  - **`summary`**: AI 콘텐츠 요약 (선택)\n- **`places`**: 추출된 장소 목록 (SUCCESS 시)\n  - **`name`**: 장소명\n  - **`address`**: 주소\n  - **`country`**: 국가 코드 (ISO 3166-1 alpha-2)\n  - **`latitude`**: 위도\n  - **`longitude`**: 경도\n  - **`description`**: 장소 설명\n  - **`rawData`**: AI 추출 원본 데이터\n\n## 반환값 (AiCallbackResponse)\n- **`received`**: 수신 여부 (true)\n- **`contentId`**: Content UUID\n\n## 특이사항\n- AI 서버가 장소 추출 분석 완료 후 이 Webhook을 호출합니다.\n- API Key는 환경변수를 통해 설정되며, 반드시 일치해야 합니다.\n- Content 상태를 ANALYZING → COMPLETED/FAILED로 변경합니다.\n- SUCCESS인 경우:\n  - ContentInfo로 Content 메타데이터 업데이트 (title, contentUrl, thumbnailUrl, platformUploader, summary)\n  - Place 생성 및 Content-Place 연결 수행\n  - snsPlatform 값으로 Content.platform 동기화\n\n## 에러코드\n- **`INVALID_API_KEY`**: 유효하지 않은 API Key입니다.\n- **`CONTENT_NOT_FOUND`**: 콘텐츠를 찾을 수 없습니다.\n- **`INVALID_REQUEST`**: 잘못된 요청입니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.01.15\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/129\" target=\"_blank\"\u003E#129\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003EAI 서버 Callback API ContentInfo 파라미터 추가 (contentUrl, platformUploader 필드)\u003C/td\u003E\u003C/tr\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.18\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/83\" target=\"_blank\"\u003E#83\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003EAI 서버 Callback API ContentInfo 파라미터 추가 (summary 필드)\u003C/td\u003E\u003C/tr\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.12\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/70\" target=\"_blank\"\u003E#70\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E명세 변경, 기존 전체정보 &gt; 상호명으로만 받음\u003C/td\u003E\u003C/tr\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.02\u003C/td\u003E\u003Ctd\u003E강지윤\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/48\" target=\"_blank\"\u003E#48\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003EAI 서버 Webhook Callback 리팩터링\u003C/td\u003E\u003C/tr\u003E\u003Ctr\u003E\u003Ctd\u003E2025.10.31\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/48\" target=\"_blank\"\u003E#48\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003EAI 서버 Webhook Callback 처리 API 구현\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "handleCallback",
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/AiCallbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/AiCallbackResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/place/{placeId}": {
+      "get": {
+        "tags": ["place-controller"],
+        "summary": "장소 세부정보 조회",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터\n- **`placeId`**: 조회할 장소 ID (필수, Path Variable)\n\n## 반환값 (PlaceDetailDto)\n- **`id`**: 장소 ID\n- **`name`**: 장소명\n- **`address`**: 주소\n- **`country`**: 국가 코드 (ISO 3166-1 alpha-2)\n- **`latitude`**: 위도\n- **`longitude`**: 경도\n- **`businessType`**: 업종\n- **`phone`**: 전화번호\n- **`description`**: 장소 설명\n- **`types`**: 장소 유형 배열\n- **`businessStatus`**: 영업 상태\n- **`iconUrl`**: Google 아이콘 URL\n- **`rating`**: 평점 (0.0 ~ 5.0)\n- **`userRatingsTotal`**: 리뷰 수\n- **`photoUrls`**: 사진 URL 배열\n- **`platformReferences`**: 플랫폼별 참조 정보 (Google Place ID 등)\n- **`businessHours`**: 영업시간 목록\n- **`medias`**: 추가 미디어 목록\n\n## 특이사항\n- Google Place ID를 포함한 플랫폼 참조 정보를 제공합니다.\n- 영업시간과 추가 미디어 정보가 포함됩니다.\n\n## 에러코드\n- **`PLACE_NOT_FOUND`**: 장소를 찾을 수 없습니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.10.25\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/36\" target=\"_blank\"\u003E#36\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E장소 상세 정보 조회 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "getPlaceDetail",
+        "parameters": [
+          {
+            "name": "placeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlaceDetailDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/place/temporary": {
+      "get": {
+        "tags": ["place-controller"],
+        "summary": "임시 저장 장소 목록 조회",
+        "description": "## 인증(JWT): **필요**\n\n## 반환값 (GetTemporaryPlacesResponse)\n- **`places`**: 임시 저장 장소 목록 (List\u003CPlaceDto\u003E)\n  - **`placeId`**: 장소 ID\n  - **`name`**: 장소명\n  - **`address`**: 주소\n  - **`rating`**: 별점 (0.0 ~ 5.0)\n  - **`photoUrls`**: 사진 URL 배열\n  - **`description`**: 장소 요약 설명\n\n## 특이사항\n- AI 분석으로 자동 생성된 장소들을 조회합니다.\n- 사용자가 아직 저장 여부를 결정하지 않은 상태입니다.\n- 최신순으로 정렬되어 반환됩니다.\n\n## 에러코드\n- **`MEMBER_NOT_FOUND`**: 회원을 찾을 수 없습니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.24\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/103\" target=\"_blank\"\u003E#103\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E임시 저장 장소 목록 조회 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "getTemporaryPlaces",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTemporaryPlacesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/place/saved": {
+      "get": {
+        "tags": ["place-controller"],
+        "summary": "저장한 장소 목록 조회",
+        "description": "## 인증(JWT): **필요**\n\n## 반환값 (GetSavedPlacesResponse)\n- **`places`**: 저장한 장소 목록 (List\u003CPlaceDto\u003E)\n  - **`placeId`**: 장소 ID\n  - **`name`**: 장소명\n  - **`address`**: 주소\n  - **`rating`**: 별점 (0.0 ~ 5.0)\n  - **`userRatingsTotal`**: 리뷰 수\n  - **`photoUrls`**: 사진 URL 배열\n  - **`description`**: 장소 요약 설명\n\n## 특이사항\n- 사용자가 명시적으로 저장한 장소들을 조회합니다.\n- 최신순으로 정렬되어 반환됩니다.\n- `/api/content/place/saved`와는 다른 MemberPlace 기반 조회입니다.\n\n## 에러코드\n- **`MEMBER_NOT_FOUND`**: 회원을 찾을 수 없습니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.01.15\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/129\" target=\"_blank\"\u003E#129\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E저장한 장소 목록 조회 API 응답에 userRatingsTotal 필드 추가\u003C/td\u003E\u003C/tr\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.24\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/103\" target=\"_blank\"\u003E#103\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E저장한 장소 목록 조회 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "getSavedPlaces",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetSavedPlacesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/{memberId}": {
+      "get": {
+        "tags": ["회원 관리"],
+        "summary": "회원 단건 조회 (ID)",
+        "description": "## 인증(JWT): **불필요**\n\n## 요청 파라미터\n- **`memberId`**: 회원 ID (Path Variable)\n\n## 반환값 (MemberDto)\n- **`memberId`**: 회원 ID\n- **`email`**: 회원 이메일\n- **`nickname`**: 회원 닉네임\n- **`profileImageUrl`**: 프로필 이미지 URL\n- **`socialPlatform`**: 소셜 플랫폼\n- **`memberRole`**: 회원 권한\n- **`status`**: 회원 상태\n- **`createdAt`**: 생성일시\n- **`updatedAt`**: 수정일시\n\n## 특이사항\n- 회원 ID로 특정 회원을 조회합니다.\n- 삭제된 회원은 조회되지 않습니다.\n\n## 에러코드\n- **`MEMBER_NOT_FOUND`**: 회원을 찾을 수 없습니다.\n- **`INVALID_INPUT_VALUE`**: 유효하지 않은 입력값입니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.10.16\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/22\" target=\"_blank\"\u003E#22\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E북마크 관련 API 추가 필요\u003C/td\u003E\u003Ctd\u003E회원 관리 API 문서화\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "getMemberById",
+        "parameters": [
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/email/{email}": {
+      "get": {
+        "tags": ["회원 관리"],
+        "summary": "회원 단건 조회 (Email)",
+        "description": "## 인증(JWT): **불필요**\n\n## 요청 파라미터\n- **`email`**: 회원 이메일 (Path Variable)\n\n## 반환값 (MemberDto)\n- **`memberId`**: 회원 ID\n- **`email`**: 회원 이메일\n- **`nickname`**: 회원 닉네임\n- **`profileImageUrl`**: 프로필 이미지 URL\n- **`socialPlatform`**: 소셜 플랫폼\n- **`memberRole`**: 회원 권한\n- **`status`**: 회원 상태\n- **`createdAt`**: 생성일시\n- **`updatedAt`**: 수정일시\n\n## 특이사항\n- 이메일로 특정 회원을 조회합니다.\n- 삭제된 회원은 조회되지 않습니다.\n\n## 에러코드\n- **`MEMBER_NOT_FOUND`**: 회원을 찾을 수 없습니다.\n- **`INVALID_INPUT_VALUE`**: 유효하지 않은 입력값입니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.10.16\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/22\" target=\"_blank\"\u003E#22\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E북마크 관련 API 추가 필요\u003C/td\u003E\u003Ctd\u003E회원 관리 API 문서화\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "getMemberByEmail",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/check-name": {
+      "get": {
+        "tags": ["회원 관리"],
+        "summary": "닉네임 중복 확인",
+        "description": "## 인증(JWT): **불필요**\n\n## 요청 파라미터\n- **`name`**: 확인할 닉네임 (Query Parameter, 필수, 2자 이상 50자 이하)\n\n## 반환값 (CheckNicknameResponse)\n- **`isAvailable`**: 사용 가능 여부 (true: 사용 가능, false: 이미 사용 중)\n- **`name`**: 확인한 닉네임\n\n## 특이사항\n- 회원가입 전에도 사용 가능한 API입니다.\n- 닉네임 길이는 2자 이상 50자 이하여야 합니다.\n- 탈퇴한 회원의 닉네임은 타임스탬프가 추가되어 중복 체크에서 제외됩니다.\n\n## 에러코드\n- **`INVALID_NAME_LENGTH`**: 닉네임은 2자 이상 50자 이하여야 합니다.\n- **`INVALID_INPUT_VALUE`**: 유효하지 않은 입력값입니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.23\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/106\" target=\"_blank\"\u003E#106\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E닉네임 중복 확인 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "checkName",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckNameResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/content/{contentId}": {
+      "get": {
+        "tags": ["content-controller"],
+        "summary": "단일 SNS 컨텐츠 정보 조회",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터\n- **`contentId`**: 조회할 Content UUID (Path Variable)\n\n## 반환값\n- **`content`**: Content 상세 정보 (ContentDto)\n  - `id`: 콘텐츠 ID\n  - `platform`: 플랫폼 유형 (INSTAGRAM, YOUTUBE 등)\n  - `status`: 처리 상태 (PENDING, COMPLETED, FAILED 등)\n  - `platformUploader`: 업로더 이름\n  - `caption`: 캡션\n  - `thumbnailUrl`: 썸네일 URL\n  - `originalUrl`: 원본 SNS URL\n  - `title`: 제목\n  - `summary`: 요약 설명\n  - `lastCheckedAt`: 마지막 확인 시각\n- **`places`**: 연관된 Place 목록 (List\u003CPlaceDto\u003E, position 순서)\n  - 각 Place 정보: `id`, `name`, `address`, `latitude`, `longitude`, `rating` 등\n\n## 동작 방식\n- Content ID로 콘텐츠 정보와 연관된 장소 목록을 조회합니다.\n- Place 목록은 position 순서대로 정렬되어 반환됩니다.\n- Content가 존재하지 않으면 404 에러를 반환합니다.\n- 연관된 Place가 없는 경우 빈 배열을 반환합니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.23\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/111\" target=\"_blank\"\u003E#111\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E단일 SNS 컨텐츠 조회 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "getContentInfo",
+        "parameters": [
+          {
+            "name": "contentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetContentInfoResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/content/recent": {
+      "get": {
+        "tags": ["content-controller"],
+        "summary": "최근 SNS 콘텐츠 목록 조회",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터\n- JWT 인증만 필요, 별도 파라미터 없음\n\n## 반환값 (List\u003CRecentContentResponse\u003E)\n- **`contentId`**: 콘텐츠 UUID\n- **`platform`**: 콘텐츠 플랫폼 (INSTAGRAM, YOUTUBE, TIKTOK 등)\n- **`title`**: 콘텐츠 제목\n- **`thumbnailUrl`**: 썸네일 URL\n- **`originalUrl`**: 원본 URL\n- **`status`**: 콘텐츠 상태 (PENDING, COMPLETED, FAILED 등)\n- **`createdAt`**: 생성일시\n\n## 특이사항\n- 인증된 사용자의 최근 10개 SNS 콘텐츠 목록을 생성일시 내림차순으로 조회합니다.\n\n## 에러코드\n- **`MEMBER_NOT_FOUND`**: 해당 회원을 찾을 수 없습니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.16\u003C/td\u003E\u003Ctd\u003E강지윤\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/78\" target=\"_blank\"\u003E#78\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E최근 콘텐츠 조회 Docs 추가 및 리팩토링\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "getRecentContents",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRecentContentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/content/place/saved": {
+      "get": {
+        "tags": ["content-controller"],
+        "summary": "최근 장소 목록 조회",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터\n- JWT 인증만 필요, 별도 파라미터 없음\n\n## 반환값 (List\u003C\u003E)\n- **`placeId`**: 장소 ID\n- **`name`**: 장소 이름\n- **`address`**: 장소 주소\n- **`rating`**: 장소 평점\n- **`photoUrls`**: 장소 사진 URL 목록\n- **`description`**: 장소 설명\n\n## 특이사항\n- 최신순으로 장소를 조회합니다.\n- 최대 10개의 장소를 반환합니다.\n- 장소의 사진 URL은 최대 10개까지 반환합니다.\n\n## 에러코드\n- **`MEMBER_NOT_FOUND`**: 회원을 찾을 수 없습니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.20\u003C/td\u003E\u003Ctd\u003E강지윤\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/80\" target=\"_blank\"\u003E#80\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E최신순으로 장소 조회\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "getSavedPlaces_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetSavedPlacesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/content/member": {
+      "get": {
+        "tags": ["content-controller"],
+        "summary": "회원 콘텐츠 목록 조회",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터\n- **`pageSize`**: 페이지 크기 (Query Parameter, 선택, 기본값 10)\n\n## 반환값\n- **`contentPage`**: Page\u003CContentDto\u003E\n  - `content`: 콘텐츠 목록 (ContentDto 배열)\n    - `id`: 콘텐츠 ID\n    - `platform`: 플랫폼 유형 (INSTAGRAM, YOUTUBE 등)\n    - `status`: 처리 상태 (PENDING, COMPLETED, FAILED 등)\n    - `platformUploader`: 업로더 이름\n    - `caption`: 캡션\n    - `thumbnailUrl`: 썸네일 URL\n    - `originalUrl`: 원본 SNS URL\n    - `title`: 제목\n    - `summary`: 요약 설명\n    - `lastCheckedAt`: 마지막 확인 시각\n  - `totalElements`: 전체 콘텐츠 개수\n  - `totalPages`: 전체 페이지 수\n  - `number`: 현재 페이지 번호 (0부터 시작)\n  - `size`: 페이지 크기\n  - `first`: 첫 페이지 여부\n  - `last`: 마지막 페이지 여부\n\n## 동작 방식\n- 인증된 회원이 소유한 Content 목록을 최신순(createdAt DESC)으로 조회합니다.\n- Place 정보는 제외하고 Content 정보만 반환합니다.\n- 페이지 크기를 지정하지 않으면 기본 10개가 조회됩니다.\n- 첫 페이지(0번 페이지)만 조회됩니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.23\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/112\" target=\"_blank\"\u003E#112\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003EMember가 소유한 Content 목록 조회 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "getMemberContentPage",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetMemberContentPageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/place/{placeId}/temporary": {
+      "delete": {
+        "tags": ["place-controller"],
+        "summary": "임시 저장 장소 삭제",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터\n- **`placeId`**: 삭제할 장소 ID (필수, Path Variable)\n\n## 반환값\n- **204 No Content**: 삭제 성공 (반환값 없음)\n\n## 특이사항\n- 임시 저장 상태(TEMPORARY)의 장소만 삭제 가능합니다.\n- 저장된 상태(SAVED)의 장소는 삭제할 수 없습니다.\n- Soft Delete 방식으로 데이터는 실제로 삭제되지 않습니다.\n\n## 에러코드\n- **`PLACE_NOT_FOUND`**: 장소를 찾을 수 없습니다.\n- **`MEMBER_PLACE_NOT_FOUND`**: 회원의 장소 정보를 찾을 수 없습니다.\n- **`CANNOT_DELETE_SAVED_PLACE`**: 임시 저장된 장소만 삭제할 수 있습니다.\n- **`MEMBER_NOT_FOUND`**: 회원을 찾을 수 없습니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.24\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/103\" target=\"_blank\"\u003E#103\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E임시 저장 장소 삭제 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "deleteTemporaryPlace",
+        "parameters": [
+          {
+            "name": "placeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/withdraw": {
+      "delete": {
+        "tags": ["인증 API"],
+        "summary": "회원 탈퇴",
+        "description": "## 인증(JWT): **필요**\n\n## 요청 파라미터\n- 없음 (JWT 토큰에서 회원 ID 추출)\n\n## 반환값\n- **`204 No Content`**: 탈퇴 성공\n\n## 특이사항\n- 현재 로그인한 회원을 탈퇴 처리합니다. (소프트삭제)\n- 탈퇴 시 이메일과 닉네임에 타임스탬프가 추가됩니다. (예: email_2025_01_19_143022)\n- 이를 통해 동일한 이메일/닉네임으로 재가입이 가능합니다.\n- 회원의 관심사도 함께 소프트삭제 됩니다.\n- **보안**: AccessToken은 블랙리스트에 등록되고, RefreshToken은 Redis에서 삭제됩니다.\n- 탈퇴 후에는 해당 토큰으로 API 접근이 불가능합니다.\n\n## 에러코드\n- **`MEMBER_NOT_FOUND`**: 회원을 찾을 수 없습니다.\n- **`MEMBER_ALREADY_WITHDRAWN`**: 이미 탈퇴한 회원입니다.\n- **`UNAUTHORIZED`**: 인증이 필요합니다.\n\n\n**API 변경 이력:**\n\u003Ctable\u003E\u003Cthead\u003E\u003Ctr\u003E\u003Cth\u003E날짜\u003C/th\u003E\u003Cth\u003E작성자\u003C/th\u003E\u003Cth\u003E이슈번호\u003C/th\u003E\u003Cth\u003E이슈 제목\u003C/th\u003E\u003Cth\u003E변경 내용\u003C/th\u003E\u003C/tr\u003E\u003C/thead\u003E\u003Ctbody\u003E\u003Ctr\u003E\u003Ctd\u003E2025.11.19\u003C/td\u003E\u003Ctd\u003E서새찬\u003C/td\u003E\u003Ctd\u003E\u003Ca href=\"https://github.com/MapSee-Lab/MapSy-BE/issues/91\" target=\"_blank\"\u003E#91\u003C/a\u003E\u003C/td\u003E\u003Ctd\u003E로딩 실패\u003C/td\u003E\u003Ctd\u003E회원 탈퇴 API 추가\u003C/td\u003E\u003C/tr\u003E\u003C/tbody\u003E\u003C/table\u003E",
+        "operationId": "withdrawMember",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SavePlaceResponse": {
+        "type": "object",
+        "description": "장소 저장 응답",
+        "properties": {
+          "memberPlaceId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "회원 장소 ID",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "placeId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "장소 ID",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "savedStatus": {
+            "type": "string",
+            "description": "저장 상태",
+            "example": "SAVED"
+          },
+          "savedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "저장 일시",
+            "example": "2024-11-24T10:30:00"
+          }
+        }
+      },
+      "MemberDto": {
+        "type": "object",
+        "description": "회원 정보 DTO",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "회원 ID",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "email": {
+            "type": "string",
+            "description": "이메일",
+            "example": "user@example.com"
+          },
+          "name": {
+            "type": "string",
+            "description": "닉네임",
+            "example": "여행러버",
+            "maxLength": 50,
+            "minLength": 2
+          },
+          "onboardingStatus": {
+            "type": "string",
+            "description": "회원 상태",
+            "example": "NOT_STARTED"
+          },
+          "isServiceTermsAndPrivacyAgreed": {
+            "type": "boolean",
+            "description": "서비스 이용약관 및 개인정보처리방침 동의 여부",
+            "example": true
+          },
+          "isMarketingAgreed": {
+            "type": "boolean",
+            "description": "마케팅 수신 동의 여부(선택)",
+            "example": false
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date",
+            "description": "생년월일",
+            "example": "1990-01-01"
+          },
+          "gender": {
+            "type": "string",
+            "description": "성별",
+            "enum": ["MALE", "FEMALE", "NOT_SELECTED"],
+            "example": "MALE"
+          }
+        },
+        "required": ["birthDate", "email", "name"]
+      },
+      "ProfileUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string",
+            "enum": ["MALE", "FEMALE", "NOT_SELECTED"]
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "UpdateServiceAgreementTermsRequest": {
+        "type": "object",
+        "properties": {
+          "isServiceTermsAndPrivacyAgreed": {
+            "type": "boolean",
+            "description": "서비스 이용약관 및 개인정보처리방침 동의 여부",
+            "example": true
+          },
+          "isMarketingAgreed": {
+            "type": "boolean",
+            "description": "마케팅 수신 동의 여부(선택)",
+            "example": false
+          }
+        },
+        "required": ["isServiceTermsAndPrivacyAgreed"]
+      },
+      "UpdateServiceAgreementTermsResponse": {
+        "type": "object",
+        "properties": {
+          "currentStep": {
+            "type": "string",
+            "description": "현재 온보딩 단계",
+            "enum": ["TERMS", "BIRTH_DATE", "GENDER", "COMPLETED"],
+            "example": "NAME"
+          },
+          "onboardingStatus": {
+            "type": "string",
+            "description": "온보딩 상태",
+            "example": "IN_PROGRESS"
+          },
+          "member": {
+            "$ref": "#/components/schemas/MemberDto",
+            "description": "회원 정보 (디버깅용)"
+          }
+        }
+      },
+      "UpdateGenderRequest": {
+        "type": "object",
+        "properties": {
+          "gender": {
+            "type": "string",
+            "description": "성별",
+            "enum": ["MALE", "FEMALE", "NOT_SELECTED"],
+            "example": "MALE"
+          }
+        },
+        "required": ["gender"]
+      },
+      "OnboardingResponse": {
+        "type": "object",
+        "properties": {
+          "currentStep": {
+            "type": "string",
+            "description": "현재 온보딩 단계",
+            "enum": ["TERMS", "BIRTH_DATE", "GENDER", "COMPLETED"],
+            "example": "BIRTH_DATE"
+          },
+          "onboardingStatus": {
+            "type": "string",
+            "description": "온보딩 상태",
+            "example": "IN_PROGRESS"
+          },
+          "member": {
+            "$ref": "#/components/schemas/MemberDto",
+            "description": "회원 정보 (디버깅용)"
+          }
+        }
+      },
+      "UpdateBirthDateRequest": {
+        "type": "object",
+        "properties": {
+          "birthDate": {
+            "type": "string",
+            "format": "date",
+            "description": "생년월일",
+            "example": "1990-01-01"
+          }
+        },
+        "required": ["birthDate"]
+      },
+      "RequestPlaceExtractionRequest": {
+        "type": "object",
+        "properties": {
+          "snsUrl": {
+            "type": "string",
+            "description": "SNS URL",
+            "example": "https://www.instagram.com/p/ABC123/"
+          }
+        },
+        "required": ["snsUrl"]
+      },
+      "RequestPlaceExtractionResponse": {
+        "type": "object",
+        "properties": {
+          "contentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "memberId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["PENDING", "ANALYZING", "COMPLETED", "FAILED", "DELETED"]
+          }
+        }
+      },
+      "SignInRequest": {
+        "type": "object",
+        "properties": {
+          "firebaseIdToken": {
+            "type": "string",
+            "description": "Firebase ID Token (클라이언트에서 Firebase 인증 후 전달)",
+            "example": "eyJhbGciOiJSUzI1NiIsImtpZCI6..."
+          },
+          "fcmToken": {
+            "type": "string",
+            "description": "FCM 푸시 알림 토큰 (선택)",
+            "example": "dXQzM2k1N2RkZjM0OGE3YjczZGY5..."
+          },
+          "deviceType": {
+            "type": "string",
+            "description": "디바이스 타입 (IOS, ANDROID)",
+            "enum": ["IOS", "ANDROID"],
+            "example": "IOS"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "디바이스 고유 식별자 (UUID)",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          }
+        },
+        "required": ["firebaseIdToken"]
+      },
+      "SignInResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "액세스 토큰"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "리프레시 토큰"
+          },
+          "isFirstLogin": {
+            "type": "boolean",
+            "description": "첫 로그인 여부"
+          },
+          "requiresOnboarding": {
+            "type": "boolean",
+            "description": "약관/온보딩 완료 여부"
+          },
+          "onboardingStep": {
+            "type": "string",
+            "description": "현재 온보딩 단계",
+            "example": "TERMS"
+          }
+        }
+      },
+      "ReissueRequest": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "description": "리프레시 토큰",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          }
+        },
+        "required": ["refreshToken"]
+      },
+      "ReissueResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "액세스 토큰"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "리프레시 토큰"
+          },
+          "isFirstLogin": {
+            "type": "boolean",
+            "description": "첫 로그인 여부"
+          }
+        }
+      },
+      "AuthRequest": {
+        "type": "object",
+        "properties": {
+          "socialPlatform": {
+            "type": "string",
+            "description": "로그인 플랫폼 (KAKAO, GOOGLE 등)",
+            "enum": ["NORMAL", "KAKAO", "GOOGLE"],
+            "example": "KAKAO"
+          },
+          "email": {
+            "type": "string",
+            "description": "소셜 로그인 후 반환된 이메일",
+            "example": "user@example.com"
+          },
+          "name": {
+            "type": "string",
+            "description": "소셜 로그인 후 반환된 닉네임",
+            "example": "홍길동"
+          },
+          "profileUrl": {
+            "type": "string",
+            "description": "소셜 로그인 후 반환된 프로필 URL",
+            "example": "https://example.com/profile.jpg"
+          },
+          "fcmToken": {
+            "type": "string",
+            "description": "FCM 푸시 알림 토큰 (선택)",
+            "example": "dXQzM2k1N2RkZjM0OGE3YjczZGY5..."
+          },
+          "deviceType": {
+            "type": "string",
+            "description": "디바이스 타입 (IOS, ANDROID)",
+            "enum": ["IOS", "ANDROID"],
+            "example": "IOS"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "디바이스 고유 식별자 (UUID)",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          }
+        }
+      },
+      "AiCallbackRequest": {
+        "type": "object",
+        "properties": {
+          "contentId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Content UUID",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "resultStatus": {
+            "type": "string",
+            "description": "처리 결과 상태",
+            "enum": ["SUCCESS", "FAILED"],
+            "example": "SUCCESS"
+          },
+          "snsInfo": {
+            "$ref": "#/components/schemas/SnsInfoCallback",
+            "description": "SNS 콘텐츠 정보 (SUCCESS 시 필수)"
+          },
+          "placeDetails": {
+            "type": "array",
+            "description": "추출된 장소 상세 목록",
+            "items": {
+              "$ref": "#/components/schemas/PlaceDetailCallback"
+            }
+          },
+          "statistics": {
+            "$ref": "#/components/schemas/ExtractionStatistics",
+            "description": "추출 처리 통계"
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "실패 사유 (FAILED 시)"
+          }
+        },
+        "required": ["contentId", "resultStatus"]
+      },
+      "ExtractionStatistics": {
+        "type": "object",
+        "properties": {
+          "extractedPlaceNames": {
+            "type": "array",
+            "description": "LLM이 추출한 장소명 리스트",
+            "example": ["늘푸른목장", "강남역"],
+            "items": {
+              "type": "string"
+            }
+          },
+          "totalExtracted": {
+            "type": "integer",
+            "format": "int32",
+            "description": "LLM이 추출한 장소 수",
+            "example": 2
+          },
+          "totalFound": {
+            "type": "integer",
+            "format": "int32",
+            "description": "네이버 지도에서 찾은 장소 수",
+            "example": 1
+          },
+          "failedSearches": {
+            "type": "array",
+            "description": "검색 실패한 장소명",
+            "example": ["강남역"],
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "PlaceDetailCallback": {
+        "type": "object",
+        "properties": {
+          "placeId": {
+            "type": "string",
+            "description": "네이버 Place ID",
+            "example": 11679241
+          },
+          "name": {
+            "type": "string",
+            "description": "장소명",
+            "example": "늘푸른목장 잠실본점"
+          },
+          "category": {
+            "type": "string",
+            "description": "카테고리",
+            "example": "소고기구이"
+          },
+          "description": {
+            "type": "string",
+            "description": "한줄 설명",
+            "example": "된장찌개와 냉면으로 완성하는 한상차림"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "description": "위도",
+            "example": 37.5112
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "description": "경도",
+            "example": 127.0867
+          },
+          "address": {
+            "type": "string",
+            "description": "지번 주소",
+            "example": "서울 송파구 백제고분로9길 34 1F"
+          },
+          "roadAddress": {
+            "type": "string",
+            "description": "도로명 주소",
+            "example": "서울 송파구 백제고분로9길 34 1F"
+          },
+          "subwayInfo": {
+            "type": "string",
+            "description": "지하철 정보",
+            "example": "잠실새내역 4번 출구에서 412m"
+          },
+          "directionsText": {
+            "type": "string",
+            "description": "찾아가는 길",
+            "example": "잠실새내역 4번 출구에서 맥도널드 골목 끼고..."
+          },
+          "rating": {
+            "type": "number",
+            "format": "double",
+            "description": "별점 (0.0~5.0)",
+            "example": 4.42
+          },
+          "visitorReviewCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "방문자 리뷰 수",
+            "example": 1510
+          },
+          "blogReviewCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "블로그 리뷰 수",
+            "example": 1173
+          },
+          "businessStatus": {
+            "type": "string",
+            "description": "영업 상태",
+            "example": "영업 중"
+          },
+          "businessHours": {
+            "type": "string",
+            "description": "영업 시간 요약",
+            "example": "24:00에 영업 종료"
+          },
+          "openHoursDetail": {
+            "type": "array",
+            "description": "요일별 상세 영업시간",
+            "example": ["월 11:30 - 24:00", "화 11:30 - 24:00"],
+            "items": {
+              "type": "string"
+            }
+          },
+          "holidayInfo": {
+            "type": "string",
+            "description": "휴무일 정보",
+            "example": "연중무휴"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "전화번호",
+            "example": "02-3431-4520"
+          },
+          "homepageUrl": {
+            "type": "string",
+            "description": "홈페이지 URL",
+            "example": "http://example.com"
+          },
+          "naverMapUrl": {
+            "type": "string",
+            "description": "네이버 지도 URL",
+            "example": "https://map.naver.com/p/search/늘푸른목장/place/11679241"
+          },
+          "reservationAvailable": {
+            "type": "boolean",
+            "description": "예약 가능 여부",
+            "example": true
+          },
+          "amenities": {
+            "type": "array",
+            "description": "편의시설 목록",
+            "example": ["단체 이용 가능", "주차", "발렛파킹"],
+            "items": {
+              "type": "string"
+            }
+          },
+          "keywords": {
+            "type": "array",
+            "description": "키워드/태그",
+            "example": ["소고기", "한우", "회식"],
+            "items": {
+              "type": "string"
+            }
+          },
+          "tvAppearances": {
+            "type": "array",
+            "description": "TV 방송 출연 정보",
+            "example": ["줄서는식당 14회 (24.05.13)"],
+            "items": {
+              "type": "string"
+            }
+          },
+          "menuInfo": {
+            "type": "array",
+            "description": "대표 메뉴",
+            "example": ["경주갈비살", "한우된장밥"],
+            "items": {
+              "type": "string"
+            }
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "대표 이미지 URL",
+            "example": "https://..."
+          },
+          "imageUrls": {
+            "type": "array",
+            "description": "이미지 URL 목록",
+            "example": ["https://..."],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["name", "placeId"]
+      },
+      "SnsInfoCallback": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string",
+            "description": "SNS 플랫폼",
+            "enum": [
+              "INSTAGRAM",
+              "YOUTUBE",
+              "YOUTUBE_SHORTS",
+              "TIKTOK",
+              "FACEBOOK",
+              "TWITTER"
+            ],
+            "example": "INSTAGRAM"
+          },
+          "contentType": {
+            "type": "string",
+            "description": "콘텐츠 타입",
+            "example": "reel"
+          },
+          "url": {
+            "type": "string",
+            "description": "원본 SNS URL",
+            "example": "https://www.instagram.com/reel/ABC123/"
+          },
+          "author": {
+            "type": "string",
+            "description": "작성자 ID",
+            "example": "username"
+          },
+          "caption": {
+            "type": "string",
+            "description": "게시물 본문",
+            "example": "여기 정말 맛있어! #맛집 #서울"
+          },
+          "likesCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "좋아요 수",
+            "example": 1234
+          },
+          "commentsCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "댓글 수",
+            "example": 56
+          },
+          "postedAt": {
+            "type": "string",
+            "description": "게시 날짜 (ISO 8601)",
+            "example": "2024-01-15T10:30:00Z"
+          },
+          "hashtags": {
+            "type": "array",
+            "description": "해시태그 리스트",
+            "example": ["맛집", "서울"],
+            "items": {
+              "type": "string"
+            }
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "description": "대표 이미지/썸네일 URL",
+            "example": "https://..."
+          },
+          "imageUrls": {
+            "type": "array",
+            "description": "이미지 URL 리스트",
+            "example": ["https://..."],
+            "items": {
+              "type": "string"
+            }
+          },
+          "authorProfileImageUrl": {
+            "type": "string",
+            "description": "작성자 프로필 이미지 URL",
+            "example": "https://..."
+          }
+        },
+        "required": ["contentType", "platform", "url"]
+      },
+      "AiCallbackResponse": {
+        "type": "object",
+        "properties": {
+          "received": {
+            "type": "boolean",
+            "description": "수신 여부",
+            "example": true
+          },
+          "contentId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Content UUID"
+          }
+        }
+      },
+      "LocalTime": {
+        "type": "object",
+        "properties": {
+          "hour": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minute": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "second": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nano": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PlaceBusinessHourDto": {
+        "type": "object",
+        "description": "영업시간 정보",
+        "properties": {
+          "weekday": {
+            "type": "string",
+            "description": "요일",
+            "enum": ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+            "example": "MONDAY"
+          },
+          "openTime": {
+            "$ref": "#/components/schemas/LocalTime",
+            "description": "오픈 시간",
+            "example": "09:00:00"
+          },
+          "closeTime": {
+            "$ref": "#/components/schemas/LocalTime",
+            "description": "마감 시간",
+            "example": "22:00:00"
+          }
+        }
+      },
+      "PlaceDetailDto": {
+        "type": "object",
+        "description": "장소 상세 정보",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "장소 ID",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "name": {
+            "type": "string",
+            "description": "장소명",
+            "example": "제주 카페 쿠모"
+          },
+          "address": {
+            "type": "string",
+            "description": "주소",
+            "example": "제주특별자치도 제주시 애월읍"
+          },
+          "country": {
+            "type": "string",
+            "description": "국가 코드 (ISO 3166-1 alpha-2)",
+            "example": "KR"
+          },
+          "latitude": {
+            "type": "number",
+            "description": "위도",
+            "example": 33.4996213
+          },
+          "longitude": {
+            "type": "number",
+            "description": "경도",
+            "example": 126.5311884
+          },
+          "businessType": {
+            "type": "string",
+            "description": "업종",
+            "example": "카페"
+          },
+          "phone": {
+            "type": "string",
+            "description": "전화번호",
+            "example": "010-1234-5678"
+          },
+          "description": {
+            "type": "string",
+            "description": "장소 설명",
+            "example": "제주 바다를 바라보며 커피를 즐길 수 있는 카페"
+          },
+          "types": {
+            "type": "array",
+            "description": "장소 유형 배열",
+            "example": ["cafe", "restaurant"],
+            "items": {
+              "type": "string"
+            }
+          },
+          "businessStatus": {
+            "type": "string",
+            "description": "영업 상태",
+            "example": "OPERATIONAL"
+          },
+          "iconUrl": {
+            "type": "string",
+            "description": "Google 아이콘 URL",
+            "example": "https://maps.gstatic.com/mapfiles/place_api/icons/cafe-71.png"
+          },
+          "rating": {
+            "type": "number",
+            "description": "평점 (0.0 ~ 5.0)",
+            "example": 4.5
+          },
+          "userRatingsTotal": {
+            "type": "integer",
+            "format": "int32",
+            "description": "리뷰 수",
+            "example": 123
+          },
+          "photoUrls": {
+            "type": "array",
+            "description": "사진 URL 배열",
+            "example": [
+              "https://example.com/photo1.jpg",
+              "https://example.com/photo2.jpg"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "platformReferences": {
+            "type": "array",
+            "description": "플랫폼별 참조 정보 (Google Place ID 등)",
+            "items": {
+              "$ref": "#/components/schemas/PlacePlatformReferenceDto"
+            }
+          },
+          "businessHours": {
+            "type": "array",
+            "description": "영업시간 목록",
+            "items": {
+              "$ref": "#/components/schemas/PlaceBusinessHourDto"
+            }
+          },
+          "medias": {
+            "type": "array",
+            "description": "추가 미디어 목록",
+            "items": {
+              "$ref": "#/components/schemas/PlaceMediaDto"
+            }
+          }
+        }
+      },
+      "PlaceMediaDto": {
+        "type": "object",
+        "description": "장소 미디어 정보",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "미디어 ID",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "url": {
+            "type": "string",
+            "description": "미디어 URL",
+            "example": "https://example.com/media1.jpg"
+          },
+          "mimeType": {
+            "type": "string",
+            "description": "MIME 타입",
+            "example": "image/jpeg"
+          },
+          "position": {
+            "type": "integer",
+            "format": "int32",
+            "description": "정렬 순서",
+            "example": 0
+          }
+        }
+      },
+      "PlacePlatformReferenceDto": {
+        "type": "object",
+        "description": "플랫폼별 장소 참조 정보",
+        "properties": {
+          "placePlatform": {
+            "type": "string",
+            "description": "플랫폼 타입",
+            "enum": ["NAVER", "GOOGLE", "KAKAO"],
+            "example": "GOOGLE"
+          },
+          "placePlatformId": {
+            "type": "string",
+            "description": "플랫폼 장소 ID",
+            "example": "ChIJN1t_tDeuEmsRUsoyG83frY4"
+          }
+        }
+      },
+      "GetTemporaryPlacesResponse": {
+        "type": "object",
+        "description": "임시 저장 장소 목록 응답",
+        "properties": {
+          "places": {
+            "type": "array",
+            "description": "임시 저장 장소 목록",
+            "items": {
+              "$ref": "#/components/schemas/PlaceDto"
+            }
+          }
+        }
+      },
+      "PlaceDto": {
+        "type": "object",
+        "description": "장소 DTO",
+        "properties": {
+          "placeId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "장소 ID",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "name": {
+            "type": "string",
+            "description": "장소명",
+            "example": "스타벅스 서울역점"
+          },
+          "address": {
+            "type": "string",
+            "description": "주소",
+            "example": "서울특별시 중구 명동길 29"
+          },
+          "rating": {
+            "type": "number",
+            "description": "별점 (0.0 ~ 5.0)",
+            "example": 4.5
+          },
+          "userRatingsTotal": {
+            "type": "integer",
+            "format": "int32",
+            "description": "리뷰 수",
+            "example": 123
+          },
+          "photoUrls": {
+            "type": "array",
+            "description": "사진 URL 배열 (최대 10개)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string",
+            "description": "장소 요약 설명",
+            "example": "서울역 인근, 공부하기 좋은 카페"
+          }
+        }
+      },
+      "GetSavedPlacesResponse": {
+        "type": "object",
+        "description": "저장한 장소 목록 응답",
+        "properties": {
+          "places": {
+            "type": "array",
+            "description": "장소 목록",
+            "items": {
+              "$ref": "#/components/schemas/PlaceDto"
+            }
+          }
+        }
+      },
+      "CheckNameResponse": {
+        "type": "object",
+        "description": "닉네임 중복 확인 응답",
+        "properties": {
+          "isAvailable": {
+            "type": "boolean",
+            "description": "사용 가능 여부 (true: 사용 가능, false: 중복)",
+            "example": true
+          },
+          "name": {
+            "type": "string",
+            "description": "닉네임",
+            "example": "트립게더"
+          }
+        }
+      },
+      "ContentDto": {
+        "type": "object",
+        "description": "콘텐츠 정보 DTO",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "콘텐츠 ID",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "platform": {
+            "type": "string",
+            "description": "플랫폼 유형",
+            "enum": [
+              "INSTAGRAM",
+              "TIKTOK",
+              "YOUTUBE",
+              "YOUTUBE_SHORTS",
+              "FACEBOOK",
+              "TWITTER"
+            ],
+            "example": "INSTAGRAM"
+          },
+          "status": {
+            "type": "string",
+            "description": "처리 상태",
+            "enum": ["PENDING", "ANALYZING", "COMPLETED", "FAILED", "DELETED"],
+            "example": "COMPLETED"
+          },
+          "platformUploader": {
+            "type": "string",
+            "description": "업로더 이름",
+            "example": "travel_lover_123"
+          },
+          "caption": {
+            "type": "string",
+            "description": "캡션",
+            "example": "제주도 여행 브이로그"
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "description": "썸네일 URL",
+            "example": "https://example.com/thumbnail.jpg"
+          },
+          "originalUrl": {
+            "type": "string",
+            "description": "원본 SNS URL",
+            "example": "https://www.instagram.com/p/ABC123/"
+          },
+          "title": {
+            "type": "string",
+            "description": "제목",
+            "example": "제주도 힐링 여행"
+          },
+          "summary": {
+            "type": "string",
+            "description": "요약 설명",
+            "example": "제주도의 아름다운 카페와 맛집을 소개합니다."
+          },
+          "lastCheckedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "마지막 확인 시각",
+            "example": "2025-11-23T10:30:00"
+          }
+        }
+      },
+      "GetContentInfoResponse": {
+        "type": "object",
+        "description": "콘텐츠 정보 조회 응답",
+        "properties": {
+          "content": {
+            "$ref": "#/components/schemas/ContentDto",
+            "description": "콘텐츠 상세 정보"
+          },
+          "places": {
+            "type": "array",
+            "description": "연관된 장소 목록 (position 순서)",
+            "items": {
+              "$ref": "#/components/schemas/PlaceDto"
+            }
+          }
+        }
+      },
+      "GetRecentContentResponse": {
+        "type": "object",
+        "description": "최근 콘텐츠 목록 응답",
+        "properties": {
+          "contents": {
+            "type": "array",
+            "description": "콘텐츠 목록",
+            "items": {
+              "$ref": "#/components/schemas/ContentDto"
+            }
+          }
+        }
+      },
+      "GetMemberContentPageResponse": {
+        "type": "object",
+        "description": "회원 콘텐츠 목록 조회 응답",
+        "properties": {
+          "contentPage": {
+            "$ref": "#/components/schemas/PageContentDto",
+            "description": "콘텐츠 페이지 정보 (최신순)"
+          }
+        }
+      },
+      "PageContentDto": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContentDto"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "unpaged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paged": {
+            "type": "boolean"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          }
+        }
+      },
+      "SortObject": {
+        "type": "object",
+        "properties": {
+          "unsorted": {
+            "type": "boolean"
+          },
+          "sorted": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer Token": {
+        "type": "http",
+        "name": "Authorization",
+        "in": "header",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

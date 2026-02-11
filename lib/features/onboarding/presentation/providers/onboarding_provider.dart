@@ -48,7 +48,10 @@ class OnboardingState with _$OnboardingState {
 }
 
 /// 온보딩 Notifier
-@riverpod
+///
+/// keepAlive: 온보딩 단계 간 페이지 전환 시 상태(birthDate, gender 등)를
+/// 유지하기 위해 AutoDispose를 사용하지 않습니다.
+@Riverpod(keepAlive: true)
 class OnboardingNotifier extends _$OnboardingNotifier {
   @override
   OnboardingState build() {
@@ -165,11 +168,12 @@ class OnboardingNotifier extends _$OnboardingNotifier {
     state = state.copyWith(isLoading: true, errorMessage: null);
 
     try {
-      await _repository.submitGender(state.gender!);
+      final tempNickname = await _repository.submitGender(state.gender!);
 
       state = state.copyWith(
         isLoading: false,
         currentStep: OnboardingStep.nickname,
+        nickname: tempNickname,
       );
 
       return true;
@@ -255,13 +259,13 @@ class OnboardingNotifier extends _$OnboardingNotifier {
 
       state = state.copyWith(
         isLoading: false,
-        nicknameAvailable: response.available,
-        errorMessage: response.available
+        nicknameAvailable: response.isAvailable,
+        errorMessage: response.isAvailable
             ? null
-            : response.message ?? '이미 사용 중인 닉네임입니다.',
+            : '이미 사용 중인 닉네임입니다.',
       );
 
-      return response.available;
+      return response.isAvailable;
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
@@ -280,13 +284,25 @@ class OnboardingNotifier extends _$OnboardingNotifier {
       state.nicknameAvailable == true;
 
   /// 프로필(닉네임) 제출
+  ///
+  /// 서버 배정 닉네임을 변경하지 않은 경우에도 제출 가능합니다.
+  /// (nicknameAvailable이 null이어도 format이 유효하면 통과)
   Future<bool> submitProfile() async {
-    if (!canSubmitNickname || state.nickname == null) return false;
+    final nickname = state.nickname;
+    if (nickname == null || nickname.isEmpty) return false;
+    if (!isNicknameFormatValid(nickname)) return false;
+
+    // 닉네임을 변경한 경우에만 중복확인 필수
+    if (state.nicknameAvailable == false) return false;
 
     state = state.copyWith(isLoading: true, errorMessage: null);
 
     try {
-      await _repository.submitProfile(state.nickname!);
+      await _repository.submitProfile(
+        state.nickname!,
+        gender: state.gender,
+        birthDate: state.birthDate,
+      );
 
       state = state.copyWith(
         isLoading: false,

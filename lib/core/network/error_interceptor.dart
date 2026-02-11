@@ -70,7 +70,9 @@ class ErrorInterceptor extends Interceptor {
       serverMessage =
           responseData['message'] as String? ??
           responseData['error'] as String?;
-      serverCode = responseData['code'] as String?;
+      serverCode =
+          responseData['errorCode'] as String? ??
+          responseData['code'] as String?;
     }
 
     switch (statusCode) {

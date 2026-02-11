@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/constants/api_endpoints.dart';
 import '../../../../core/network/api_client.dart';
+import '../models/auth_request.dart';
 import '../models/sign_in_request.dart';
 import '../models/sign_in_response.dart';
 import '../models/reissue_request.dart';
@@ -70,10 +71,14 @@ class AuthRemoteDataSource {
   /// 로그아웃
   ///
   /// 서버에 로그아웃을 알리고 토큰을 무효화합니다.
-  Future<void> logout() async {
+  /// [request]에 기기 정보와 사용자 정보를 담아 전송합니다.
+  Future<void> logout(AuthRequest request) async {
     debugPrint('🚪 Calling logout API...');
 
-    await _dio.post(ApiEndpoints.logout);
+    await _dio.post(
+      ApiEndpoints.logout,
+      data: request.toJson(),
+    );
 
     debugPrint('✅ Logout API completed');
   }

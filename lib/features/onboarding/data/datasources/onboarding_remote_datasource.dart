@@ -52,21 +52,38 @@ class OnboardingRemoteDataSource {
   /// 성별 제출
   ///
   /// POST /api/members/onboarding/gender
-  Future<void> submitGender(GenderRequest request) async {
+  /// 응답의 member.name에서 백엔드 자동 생성 닉네임을 반환
+  Future<String?> submitGender(GenderRequest request) async {
     debugPrint('📤 OnboardingRemoteDataSource: Submitting gender...');
 
-    await _dio.post(ApiEndpoints.onboardingGender, data: request.toJson());
+    final response = await _dio.post(
+      ApiEndpoints.onboardingGender,
+      data: request.toJson(),
+    );
+
+    // 응답에서 member.name (임시 닉네임) 추출
+    String? tempNickname;
+    if (response.data is Map<String, dynamic>) {
+      final member = response.data['member'];
+      if (member is Map<String, dynamic>) {
+        tempNickname = member['name'] as String?;
+        debugPrint('📛 Temporary nickname from server: $tempNickname');
+      }
+    }
 
     debugPrint('✅ Gender submitted successfully');
+    return tempNickname;
   }
 
   /// 프로필(닉네임) 제출
   ///
   /// POST /api/members/profile
+  /// null 필드는 JSON에서 제외 (백엔드가 기존 저장값을 유지하도록)
   Future<void> submitProfile(ProfileRequest request) async {
     debugPrint('📤 OnboardingRemoteDataSource: Submitting profile...');
 
-    await _dio.post(ApiEndpoints.memberProfile, data: request.toJson());
+    final data = request.toJson()..removeWhere((_, v) => v == null);
+    await _dio.post(ApiEndpoints.memberProfile, data: data);
 
     debugPrint('✅ Profile submitted successfully');
   }
@@ -83,7 +100,7 @@ class OnboardingRemoteDataSource {
     );
 
     final checkNameResponse = CheckNameResponse.fromJson(response.data);
-    debugPrint('✅ Name check result: ${checkNameResponse.available}');
+    debugPrint('✅ Name check result: ${checkNameResponse.isAvailable}');
 
     return checkNameResponse;
   }

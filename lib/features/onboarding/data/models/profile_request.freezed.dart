@@ -24,6 +24,12 @@ mixin _$ProfileRequest {
   /// 닉네임
   String get name => throw _privateConstructorUsedError;
 
+  /// 성별 (MALE, FEMALE, NOT_SELECTED)
+  Gender? get gender => throw _privateConstructorUsedError;
+
+  /// 생년월일 (YYYY-MM-DD 형식)
+  String? get birthDate => throw _privateConstructorUsedError;
+
   /// Serializes this ProfileRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -41,7 +47,7 @@ abstract class $ProfileRequestCopyWith<$Res> {
     $Res Function(ProfileRequest) then,
   ) = _$ProfileRequestCopyWithImpl<$Res, ProfileRequest>;
   @useResult
-  $Res call({String name});
+  $Res call({String name, Gender? gender, String? birthDate});
 }
 
 /// @nodoc
@@ -58,13 +64,25 @@ class _$ProfileRequestCopyWithImpl<$Res, $Val extends ProfileRequest>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? name = null}) {
+  $Res call({
+    Object? name = null,
+    Object? gender = freezed,
+    Object? birthDate = freezed,
+  }) {
     return _then(
       _value.copyWith(
             name: null == name
                 ? _value.name
                 : name // ignore: cast_nullable_to_non_nullable
                       as String,
+            gender: freezed == gender
+                ? _value.gender
+                : gender // ignore: cast_nullable_to_non_nullable
+                      as Gender?,
+            birthDate: freezed == birthDate
+                ? _value.birthDate
+                : birthDate // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -80,7 +98,7 @@ abstract class _$$ProfileRequestImplCopyWith<$Res>
   ) = __$$ProfileRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name});
+  $Res call({String name, Gender? gender, String? birthDate});
 }
 
 /// @nodoc
@@ -96,13 +114,25 @@ class __$$ProfileRequestImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? name = null}) {
+  $Res call({
+    Object? name = null,
+    Object? gender = freezed,
+    Object? birthDate = freezed,
+  }) {
     return _then(
       _$ProfileRequestImpl(
         name: null == name
             ? _value.name
             : name // ignore: cast_nullable_to_non_nullable
                   as String,
+        gender: freezed == gender
+            ? _value.gender
+            : gender // ignore: cast_nullable_to_non_nullable
+                  as Gender?,
+        birthDate: freezed == birthDate
+            ? _value.birthDate
+            : birthDate // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -111,7 +141,7 @@ class __$$ProfileRequestImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ProfileRequestImpl implements _ProfileRequest {
-  const _$ProfileRequestImpl({required this.name});
+  const _$ProfileRequestImpl({required this.name, this.gender, this.birthDate});
 
   factory _$ProfileRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProfileRequestImplFromJson(json);
@@ -120,9 +150,17 @@ class _$ProfileRequestImpl implements _ProfileRequest {
   @override
   final String name;
 
+  /// 성별 (MALE, FEMALE, NOT_SELECTED)
+  @override
+  final Gender? gender;
+
+  /// 생년월일 (YYYY-MM-DD 형식)
+  @override
+  final String? birthDate;
+
   @override
   String toString() {
-    return 'ProfileRequest(name: $name)';
+    return 'ProfileRequest(name: $name, gender: $gender, birthDate: $birthDate)';
   }
 
   @override
@@ -130,12 +168,15 @@ class _$ProfileRequestImpl implements _ProfileRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProfileRequestImpl &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.birthDate, birthDate) ||
+                other.birthDate == birthDate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name);
+  int get hashCode => Object.hash(runtimeType, name, gender, birthDate);
 
   /// Create a copy of ProfileRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -155,8 +196,11 @@ class _$ProfileRequestImpl implements _ProfileRequest {
 }
 
 abstract class _ProfileRequest implements ProfileRequest {
-  const factory _ProfileRequest({required final String name}) =
-      _$ProfileRequestImpl;
+  const factory _ProfileRequest({
+    required final String name,
+    final Gender? gender,
+    final String? birthDate,
+  }) = _$ProfileRequestImpl;
 
   factory _ProfileRequest.fromJson(Map<String, dynamic> json) =
       _$ProfileRequestImpl.fromJson;
@@ -164,6 +208,14 @@ abstract class _ProfileRequest implements ProfileRequest {
   /// 닉네임
   @override
   String get name;
+
+  /// 성별 (MALE, FEMALE, NOT_SELECTED)
+  @override
+  Gender? get gender;
+
+  /// 생년월일 (YYYY-MM-DD 형식)
+  @override
+  String? get birthDate;
 
   /// Create a copy of ProfileRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -180,10 +232,10 @@ CheckNameResponse _$CheckNameResponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CheckNameResponse {
   /// 사용 가능 여부
-  bool get available => throw _privateConstructorUsedError;
+  bool get isAvailable => throw _privateConstructorUsedError;
 
-  /// 메시지 (사용 불가 시 이유)
-  String? get message => throw _privateConstructorUsedError;
+  /// 확인한 닉네임
+  String? get name => throw _privateConstructorUsedError;
 
   /// Serializes this CheckNameResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -202,7 +254,7 @@ abstract class $CheckNameResponseCopyWith<$Res> {
     $Res Function(CheckNameResponse) then,
   ) = _$CheckNameResponseCopyWithImpl<$Res, CheckNameResponse>;
   @useResult
-  $Res call({bool available, String? message});
+  $Res call({bool isAvailable, String? name});
 }
 
 /// @nodoc
@@ -219,16 +271,16 @@ class _$CheckNameResponseCopyWithImpl<$Res, $Val extends CheckNameResponse>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? available = null, Object? message = freezed}) {
+  $Res call({Object? isAvailable = null, Object? name = freezed}) {
     return _then(
       _value.copyWith(
-            available: null == available
-                ? _value.available
-                : available // ignore: cast_nullable_to_non_nullable
+            isAvailable: null == isAvailable
+                ? _value.isAvailable
+                : isAvailable // ignore: cast_nullable_to_non_nullable
                       as bool,
-            message: freezed == message
-                ? _value.message
-                : message // ignore: cast_nullable_to_non_nullable
+            name: freezed == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
                       as String?,
           )
           as $Val,
@@ -245,7 +297,7 @@ abstract class _$$CheckNameResponseImplCopyWith<$Res>
   ) = __$$CheckNameResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool available, String? message});
+  $Res call({bool isAvailable, String? name});
 }
 
 /// @nodoc
@@ -261,16 +313,16 @@ class __$$CheckNameResponseImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? available = null, Object? message = freezed}) {
+  $Res call({Object? isAvailable = null, Object? name = freezed}) {
     return _then(
       _$CheckNameResponseImpl(
-        available: null == available
-            ? _value.available
-            : available // ignore: cast_nullable_to_non_nullable
+        isAvailable: null == isAvailable
+            ? _value.isAvailable
+            : isAvailable // ignore: cast_nullable_to_non_nullable
                   as bool,
-        message: freezed == message
-            ? _value.message
-            : message // ignore: cast_nullable_to_non_nullable
+        name: freezed == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
                   as String?,
       ),
     );
@@ -280,22 +332,22 @@ class __$$CheckNameResponseImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CheckNameResponseImpl implements _CheckNameResponse {
-  const _$CheckNameResponseImpl({required this.available, this.message});
+  const _$CheckNameResponseImpl({required this.isAvailable, this.name});
 
   factory _$CheckNameResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$CheckNameResponseImplFromJson(json);
 
   /// 사용 가능 여부
   @override
-  final bool available;
+  final bool isAvailable;
 
-  /// 메시지 (사용 불가 시 이유)
+  /// 확인한 닉네임
   @override
-  final String? message;
+  final String? name;
 
   @override
   String toString() {
-    return 'CheckNameResponse(available: $available, message: $message)';
+    return 'CheckNameResponse(isAvailable: $isAvailable, name: $name)';
   }
 
   @override
@@ -303,14 +355,14 @@ class _$CheckNameResponseImpl implements _CheckNameResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CheckNameResponseImpl &&
-            (identical(other.available, available) ||
-                other.available == available) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.isAvailable, isAvailable) ||
+                other.isAvailable == isAvailable) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, available, message);
+  int get hashCode => Object.hash(runtimeType, isAvailable, name);
 
   /// Create a copy of CheckNameResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -331,8 +383,8 @@ class _$CheckNameResponseImpl implements _CheckNameResponse {
 
 abstract class _CheckNameResponse implements CheckNameResponse {
   const factory _CheckNameResponse({
-    required final bool available,
-    final String? message,
+    required final bool isAvailable,
+    final String? name,
   }) = _$CheckNameResponseImpl;
 
   factory _CheckNameResponse.fromJson(Map<String, dynamic> json) =
@@ -340,11 +392,11 @@ abstract class _CheckNameResponse implements CheckNameResponse {
 
   /// 사용 가능 여부
   @override
-  bool get available;
+  bool get isAvailable;
 
-  /// 메시지 (사용 불가 시 이유)
+  /// 확인한 닉네임
   @override
-  String? get message;
+  String? get name;
 
   /// Create a copy of CheckNameResponse
   /// with the given fields replaced by the non-null parameter values.

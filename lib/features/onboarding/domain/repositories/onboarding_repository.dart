@@ -22,12 +22,19 @@ abstract class OnboardingRepository {
   /// 성별 제출
   ///
   /// [gender]: 성별 (Gender enum)
-  Future<void> submitGender(Gender gender);
+  /// Returns: 백엔드 자동 생성 임시 닉네임 (없으면 null)
+  Future<String?> submitGender(Gender gender);
 
   /// 프로필(닉네임) 제출
   ///
   /// [name]: 닉네임
-  Future<void> submitProfile(String name);
+  /// [gender]: 성별 (선택)
+  /// [birthDate]: 생년월일 (선택)
+  Future<void> submitProfile(
+    String name, {
+    Gender? gender,
+    DateTime? birthDate,
+  });
 
   /// 닉네임 중복 확인
   ///
