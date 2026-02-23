@@ -1,11 +1,37 @@
 {
   "metadata": {
-    "lastUpdated": "2026-02-23T08:10:23Z",
-    "currentVersion": "1.0.45",
+    "lastUpdated": "2026-02-23T09:58:25Z",
+    "currentVersion": "1.0.49",
     "projectType": "flutter",
-    "totalReleases": 15
+    "totalReleases": 16
   },
   "releases": [
+    {
+      "version": "1.0.49",
+      "project_type": "flutter",
+      "date": "2026-02-23",
+      "pr_number": 51,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트 (v1.0.49)\n\n* **새로운 기능**\n  * 저장된 장소를 폴더로 정리하는 기능 추가\n  * 장소 평점 및 사진 갤러리 표시\n  * 콘텐츠 피드 개선 (최신/내 콘텐츠 탭)\n  * 로그인 및 스플래시 화면 애니메이션 적용\n\n* **개선사항**\n  * 홈 화면 UI 레이아웃 최적화\n  * 장소 정보 표시 개선",
+      "parsed_changes": {
+        "새로운_기능": {
+          "title": "새로운 기능",
+          "items": [
+            "저장된 장소를 폴더로 정리하는 기능 추가",
+            "장소 평점 및 사진 갤러리 표시",
+            "콘텐츠 피드 개선 (최신/내 콘텐츠 탭)",
+            "로그인 및 스플래시 화면 애니메이션 적용"
+          ]
+        },
+        "개선사항": {
+          "title": "개선사항",
+          "items": [
+            "홈 화면 UI 레이아웃 최적화",
+            "장소 정보 표시 개선"
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "1.0.45",
       "project_type": "flutter",
