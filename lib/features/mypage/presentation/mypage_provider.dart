@@ -120,11 +120,15 @@ class NicknameEditState {
 
   NicknameEditState copyWith({
     bool? isLoading,
-    String? errorMessage,
+    Object? errorMessage = _sentinel,
   }) {
     return NicknameEditState(
       isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage,
+      errorMessage: errorMessage == _sentinel
+          ? this.errorMessage
+          : errorMessage as String?,
     );
   }
 }
+
+const _sentinel = Object();

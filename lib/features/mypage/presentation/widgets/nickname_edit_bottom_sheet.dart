@@ -113,10 +113,10 @@ class _NicknameEditBottomSheetState
             autofocus: true,
             maxLength: 20,
             onChanged: (_) => setState(() {}),
-            style: TextStyle(fontSize: 16.sp, color: AppColors.gray900),
+            style: AppTextStyles.label.copyWith(color: AppColors.gray900),
             decoration: InputDecoration(
               hintText: '닉네임 입력 (2-20자)',
-              hintStyle: TextStyle(color: AppColors.gray400, fontSize: 16.sp),
+              hintStyle: AppTextStyles.label.copyWith(color: AppColors.gray400),
               filled: true,
               fillColor: AppColors.gray50,
               border: OutlineInputBorder(
@@ -150,7 +150,7 @@ class _NicknameEditBottomSheetState
                 Expanded(
                   child: Text(
                     editState.errorMessage!,
-                    style: TextStyle(fontSize: 12.sp, color: AppColors.error),
+                    style: AppTextStyles.calloutSmall.copyWith(color: AppColors.error),
                   ),
                 ),
               ],
