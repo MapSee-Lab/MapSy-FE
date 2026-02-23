@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../common/constants/home_colors.dart';
 
-/// 빈 상태 위젯
+/// 빈 상태 위젯 (씀 스타일: 미니멀)
 class HomeEmptyState extends StatelessWidget {
   final String message;
 
@@ -21,16 +21,16 @@ class HomeEmptyState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              Icons.explore_off_outlined,
-              size: 64.sp,
-              color: HomeColors.iconSecondary,
+              Icons.explore_outlined,
+              size: 48.sp,
+              color: HomeColors.textDisabled,
             ),
             SizedBox(height: 16.h),
             Text(
               message,
               style: TextStyle(
                 color: HomeColors.textSecondary,
-                fontSize: 15.sp,
+                fontSize: 14.sp,
               ),
               textAlign: TextAlign.center,
             ),

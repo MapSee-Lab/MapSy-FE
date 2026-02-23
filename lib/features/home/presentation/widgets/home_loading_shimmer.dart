@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../common/constants/home_colors.dart';
 
-/// 홈 화면 로딩 스켈레톤
+/// 홈 화면 로딩 스켈레톤 (씀 스타일)
 class HomeLoadingShimmer extends StatelessWidget {
   const HomeLoadingShimmer({super.key});
 
@@ -11,90 +11,52 @@ class HomeLoadingShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // 최신 장소 스켈레톤 (카드 3개)
-        ...List.generate(3, (_) => _buildCardShimmer()),
-        SizedBox(height: 24.h),
-        // 인기 장소 섹션 타이틀 스켈레톤
-        _buildSectionTitleShimmer(),
-        SizedBox(height: 12.h),
-        // 인기 장소 그리드 스켈레톤
-        _buildGridShimmer(),
-      ],
+      children: List.generate(3, (_) => _buildCardShimmer()),
     );
   }
 
   Widget _buildCardShimmer() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: HomeColors.shimmerBase,
-        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: HomeColors.cardBorder, width: 1),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 썸네일 영역
-          Container(
-            height: 180.h,
-            decoration: BoxDecoration(
-              color: HomeColors.shimmerHighlight,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
-            ),
+          // 썸네일 영역 (3:2)
+          AspectRatio(
+            aspectRatio: 3 / 2,
+            child: Container(color: HomeColors.shimmerHighlight),
           ),
           // 텍스트 영역
           Padding(
-            padding: EdgeInsets.all(12.w),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   height: 16.h,
                   width: 160.w,
-                  color: HomeColors.shimmerHighlight,
+                  decoration: BoxDecoration(
+                    color: HomeColors.shimmerHighlight,
+                    borderRadius: BorderRadius.circular(2.r),
+                  ),
                 ),
                 SizedBox(height: 8.h),
                 Container(
                   height: 12.h,
                   width: 120.w,
-                  color: HomeColors.shimmerHighlight,
+                  decoration: BoxDecoration(
+                    color: HomeColors.shimmerHighlight,
+                    borderRadius: BorderRadius.circular(2.r),
+                  ),
                 ),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildSectionTitleShimmer() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: Container(
-        height: 20.h,
-        width: 140.w,
-        color: HomeColors.shimmerHighlight,
-      ),
-    );
-  }
-
-  Widget _buildGridShimmer() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: GridView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 4.w,
-          mainAxisSpacing: 4.w,
-        ),
-        itemCount: 6,
-        itemBuilder: (_, __) => Container(
-          decoration: BoxDecoration(
-            color: HomeColors.shimmerHighlight,
-            borderRadius: BorderRadius.circular(8.r),
-          ),
-        ),
       ),
     );
   }

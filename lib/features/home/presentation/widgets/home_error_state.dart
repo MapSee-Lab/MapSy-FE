@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../common/constants/home_colors.dart';
 
-/// 에러 상태 위젯
+/// 에러 상태 위젯 (씀 스타일: 텍스트 중심, 아이콘 없음)
 class HomeErrorState extends StatelessWidget {
   final String message;
   final VoidCallback? onRetry;
 
   const HomeErrorState({
     super.key,
-    this.message = '데이터를 불러올 수 없습니다',
+    this.message = '불러오기에 실패했습니다',
     this.onRetry,
   });
 
@@ -22,30 +22,25 @@ class HomeErrorState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.error_outline,
-              size: 64.sp,
-              color: HomeColors.error,
-            ),
-            SizedBox(height: 16.h),
             Text(
               message,
               style: TextStyle(
                 color: HomeColors.textSecondary,
-                fontSize: 15.sp,
+                fontSize: 14.sp,
               ),
               textAlign: TextAlign.center,
             ),
             if (onRetry != null) ...[
               SizedBox(height: 16.h),
-              TextButton(
-                onPressed: onRetry,
-                style: TextButton.styleFrom(
-                  foregroundColor: HomeColors.retryButton,
-                ),
+              GestureDetector(
+                onTap: onRetry,
                 child: Text(
                   '다시 시도',
-                  style: TextStyle(fontSize: 14.sp),
+                  style: TextStyle(
+                    color: HomeColors.retryButton,
+                    fontSize: 14.sp,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
             ],
