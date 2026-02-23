@@ -1,11 +1,35 @@
 {
   "metadata": {
-    "lastUpdated": "2026-02-23T01:03:56Z",
-    "currentVersion": "1.0.39",
+    "lastUpdated": "2026-02-23T01:19:50Z",
+    "currentVersion": "1.0.40",
     "projectType": "flutter",
-    "totalReleases": 10
+    "totalReleases": 11
   },
   "releases": [
+    {
+      "version": "1.0.40",
+      "project_type": "flutter",
+      "date": "2026-02-23",
+      "pr_number": 37,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트\n\n* **New Features**\n  * GitHub 이슈 자동 생성 기능 추가: 버그, 기능 요청, 디자인, QA 등 이슈 유형을 분류하고 템플릿으로 자동 생성\n  * 원격 저장소 기반 브랜치 생성: 로컬 브랜치 없을 시 원격 브랜치에서 자동 추적 브랜치 생성\n\n* **Chores**\n  * 패키지 버전 업데이트 (v1.0.40)\n  * 메타데이터 및 빌드 정보 갱신",
+      "parsed_changes": {
+        "new_features": {
+          "title": "New Features",
+          "items": [
+            "GitHub 이슈 자동 생성 기능 추가: 버그, 기능 요청, 디자인, QA 등 이슈 유형을 분류하고 템플릿으로 자동 생성",
+            "원격 저장소 기반 브랜치 생성: 로컬 브랜치 없을 시 원격 브랜치에서 자동 추적 브랜치 생성"
+          ]
+        },
+        "chores": {
+          "title": "Chores",
+          "items": [
+            "패키지 버전 업데이트 (v1.0.40)",
+            "메타데이터 및 빌드 정보 갱신"
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "1.0.39",
       "project_type": "flutter",
