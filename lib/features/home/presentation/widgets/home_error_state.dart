@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/constants/home_colors.dart';
+import '../../../../common/constants/home_colors.dart';
 
 /// 에러 상태 위젯
 class HomeErrorState extends StatelessWidget {

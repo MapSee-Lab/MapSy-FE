@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/constants/home_colors.dart';
+import '../../../../common/constants/home_colors.dart';
 
 /// 홈 화면 로딩 스켈레톤
 class HomeLoadingShimmer extends StatelessWidget {

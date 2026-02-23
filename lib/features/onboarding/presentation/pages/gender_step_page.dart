@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/constants/app_colors.dart';
-import '../../../../router/route_paths.dart';
+import '../../../../common/constants/app_colors.dart';
+import '../../../../routing/route_paths.dart';
 import '../../data/models/gender_request.dart';
-import '../providers/onboarding_provider.dart';
+import '../onboarding_provider.dart';
 import '../widgets/onboarding_button.dart';
 import '../widgets/step_indicator.dart';
 

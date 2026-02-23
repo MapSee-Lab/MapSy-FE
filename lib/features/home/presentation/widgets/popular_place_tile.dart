@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/constants/home_colors.dart';
+import '../../../../common/constants/home_colors.dart';
 import '../../data/models/place_model.dart';
 
 /// 인기 장소 타일 (정사각형, 그리드용)

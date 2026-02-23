@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/constants/app_colors.dart';
+import '../../../../common/constants/app_colors.dart';
 
 /// 온보딩 공통 버튼
 class OnboardingButton extends StatelessWidget {

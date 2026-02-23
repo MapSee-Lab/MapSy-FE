@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/constants/home_colors.dart';
-import '../../../../router/route_paths.dart';
-import '../../../auth/presentation/providers/auth_provider.dart';
-import '../providers/home_provider.dart';
+import '../../../../common/constants/home_colors.dart';
+import '../../../../routing/route_paths.dart';
+import '../../../auth/presentation/auth_provider.dart';
+import '../home_provider.dart';
 import '../widgets/home_empty_state.dart';
 import '../widgets/home_error_state.dart';
 import '../widgets/home_loading_shimmer.dart';

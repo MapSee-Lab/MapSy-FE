@@ -7,9 +7,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'firebase_options.dart';
-import 'core/services/fcm/firebase_messaging_service.dart';
-import 'core/services/fcm/local_notifications_service.dart';
-import 'router/app_router.dart';
+import 'common/services/firebase_messaging_service.dart';
+import 'common/services/local_notifications_service.dart';
+import 'routing/app_router.dart';
 
 /// MapSy 앱 진입점
 /// Firebase, Crashlytics, FCM 초기화 후 앱 실행
