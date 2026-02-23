@@ -15,9 +15,7 @@ _$PlaceModelImpl _$$PlaceModelImplFromJson(Map<String, dynamic> json) =>
       longitude: (json['longitude'] as num?)?.toDouble(),
       category: json['category'] as String?,
       tags:
-          (json['tags'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
+          (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
           const [],
       imageUrl: json['imageUrl'] as String?,
       contentId: (json['contentId'] as num?)?.toInt(),

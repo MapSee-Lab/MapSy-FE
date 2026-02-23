@@ -15,9 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
   'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
 );
 
-ProfileUpdateRequest _$ProfileUpdateRequestFromJson(
-  Map<String, dynamic> json,
-) {
+ProfileUpdateRequest _$ProfileUpdateRequestFromJson(Map<String, dynamic> json) {
   return _ProfileUpdateRequest.fromJson(json);
 }
 
@@ -46,8 +44,10 @@ abstract class $ProfileUpdateRequestCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ProfileUpdateRequestCopyWithImpl<$Res,
-    $Val extends ProfileUpdateRequest>
+class _$ProfileUpdateRequestCopyWithImpl<
+  $Res,
+  $Val extends ProfileUpdateRequest
+>
     implements $ProfileUpdateRequestCopyWith<$Res> {
   _$ProfileUpdateRequestCopyWithImpl(this._value, this._then);
 
@@ -87,8 +87,7 @@ abstract class _$$ProfileUpdateRequestImplCopyWith<$Res>
 
 /// @nodoc
 class __$$ProfileUpdateRequestImplCopyWithImpl<$Res>
-    extends _$ProfileUpdateRequestCopyWithImpl<$Res,
-        _$ProfileUpdateRequestImpl>
+    extends _$ProfileUpdateRequestCopyWithImpl<$Res, _$ProfileUpdateRequestImpl>
     implements _$$ProfileUpdateRequestImplCopyWith<$Res> {
   __$$ProfileUpdateRequestImplCopyWithImpl(
     _$ProfileUpdateRequestImpl _value,
@@ -145,8 +144,11 @@ class _$ProfileUpdateRequestImpl implements _ProfileUpdateRequest {
   @override
   @pragma('vm:prefer-inline')
   _$$ProfileUpdateRequestImplCopyWith<_$ProfileUpdateRequestImpl>
-      get copyWith => __$$ProfileUpdateRequestImplCopyWithImpl<
-          _$ProfileUpdateRequestImpl>(this, _$identity);
+  get copyWith =>
+      __$$ProfileUpdateRequestImplCopyWithImpl<_$ProfileUpdateRequestImpl>(
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
@@ -169,5 +171,5 @@ abstract class _ProfileUpdateRequest implements ProfileUpdateRequest {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProfileUpdateRequestImplCopyWith<_$ProfileUpdateRequestImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

@@ -8,12 +8,8 @@ part of 'analyze_response.dart';
 
 _$AnalyzeResponseImpl _$$AnalyzeResponseImplFromJson(
   Map<String, dynamic> json,
-) => _$AnalyzeResponseImpl(
-      contentId: (json['contentId'] as num).toInt(),
-    );
+) => _$AnalyzeResponseImpl(contentId: (json['contentId'] as num).toInt());
 
 Map<String, dynamic> _$$AnalyzeResponseImplToJson(
   _$AnalyzeResponseImpl instance,
-) => <String, dynamic>{
-      'contentId': instance.contentId,
-    };
+) => <String, dynamic>{'contentId': instance.contentId};

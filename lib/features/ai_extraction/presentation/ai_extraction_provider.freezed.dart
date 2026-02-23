@@ -188,7 +188,9 @@ class __$$AiExtractionStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AiExtractionStateImpl implements _AiExtractionState {
+class _$AiExtractionStateImpl
+    with DiagnosticableTreeMixin
+    implements _AiExtractionState {
   const _$AiExtractionStateImpl({
     this.step = AiExtractionStep.input,
     this.url = '',
@@ -197,8 +199,8 @@ class _$AiExtractionStateImpl implements _AiExtractionState {
     final Set<int> selectedPlaceIds = const {},
     this.errorMessage,
     this.saveProgress = 0.0,
-  })  : _places = places,
-        _selectedPlaceIds = selectedPlaceIds;
+  }) : _places = places,
+       _selectedPlaceIds = selectedPlaceIds;
 
   @override
   @JsonKey()
@@ -208,9 +210,7 @@ class _$AiExtractionStateImpl implements _AiExtractionState {
   final String url;
   @override
   final int? contentId;
-
   final List<PlaceModel> _places;
-
   @override
   @JsonKey()
   List<PlaceModel> get places {
@@ -220,7 +220,6 @@ class _$AiExtractionStateImpl implements _AiExtractionState {
   }
 
   final Set<int> _selectedPlaceIds;
-
   @override
   @JsonKey()
   Set<int> get selectedPlaceIds {
@@ -236,8 +235,22 @@ class _$AiExtractionStateImpl implements _AiExtractionState {
   final double saveProgress;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AiExtractionState(step: $step, url: $url, contentId: $contentId, places: $places, selectedPlaceIds: $selectedPlaceIds, errorMessage: $errorMessage, saveProgress: $saveProgress)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AiExtractionState'))
+      ..add(DiagnosticsProperty('step', step))
+      ..add(DiagnosticsProperty('url', url))
+      ..add(DiagnosticsProperty('contentId', contentId))
+      ..add(DiagnosticsProperty('places', places))
+      ..add(DiagnosticsProperty('selectedPlaceIds', selectedPlaceIds))
+      ..add(DiagnosticsProperty('errorMessage', errorMessage))
+      ..add(DiagnosticsProperty('saveProgress', saveProgress));
   }
 
   @override
@@ -250,8 +263,10 @@ class _$AiExtractionStateImpl implements _AiExtractionState {
             (identical(other.contentId, contentId) ||
                 other.contentId == contentId) &&
             const DeepCollectionEquality().equals(other._places, _places) &&
-            const DeepCollectionEquality()
-                .equals(other._selectedPlaceIds, _selectedPlaceIds) &&
+            const DeepCollectionEquality().equals(
+              other._selectedPlaceIds,
+              _selectedPlaceIds,
+            ) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.saveProgress, saveProgress) ||

@@ -56,8 +56,10 @@ abstract class $ContentDetailResponseCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ContentDetailResponseCopyWithImpl<$Res,
-        $Val extends ContentDetailResponse>
+class _$ContentDetailResponseCopyWithImpl<
+  $Res,
+  $Val extends ContentDetailResponse
+>
     implements $ContentDetailResponseCopyWith<$Res> {
   _$ContentDetailResponseCopyWithImpl(this._value, this._then);
 
@@ -119,8 +121,8 @@ abstract class _$$ContentDetailResponseImplCopyWith<$Res>
 
 /// @nodoc
 class __$$ContentDetailResponseImplCopyWithImpl<$Res>
-    extends _$ContentDetailResponseCopyWithImpl<$Res,
-        _$ContentDetailResponseImpl>
+    extends
+        _$ContentDetailResponseCopyWithImpl<$Res, _$ContentDetailResponseImpl>
     implements _$$ContentDetailResponseImplCopyWith<$Res> {
   __$$ContentDetailResponseImplCopyWithImpl(
     _$ContentDetailResponseImpl _value,
@@ -181,9 +183,7 @@ class _$ContentDetailResponseImpl implements _ContentDetailResponse {
   final String status;
   @override
   final String? sourceUrl;
-
   final List<PlaceModel> _places;
-
   @override
   @JsonKey()
   List<PlaceModel> get places {
@@ -226,8 +226,11 @@ class _$ContentDetailResponseImpl implements _ContentDetailResponse {
   @override
   @pragma('vm:prefer-inline')
   _$$ContentDetailResponseImplCopyWith<_$ContentDetailResponseImpl>
-      get copyWith => __$$ContentDetailResponseImplCopyWithImpl<
-          _$ContentDetailResponseImpl>(this, _$identity);
+  get copyWith =>
+      __$$ContentDetailResponseImplCopyWithImpl<_$ContentDetailResponseImpl>(
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
@@ -262,5 +265,5 @@ abstract class _ContentDetailResponse implements ContentDetailResponse {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ContentDetailResponseImplCopyWith<_$ContentDetailResponseImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
