@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 // OnboardingStep은 통합 enum 사용
-export '../../domain/entities/onboarding_step.dart';
+export '../onboarding_step.dart';
 
 part 'sign_in_response.freezed.dart';
 part 'sign_in_response.g.dart';

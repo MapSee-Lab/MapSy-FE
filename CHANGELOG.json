@@ -1,11 +1,35 @@
 {
   "metadata": {
-    "lastUpdated": "2026-02-10T22:24:23Z",
-    "currentVersion": "1.0.32",
+    "lastUpdated": "2026-02-23T01:03:56Z",
+    "currentVersion": "1.0.39",
     "projectType": "flutter",
-    "totalReleases": 9
+    "totalReleases": 10
   },
   "releases": [
+    {
+      "version": "1.0.39",
+      "project_type": "flutter",
+      "date": "2026-02-23",
+      "pr_number": 35,
+      "raw_summary": "## Summary by CodeRabbit\n\n## Release Notes\n\n* **New Features**\n  * Home feed 리디자인 - 밝은 미니멀 테마와 탭 기반 네비게이션 적용\n  * 개선된 플레이스 카드 - 이미지, 태그, 주소 표시 및 페이지네이션 지원\n  * 로딩, 빈 상태, 오류 상태 UI 재설계\n\n* **Chores**\n  * 앱 버전 v1.0.39로 업데이트",
+      "parsed_changes": {
+        "new_features": {
+          "title": "New Features",
+          "items": [
+            "Home feed 리디자인 - 밝은 미니멀 테마와 탭 기반 네비게이션 적용",
+            "개선된 플레이스 카드 - 이미지, 태그, 주소 표시 및 페이지네이션 지원",
+            "로딩, 빈 상태, 오류 상태 UI 재설계"
+          ]
+        },
+        "chores": {
+          "title": "Chores",
+          "items": [
+            "앱 버전 v1.0.39로 업데이트"
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "1.0.32",
       "project_type": "flutter",

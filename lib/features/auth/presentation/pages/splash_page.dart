@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../router/route_paths.dart';
-import '../../domain/entities/onboarding_step.dart';
-import '../providers/auth_provider.dart';
+import '../../../../routing/route_paths.dart';
+import '../../data/onboarding_step.dart';
+import '../auth_provider.dart';
 
 /// 앱 시작 시 초기 화면
 ///

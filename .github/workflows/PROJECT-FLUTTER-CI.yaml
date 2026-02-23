@@ -69,7 +69,7 @@ on:
         default: true
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 # ============================================
@@ -283,6 +283,78 @@ jobs:
           flutter pub get
           echo "✅ Dependencies installed"
 
+      # 코드 생성 (Riverpod, Freezed, Retrofit 등)
+      - name: Run build_runner
+        run: |
+          echo "🔧 코드 생성 시작 (build_runner)..."
+          dart run build_runner build --delete-conflicting-outputs
+          echo "✅ 코드 생성 완료"
+
+      # 생성된 코드 파일을 현재 브랜치에 커밋
+      # - PR 이벤트: PR 소스 브랜치에 커밋 (로컬에서 pull 가능)
+      # - Push 이벤트: 푸시된 브랜치에 커밋
+      # - [skip ci]로 무한 루프 방지, 최대 5회 재시도로 race condition 방지
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 현재 이벤트에 따라 대상 브랜치 결정
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            TARGET_BRANCH="${{ github.head_ref }}"
+            echo "📌 PR 이벤트: 소스 브랜치 '$TARGET_BRANCH'에 커밋"
+            # PR 이벤트에서는 merge ref(refs/pull/N/merge)를 checkout하므로
+            # 실제 소스 브랜치로 전환 후 build_runner 재실행 필요
+            git fetch origin "$TARGET_BRANCH"
+            git checkout "$TARGET_BRANCH"
+            flutter pub get
+            dart run build_runner build --delete-conflicting-outputs
+          else
+            TARGET_BRANCH="${{ github.ref_name }}"
+            echo "📌 Push 이벤트: '$TARGET_BRANCH' 브랜치에 커밋"
+          fi
+
+          # 생성 파일 스테이징
+          git add "*.g.dart" "*.freezed.dart"
+
+          if git diff --cached --quiet; then
+            echo "ℹ️ 생성 파일 변경 없음, 커밋 스킵"
+            exit 0
+          fi
+
+          git commit -m "chore: update generated files (build_runner) [skip ci]"
+
+          # Race Condition 방지: pull-rebase 후 push (최대 5회 재시도)
+          MAX_RETRIES=5
+          RETRY_COUNT=0
+          PUSH_SUCCESS=false
+
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            RETRY_COUNT=$((RETRY_COUNT + 1))
+            echo "🔄 Push 시도 $RETRY_COUNT/$MAX_RETRIES..."
+
+            if git push origin HEAD:"$TARGET_BRANCH"; then
+              PUSH_SUCCESS=true
+              echo "✅ 생성 파일 커밋 완료 ($TARGET_BRANCH)"
+              break
+            else
+              echo "⚠️ Push 실패, remote 변경사항 동기화 중..."
+
+              if git pull --rebase origin "$TARGET_BRANCH"; then
+                echo "✅ Rebase 성공, 다시 push 시도..."
+              else
+                echo "❌ Rebase 실패, 충돌 해결 필요"
+                git rebase --abort 2>/dev/null || true
+                echo "⚠️ 생성 파일 커밋을 건너뜁니다 (수동 실행 필요)"
+                exit 0
+              fi
+            fi
+          done
+
+          if [ "$PUSH_SUCCESS" = false ]; then
+            echo "⚠️ $MAX_RETRIES회 시도 후에도 push 실패, 생성 파일 커밋을 건너뜁니다"
+          fi
+
       # Flutter Analyze 실행
       - name: Run Flutter Analyze
         id: analyze
@@ -381,6 +453,13 @@ jobs:
         run: |
           flutter pub get
           echo "✅ Dependencies installed"
+
+      # 코드 생성 (Riverpod, Freezed, Retrofit 등)
+      - name: Run build_runner
+        run: |
+          echo "🔧 코드 생성 시작 (build_runner)..."
+          dart run build_runner build --delete-conflicting-outputs
+          echo "✅ 코드 생성 완료"
 
       # Java 설정
       - name: Set up Java
@@ -492,6 +571,13 @@ jobs:
         run: |
           flutter pub get
           echo "✅ Dependencies installed"
+
+      # 코드 생성 (Riverpod, Freezed, Retrofit 등)
+      - name: Run build_runner
+        run: |
+          echo "🔧 코드 생성 시작 (build_runner)..."
+          dart run build_runner build --delete-conflicting-outputs
+          echo "✅ 코드 생성 완료"
 
       # Ruby 및 CocoaPods 설정
       - name: Set up Ruby
