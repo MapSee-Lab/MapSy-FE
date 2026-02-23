@@ -86,7 +86,7 @@ class PlaceResultSection extends StatelessWidget {
           child: ListView.separated(
             padding: EdgeInsets.symmetric(vertical: 8.h),
             itemCount: places.length,
-            separatorBuilder: (_, __) => Divider(
+            separatorBuilder: (_, _) => Divider(
               color: HomeColors.divider,
               height: 1,
               indent: 20.w,
@@ -207,7 +207,7 @@ class _PlaceSelectItem extends StatelessWidget {
                     ? Image.network(
                         place.imageUrl!,
                         fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => Icon(
+                        errorBuilder: (_, _, _) => Icon(
                           Icons.place,
                           color: HomeColors.textDisabled,
                           size: 24.sp,

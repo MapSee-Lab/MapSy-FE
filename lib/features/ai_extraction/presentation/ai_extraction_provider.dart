@@ -7,7 +7,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../common/models/place_model.dart';
 import '../data/ai_extraction_repository_impl.dart';
 import '../data/models/analyze_request.dart';
-import '../data/models/content_detail_response.dart';
 
 part 'ai_extraction_provider.freezed.dart';
 part 'ai_extraction_provider.g.dart';

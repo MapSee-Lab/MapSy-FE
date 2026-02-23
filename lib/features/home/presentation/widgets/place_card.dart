@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../common/constants/home_colors.dart';
-import 'package:mapsy_flutter/common/models/place_model.dart';
+import '../../../../common/models/place_model.dart';
 
 /// 장소 카드 (씀 스타일: 직각 보더, 넓은 여백)
 class PlaceCard extends StatelessWidget {
@@ -98,7 +98,7 @@ class PlaceCard extends StatelessWidget {
       return Image.network(
         place.imageUrl!,
         fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) => _buildPlaceholder(),
+        errorBuilder: (_, _, _) => _buildPlaceholder(),
       );
     }
     return _buildPlaceholder();
