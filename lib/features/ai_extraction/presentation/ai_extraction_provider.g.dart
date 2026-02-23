@@ -7,7 +7,7 @@ part of 'ai_extraction_provider.dart';
 // **************************************************************************
 
 String _$aiExtractionNotifierHash() =>
-    r'd294d9e09204287c142dc5f7892db33f4ce50b32';
+    r'61cc42f75470f2b444aee6dd8202a1608fd23510';
 
 /// AI 추출 화면 Notifier
 ///

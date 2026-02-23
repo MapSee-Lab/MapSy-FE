@@ -21,32 +21,26 @@ PlaceModel _$PlaceModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PlaceModel {
-  /// 장소 ID
-  int get placeId => throw _privateConstructorUsedError;
+  /// 장소 ID (UUID)
+  String get placeId => throw _privateConstructorUsedError;
 
   /// 장소명
-  String get placeName => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
 
   /// 주소
   String? get address => throw _privateConstructorUsedError;
 
-  /// 위도
-  double? get latitude => throw _privateConstructorUsedError;
+  /// 평점 (0.0 ~ 5.0)
+  double? get rating => throw _privateConstructorUsedError;
 
-  /// 경도
-  double? get longitude => throw _privateConstructorUsedError;
+  /// 리뷰 수
+  int? get userRatingsTotal => throw _privateConstructorUsedError;
 
-  /// 카테고리
-  String? get category => throw _privateConstructorUsedError;
+  /// 사진 URL 배열 (최대 10개)
+  List<String> get photoUrls => throw _privateConstructorUsedError;
 
-  /// 태그 목록
-  List<String> get tags => throw _privateConstructorUsedError;
-
-  /// 대표 이미지 URL
-  String? get imageUrl => throw _privateConstructorUsedError;
-
-  /// 콘텐츠 ID (상위 콘텐츠)
-  int? get contentId => throw _privateConstructorUsedError;
+  /// 장소 요약 설명
+  String? get description => throw _privateConstructorUsedError;
 
   /// Serializes this PlaceModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -66,15 +60,13 @@ abstract class $PlaceModelCopyWith<$Res> {
   ) = _$PlaceModelCopyWithImpl<$Res, PlaceModel>;
   @useResult
   $Res call({
-    int placeId,
-    String placeName,
+    String placeId,
+    String name,
     String? address,
-    double? latitude,
-    double? longitude,
-    String? category,
-    List<String> tags,
-    String? imageUrl,
-    int? contentId,
+    double? rating,
+    int? userRatingsTotal,
+    List<String> photoUrls,
+    String? description,
   });
 }
 
@@ -94,53 +86,43 @@ class _$PlaceModelCopyWithImpl<$Res, $Val extends PlaceModel>
   @override
   $Res call({
     Object? placeId = null,
-    Object? placeName = null,
+    Object? name = null,
     Object? address = freezed,
-    Object? latitude = freezed,
-    Object? longitude = freezed,
-    Object? category = freezed,
-    Object? tags = null,
-    Object? imageUrl = freezed,
-    Object? contentId = freezed,
+    Object? rating = freezed,
+    Object? userRatingsTotal = freezed,
+    Object? photoUrls = null,
+    Object? description = freezed,
   }) {
     return _then(
       _value.copyWith(
             placeId: null == placeId
                 ? _value.placeId
                 : placeId // ignore: cast_nullable_to_non_nullable
-                      as int,
-            placeName: null == placeName
-                ? _value.placeName
-                : placeName // ignore: cast_nullable_to_non_nullable
+                      as String,
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
                       as String,
             address: freezed == address
                 ? _value.address
                 : address // ignore: cast_nullable_to_non_nullable
                       as String?,
-            latitude: freezed == latitude
-                ? _value.latitude
-                : latitude // ignore: cast_nullable_to_non_nullable
+            rating: freezed == rating
+                ? _value.rating
+                : rating // ignore: cast_nullable_to_non_nullable
                       as double?,
-            longitude: freezed == longitude
-                ? _value.longitude
-                : longitude // ignore: cast_nullable_to_non_nullable
-                      as double?,
-            category: freezed == category
-                ? _value.category
-                : category // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            tags: null == tags
-                ? _value.tags
-                : tags // ignore: cast_nullable_to_non_nullable
-                      as List<String>,
-            imageUrl: freezed == imageUrl
-                ? _value.imageUrl
-                : imageUrl // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            contentId: freezed == contentId
-                ? _value.contentId
-                : contentId // ignore: cast_nullable_to_non_nullable
+            userRatingsTotal: freezed == userRatingsTotal
+                ? _value.userRatingsTotal
+                : userRatingsTotal // ignore: cast_nullable_to_non_nullable
                       as int?,
+            photoUrls: null == photoUrls
+                ? _value.photoUrls
+                : photoUrls // ignore: cast_nullable_to_non_nullable
+                      as List<String>,
+            description: freezed == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -157,15 +139,13 @@ abstract class _$$PlaceModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    int placeId,
-    String placeName,
+    String placeId,
+    String name,
     String? address,
-    double? latitude,
-    double? longitude,
-    String? category,
-    List<String> tags,
-    String? imageUrl,
-    int? contentId,
+    double? rating,
+    int? userRatingsTotal,
+    List<String> photoUrls,
+    String? description,
   });
 }
 
@@ -184,53 +164,43 @@ class __$$PlaceModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? placeId = null,
-    Object? placeName = null,
+    Object? name = null,
     Object? address = freezed,
-    Object? latitude = freezed,
-    Object? longitude = freezed,
-    Object? category = freezed,
-    Object? tags = null,
-    Object? imageUrl = freezed,
-    Object? contentId = freezed,
+    Object? rating = freezed,
+    Object? userRatingsTotal = freezed,
+    Object? photoUrls = null,
+    Object? description = freezed,
   }) {
     return _then(
       _$PlaceModelImpl(
         placeId: null == placeId
             ? _value.placeId
             : placeId // ignore: cast_nullable_to_non_nullable
-                  as int,
-        placeName: null == placeName
-            ? _value.placeName
-            : placeName // ignore: cast_nullable_to_non_nullable
+                  as String,
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
                   as String,
         address: freezed == address
             ? _value.address
             : address // ignore: cast_nullable_to_non_nullable
                   as String?,
-        latitude: freezed == latitude
-            ? _value.latitude
-            : latitude // ignore: cast_nullable_to_non_nullable
+        rating: freezed == rating
+            ? _value.rating
+            : rating // ignore: cast_nullable_to_non_nullable
                   as double?,
-        longitude: freezed == longitude
-            ? _value.longitude
-            : longitude // ignore: cast_nullable_to_non_nullable
-                  as double?,
-        category: freezed == category
-            ? _value.category
-            : category // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        tags: null == tags
-            ? _value._tags
-            : tags // ignore: cast_nullable_to_non_nullable
-                  as List<String>,
-        imageUrl: freezed == imageUrl
-            ? _value.imageUrl
-            : imageUrl // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        contentId: freezed == contentId
-            ? _value.contentId
-            : contentId // ignore: cast_nullable_to_non_nullable
+        userRatingsTotal: freezed == userRatingsTotal
+            ? _value.userRatingsTotal
+            : userRatingsTotal // ignore: cast_nullable_to_non_nullable
                   as int?,
+        photoUrls: null == photoUrls
+            ? _value._photoUrls
+            : photoUrls // ignore: cast_nullable_to_non_nullable
+                  as List<String>,
+        description: freezed == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -241,66 +211,56 @@ class __$$PlaceModelImplCopyWithImpl<$Res>
 class _$PlaceModelImpl implements _PlaceModel {
   const _$PlaceModelImpl({
     required this.placeId,
-    required this.placeName,
+    required this.name,
     this.address,
-    this.latitude,
-    this.longitude,
-    this.category,
-    final List<String> tags = const [],
-    this.imageUrl,
-    this.contentId,
-  }) : _tags = tags;
+    this.rating,
+    this.userRatingsTotal,
+    final List<String> photoUrls = const [],
+    this.description,
+  }) : _photoUrls = photoUrls;
 
   factory _$PlaceModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PlaceModelImplFromJson(json);
 
-  /// 장소 ID
+  /// 장소 ID (UUID)
   @override
-  final int placeId;
+  final String placeId;
 
   /// 장소명
   @override
-  final String placeName;
+  final String name;
 
   /// 주소
   @override
   final String? address;
 
-  /// 위도
+  /// 평점 (0.0 ~ 5.0)
   @override
-  final double? latitude;
+  final double? rating;
 
-  /// 경도
+  /// 리뷰 수
   @override
-  final double? longitude;
+  final int? userRatingsTotal;
 
-  /// 카테고리
-  @override
-  final String? category;
+  /// 사진 URL 배열 (최대 10개)
+  final List<String> _photoUrls;
 
-  /// 태그 목록
-  final List<String> _tags;
-
-  /// 태그 목록
+  /// 사진 URL 배열 (최대 10개)
   @override
   @JsonKey()
-  List<String> get tags {
-    if (_tags is EqualUnmodifiableListView) return _tags;
+  List<String> get photoUrls {
+    if (_photoUrls is EqualUnmodifiableListView) return _photoUrls;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_tags);
+    return EqualUnmodifiableListView(_photoUrls);
   }
 
-  /// 대표 이미지 URL
+  /// 장소 요약 설명
   @override
-  final String? imageUrl;
-
-  /// 콘텐츠 ID (상위 콘텐츠)
-  @override
-  final int? contentId;
+  final String? description;
 
   @override
   String toString() {
-    return 'PlaceModel(placeId: $placeId, placeName: $placeName, address: $address, latitude: $latitude, longitude: $longitude, category: $category, tags: $tags, imageUrl: $imageUrl, contentId: $contentId)';
+    return 'PlaceModel(placeId: $placeId, name: $name, address: $address, rating: $rating, userRatingsTotal: $userRatingsTotal, photoUrls: $photoUrls, description: $description)';
   }
 
   @override
@@ -309,20 +269,17 @@ class _$PlaceModelImpl implements _PlaceModel {
         (other.runtimeType == runtimeType &&
             other is _$PlaceModelImpl &&
             (identical(other.placeId, placeId) || other.placeId == placeId) &&
-            (identical(other.placeName, placeName) ||
-                other.placeName == placeName) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.address, address) || other.address == address) &&
-            (identical(other.latitude, latitude) ||
-                other.latitude == latitude) &&
-            (identical(other.longitude, longitude) ||
-                other.longitude == longitude) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
-            const DeepCollectionEquality().equals(other._tags, _tags) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
-            (identical(other.contentId, contentId) ||
-                other.contentId == contentId));
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.userRatingsTotal, userRatingsTotal) ||
+                other.userRatingsTotal == userRatingsTotal) &&
+            const DeepCollectionEquality().equals(
+              other._photoUrls,
+              _photoUrls,
+            ) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -330,14 +287,12 @@ class _$PlaceModelImpl implements _PlaceModel {
   int get hashCode => Object.hash(
     runtimeType,
     placeId,
-    placeName,
+    name,
     address,
-    latitude,
-    longitude,
-    category,
-    const DeepCollectionEquality().hash(_tags),
-    imageUrl,
-    contentId,
+    rating,
+    userRatingsTotal,
+    const DeepCollectionEquality().hash(_photoUrls),
+    description,
   );
 
   /// Create a copy of PlaceModel
@@ -356,55 +311,45 @@ class _$PlaceModelImpl implements _PlaceModel {
 
 abstract class _PlaceModel implements PlaceModel {
   const factory _PlaceModel({
-    required final int placeId,
-    required final String placeName,
+    required final String placeId,
+    required final String name,
     final String? address,
-    final double? latitude,
-    final double? longitude,
-    final String? category,
-    final List<String> tags,
-    final String? imageUrl,
-    final int? contentId,
+    final double? rating,
+    final int? userRatingsTotal,
+    final List<String> photoUrls,
+    final String? description,
   }) = _$PlaceModelImpl;
 
   factory _PlaceModel.fromJson(Map<String, dynamic> json) =
       _$PlaceModelImpl.fromJson;
 
-  /// 장소 ID
+  /// 장소 ID (UUID)
   @override
-  int get placeId;
+  String get placeId;
 
   /// 장소명
   @override
-  String get placeName;
+  String get name;
 
   /// 주소
   @override
   String? get address;
 
-  /// 위도
+  /// 평점 (0.0 ~ 5.0)
   @override
-  double? get latitude;
+  double? get rating;
 
-  /// 경도
+  /// 리뷰 수
   @override
-  double? get longitude;
+  int? get userRatingsTotal;
 
-  /// 카테고리
+  /// 사진 URL 배열 (최대 10개)
   @override
-  String? get category;
+  List<String> get photoUrls;
 
-  /// 태그 목록
+  /// 장소 요약 설명
   @override
-  List<String> get tags;
-
-  /// 대표 이미지 URL
-  @override
-  String? get imageUrl;
-
-  /// 콘텐츠 ID (상위 콘텐츠)
-  @override
-  int? get contentId;
+  String? get description;
 
   /// Create a copy of PlaceModel
   /// with the given fields replaced by the non-null parameter values.

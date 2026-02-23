@@ -22,7 +22,7 @@ AnalyzeRequest _$AnalyzeRequestFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AnalyzeRequest {
   /// SNS URL (Instagram, YouTube)
-  String get sourceUrl => throw _privateConstructorUsedError;
+  String get snsUrl => throw _privateConstructorUsedError;
 
   /// Serializes this AnalyzeRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ abstract class $AnalyzeRequestCopyWith<$Res> {
     $Res Function(AnalyzeRequest) then,
   ) = _$AnalyzeRequestCopyWithImpl<$Res, AnalyzeRequest>;
   @useResult
-  $Res call({String sourceUrl});
+  $Res call({String snsUrl});
 }
 
 /// @nodoc
@@ -58,12 +58,12 @@ class _$AnalyzeRequestCopyWithImpl<$Res, $Val extends AnalyzeRequest>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? sourceUrl = null}) {
+  $Res call({Object? snsUrl = null}) {
     return _then(
       _value.copyWith(
-            sourceUrl: null == sourceUrl
-                ? _value.sourceUrl
-                : sourceUrl // ignore: cast_nullable_to_non_nullable
+            snsUrl: null == snsUrl
+                ? _value.snsUrl
+                : snsUrl // ignore: cast_nullable_to_non_nullable
                       as String,
           )
           as $Val,
@@ -80,7 +80,7 @@ abstract class _$$AnalyzeRequestImplCopyWith<$Res>
   ) = __$$AnalyzeRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String sourceUrl});
+  $Res call({String snsUrl});
 }
 
 /// @nodoc
@@ -96,12 +96,12 @@ class __$$AnalyzeRequestImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? sourceUrl = null}) {
+  $Res call({Object? snsUrl = null}) {
     return _then(
       _$AnalyzeRequestImpl(
-        sourceUrl: null == sourceUrl
-            ? _value.sourceUrl
-            : sourceUrl // ignore: cast_nullable_to_non_nullable
+        snsUrl: null == snsUrl
+            ? _value.snsUrl
+            : snsUrl // ignore: cast_nullable_to_non_nullable
                   as String,
       ),
     );
@@ -111,18 +111,18 @@ class __$$AnalyzeRequestImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AnalyzeRequestImpl implements _AnalyzeRequest {
-  const _$AnalyzeRequestImpl({required this.sourceUrl});
+  const _$AnalyzeRequestImpl({required this.snsUrl});
 
   factory _$AnalyzeRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$AnalyzeRequestImplFromJson(json);
 
   /// SNS URL (Instagram, YouTube)
   @override
-  final String sourceUrl;
+  final String snsUrl;
 
   @override
   String toString() {
-    return 'AnalyzeRequest(sourceUrl: $sourceUrl)';
+    return 'AnalyzeRequest(snsUrl: $snsUrl)';
   }
 
   @override
@@ -130,13 +130,12 @@ class _$AnalyzeRequestImpl implements _AnalyzeRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AnalyzeRequestImpl &&
-            (identical(other.sourceUrl, sourceUrl) ||
-                other.sourceUrl == sourceUrl));
+            (identical(other.snsUrl, snsUrl) || other.snsUrl == snsUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, sourceUrl);
+  int get hashCode => Object.hash(runtimeType, snsUrl);
 
   /// Create a copy of AnalyzeRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -156,7 +155,7 @@ class _$AnalyzeRequestImpl implements _AnalyzeRequest {
 }
 
 abstract class _AnalyzeRequest implements AnalyzeRequest {
-  const factory _AnalyzeRequest({required final String sourceUrl}) =
+  const factory _AnalyzeRequest({required final String snsUrl}) =
       _$AnalyzeRequestImpl;
 
   factory _AnalyzeRequest.fromJson(Map<String, dynamic> json) =
@@ -164,7 +163,7 @@ abstract class _AnalyzeRequest implements AnalyzeRequest {
 
   /// SNS URL (Instagram, YouTube)
   @override
-  String get sourceUrl;
+  String get snsUrl;
 
   /// Create a copy of AnalyzeRequest
   /// with the given fields replaced by the non-null parameter values.

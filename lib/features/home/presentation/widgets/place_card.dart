@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../common/constants/home_colors.dart';
+import '../../../../common/constants/text_styles.dart';
 import '../../../../common/models/place_model.dart';
 
 /// 장소 카드 (씀 스타일: 직각 보더, 넓은 여백)
@@ -35,53 +36,51 @@ class PlaceCard extends StatelessWidget {
                 children: [
                   // 장소명
                   Text(
-                    place.placeName,
-                    style: TextStyle(
+                    place.name,
+                    style: AppTextStyles.label.copyWith(
                       color: HomeColors.textPrimary,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   if (place.address != null) ...[
                     SizedBox(height: 4.h),
-                    // 주소
                     Text(
                       place.address!,
-                      style: TextStyle(
+                      style: AppTextStyles.paragraph.copyWith(
                         color: HomeColors.textSecondary,
-                        fontSize: 13.sp,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
-                  if (place.tags.isNotEmpty) ...[
+                  if (place.rating != null) ...[
                     SizedBox(height: 8.h),
-                    // 태그
-                    Wrap(
-                      spacing: 6.w,
-                      runSpacing: 4.h,
-                      children: place.tags.take(3).map((tag) {
-                        return Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 4.h,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.star_rounded,
+                          size: 14.sp,
+                          color: HomeColors.starRating,
+                        ),
+                        SizedBox(width: 2.w),
+                        Text(
+                          place.rating!.toStringAsFixed(1),
+                          style: AppTextStyles.callout.copyWith(
+                            color: HomeColors.textPrimary,
+                            fontWeight: FontWeight.w500,
                           ),
-                          decoration: BoxDecoration(
-                            color: HomeColors.tagBackground,
-                            borderRadius: BorderRadius.circular(100.r),
-                          ),
-                          child: Text(
-                            '#$tag',
-                            style: TextStyle(
-                              color: HomeColors.tagText,
-                              fontSize: 12.sp,
+                        ),
+                        if (place.userRatingsTotal != null) ...[
+                          SizedBox(width: 4.w),
+                          Text(
+                            '(${place.userRatingsTotal})',
+                            style: AppTextStyles.calloutSmall.copyWith(
+                              color: HomeColors.textSecondary,
                             ),
                           ),
-                        );
-                      }).toList(),
+                        ],
+                      ],
                     ),
                   ],
                 ],
@@ -94,9 +93,9 @@ class PlaceCard extends StatelessWidget {
   }
 
   Widget _buildThumbnail() {
-    if (place.imageUrl != null && place.imageUrl!.isNotEmpty) {
+    if (place.photoUrls.isNotEmpty) {
       return Image.network(
-        place.imageUrl!,
+        place.photoUrls.first,
         fit: BoxFit.cover,
         errorBuilder: (_, _, _) => _buildPlaceholder(),
       );

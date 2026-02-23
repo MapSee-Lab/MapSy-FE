@@ -27,9 +27,9 @@ class AiExtractionState with _$AiExtractionState {
   const factory AiExtractionState({
     @Default(AiExtractionStep.input) AiExtractionStep step,
     @Default('') String url,
-    int? contentId,
+    String? contentId,
     @Default([]) List<PlaceModel> places,
-    @Default({}) Set<int> selectedPlaceIds,
+    @Default({}) Set<String> selectedPlaceIds,
     String? errorMessage,
     @Default(0.0) double saveProgress,
   }) = _AiExtractionState;
@@ -81,7 +81,7 @@ class AiExtractionNotifier extends _$AiExtractionNotifier {
     try {
       final repository = ref.read(aiExtractionRepositoryProvider);
       final response = await repository.analyze(
-        AnalyzeRequest(sourceUrl: trimmedUrl),
+        AnalyzeRequest(snsUrl: trimmedUrl),
       );
 
       if (_disposed) return;
@@ -97,7 +97,7 @@ class AiExtractionNotifier extends _$AiExtractionNotifier {
     }
   }
 
-  void _startPolling(int contentId) {
+  void _startPolling(String contentId) {
     int attempts = 0;
     int consecutiveFailures = 0;
     const maxAttempts = 60;
@@ -135,7 +135,7 @@ class AiExtractionNotifier extends _$AiExtractionNotifier {
 
           consecutiveFailures = 0;
 
-          if (detail.status.toUpperCase() == 'COMPLETED') {
+          if (detail.content.status.toUpperCase() == 'COMPLETED') {
             timer.cancel();
             final allPlaceIds = detail.places.map((p) => p.placeId).toSet();
             state = state.copyWith(
@@ -143,7 +143,7 @@ class AiExtractionNotifier extends _$AiExtractionNotifier {
               places: detail.places,
               selectedPlaceIds: allPlaceIds,
             );
-          } else if (detail.status.toUpperCase() == 'FAILED') {
+          } else if (detail.content.status.toUpperCase() == 'FAILED') {
             timer.cancel();
             state = state.copyWith(
               step: AiExtractionStep.error,
@@ -166,8 +166,8 @@ class AiExtractionNotifier extends _$AiExtractionNotifier {
     );
   }
 
-  void togglePlace(int placeId) {
-    final selected = Set<int>.from(state.selectedPlaceIds);
+  void togglePlace(String placeId) {
+    final selected = Set<String>.from(state.selectedPlaceIds);
     if (selected.contains(placeId)) {
       selected.remove(placeId);
     } else {
@@ -196,7 +196,7 @@ class AiExtractionNotifier extends _$AiExtractionNotifier {
     try {
       final repository = ref.read(aiExtractionRepositoryProvider);
       final placeIds = state.selectedPlaceIds.toList();
-      final failedIds = <int>[];
+      final failedIds = <String>[];
 
       for (int i = 0; i < placeIds.length; i++) {
         try {

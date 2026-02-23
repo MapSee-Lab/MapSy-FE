@@ -75,6 +75,9 @@ class RoutePaths {
   /// 마이페이지 - 개인정보처리방침
   static const String mypagePrivacyPolicy = '/mypage/privacy-policy';
 
+  /// 마이페이지 - 저장 장소 (폴더 관리)
+  static const String mypageSavedPlaces = '/mypage/saved-places';
+
   // ============================================================================
   // AI Extraction Routes
   // ============================================================================
@@ -101,4 +104,5 @@ class RoutePaths {
   static const String mypageTermsName = 'mypage-terms';
   static const String mypagePrivacyPolicyName = 'mypage-privacy-policy';
   static const String aiExtractionName = 'ai-extraction';
+  static const String mypageSavedPlacesName = 'mypage-saved-places';
 }

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../common/models/place_model.dart';
+import '../data/models/content_response.dart';
 import '../data/home_repository_impl.dart';
 
 part 'home_provider.freezed.dart';
@@ -12,26 +12,17 @@ part 'home_provider.g.dart';
 @freezed
 class HomeState with _$HomeState {
   const factory HomeState({
-    /// 최신 장소 목록
-    @Default([]) List<PlaceModel> recentPlaces,
+    /// 최근 콘텐츠 목록
+    @Default([]) List<ContentItemModel> recentContents,
 
-    /// 인기 장소 목록
-    @Default([]) List<PlaceModel> popularPlaces,
+    /// 회원 콘텐츠 목록
+    @Default([]) List<ContentItemModel> memberContents,
 
-    /// 최신 장소 로딩 중
+    /// 최근 콘텐츠 로딩 중
     @Default(false) bool isLoadingRecent,
 
-    /// 인기 장소 로딩 중
-    @Default(false) bool isLoadingPopular,
-
-    /// 추가 로딩 중 (무한 스크롤)
-    @Default(false) bool isLoadingMore,
-
-    /// 다음 페이지 커서 (최신 장소)
-    int? recentNextCursor,
-
-    /// 다음 페이지 존재 여부 (최신 장소)
-    @Default(true) bool recentHasNext,
+    /// 회원 콘텐츠 로딩 중
+    @Default(false) bool isLoadingMember,
 
     /// 에러 메시지
     String? errorMessage,
@@ -52,85 +43,50 @@ class HomeNotifier extends _$HomeNotifier {
 
   Future<void> _initialize() async {
     await Future.wait([
-      fetchRecentPlaces(),
-      fetchPopularPlaces(),
+      fetchRecentContents(),
+      fetchMemberContents(),
     ]);
     state = state.copyWith(isInitialized: true);
   }
 
-  /// 최신 장소 목록 조회 (초기 로드)
-  Future<void> fetchRecentPlaces() async {
+  /// 최근 콘텐츠 목록 조회
+  Future<void> fetchRecentContents() async {
     state = state.copyWith(isLoadingRecent: true, errorMessage: null);
 
     try {
       final repository = ref.read(homeRepositoryProvider);
       final response = await repository.getRecentContent();
 
-      final places =
-          response.content.expand((item) => item.places).toList();
-
       state = state.copyWith(
-        recentPlaces: places,
+        recentContents: response.contents,
         isLoadingRecent: false,
-        recentNextCursor: response.cursor?.nextCursor,
-        recentHasNext: response.cursor?.hasNext ?? false,
       );
     } catch (e) {
-      debugPrint('❌ HomeNotifier: Failed to fetch recent places: $e');
+      debugPrint('❌ HomeNotifier: Failed to fetch recent contents: $e');
       state = state.copyWith(
         isLoadingRecent: false,
-        errorMessage: '최신 장소를 불러올 수 없습니다',
+        errorMessage: '최신 콘텐츠를 불러올 수 없습니다',
       );
     }
   }
 
-  /// 최신 장소 추가 로드 (무한 스크롤)
-  Future<void> fetchMoreRecentPlaces() async {
-    if (!state.recentHasNext || state.isLoadingMore) return;
-
-    state = state.copyWith(isLoadingMore: true);
-
-    try {
-      final repository = ref.read(homeRepositoryProvider);
-      final response = await repository.getRecentContent(
-        cursor: state.recentNextCursor,
-      );
-
-      final newPlaces =
-          response.content.expand((item) => item.places).toList();
-
-      state = state.copyWith(
-        recentPlaces: [...state.recentPlaces, ...newPlaces],
-        isLoadingMore: false,
-        recentNextCursor: response.cursor?.nextCursor,
-        recentHasNext: response.cursor?.hasNext ?? false,
-      );
-    } catch (e) {
-      debugPrint('❌ HomeNotifier: Failed to fetch more places: $e');
-      state = state.copyWith(isLoadingMore: false);
-    }
-  }
-
-  /// 인기 장소 목록 조회
-  Future<void> fetchPopularPlaces() async {
-    state = state.copyWith(isLoadingPopular: true, errorMessage: null);
+  /// 회원 콘텐츠 목록 조회
+  Future<void> fetchMemberContents() async {
+    state = state.copyWith(isLoadingMember: true, errorMessage: null);
 
     try {
       final repository = ref.read(homeRepositoryProvider);
       final response = await repository.getMemberContent();
 
-      final places =
-          response.content.expand((item) => item.places).toList();
-
       state = state.copyWith(
-        popularPlaces: places,
-        isLoadingPopular: false,
+        memberContents: response.contentPage.content,
+        isLoadingMember: false,
       );
     } catch (e) {
-      debugPrint('❌ HomeNotifier: Failed to fetch popular places: $e');
+      debugPrint('❌ HomeNotifier: Failed to fetch member contents: $e');
       state = state.copyWith(
-        isLoadingPopular: false,
-        errorMessage: '인기 장소를 불러올 수 없습니다',
+        isLoadingMember: false,
+        errorMessage: '내 콘텐츠를 불러올 수 없습니다',
       );
     }
   }

@@ -90,4 +90,11 @@ class HomeColors {
 
   /// 재시도 버튼 색상
   static const Color retryButton = Color(0xFF1A1A1A);
+
+  // ============================================
+  // 평점 색상 (Rating Colors)
+  // ============================================
+
+  /// 별점 아이콘 색상
+  static const Color starRating = Color(0xFFFFC107);
 }

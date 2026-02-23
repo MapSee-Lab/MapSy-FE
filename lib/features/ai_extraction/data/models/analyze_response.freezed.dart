@@ -21,8 +21,14 @@ AnalyzeResponse _$AnalyzeResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AnalyzeResponse {
-  /// 폴링용 콘텐츠 ID
-  int get contentId => throw _privateConstructorUsedError;
+  /// 폴링용 콘텐츠 ID (UUID)
+  String get contentId => throw _privateConstructorUsedError;
+
+  /// 회원 ID (UUID)
+  String? get memberId => throw _privateConstructorUsedError;
+
+  /// 장소 추출 상태 (PENDING, ANALYZING, COMPLETED, FAILED, DELETED)
+  String? get status => throw _privateConstructorUsedError;
 
   /// Serializes this AnalyzeResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +47,7 @@ abstract class $AnalyzeResponseCopyWith<$Res> {
     $Res Function(AnalyzeResponse) then,
   ) = _$AnalyzeResponseCopyWithImpl<$Res, AnalyzeResponse>;
   @useResult
-  $Res call({int contentId});
+  $Res call({String contentId, String? memberId, String? status});
 }
 
 /// @nodoc
@@ -58,13 +64,25 @@ class _$AnalyzeResponseCopyWithImpl<$Res, $Val extends AnalyzeResponse>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? contentId = null}) {
+  $Res call({
+    Object? contentId = null,
+    Object? memberId = freezed,
+    Object? status = freezed,
+  }) {
     return _then(
       _value.copyWith(
             contentId: null == contentId
                 ? _value.contentId
                 : contentId // ignore: cast_nullable_to_non_nullable
-                      as int,
+                      as String,
+            memberId: freezed == memberId
+                ? _value.memberId
+                : memberId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            status: freezed == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -80,7 +98,7 @@ abstract class _$$AnalyzeResponseImplCopyWith<$Res>
   ) = __$$AnalyzeResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int contentId});
+  $Res call({String contentId, String? memberId, String? status});
 }
 
 /// @nodoc
@@ -96,13 +114,25 @@ class __$$AnalyzeResponseImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? contentId = null}) {
+  $Res call({
+    Object? contentId = null,
+    Object? memberId = freezed,
+    Object? status = freezed,
+  }) {
     return _then(
       _$AnalyzeResponseImpl(
         contentId: null == contentId
             ? _value.contentId
             : contentId // ignore: cast_nullable_to_non_nullable
-                  as int,
+                  as String,
+        memberId: freezed == memberId
+            ? _value.memberId
+            : memberId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        status: freezed == status
+            ? _value.status
+            : status // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -111,18 +141,30 @@ class __$$AnalyzeResponseImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AnalyzeResponseImpl implements _AnalyzeResponse {
-  const _$AnalyzeResponseImpl({required this.contentId});
+  const _$AnalyzeResponseImpl({
+    required this.contentId,
+    this.memberId,
+    this.status,
+  });
 
   factory _$AnalyzeResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$AnalyzeResponseImplFromJson(json);
 
-  /// 폴링용 콘텐츠 ID
+  /// 폴링용 콘텐츠 ID (UUID)
   @override
-  final int contentId;
+  final String contentId;
+
+  /// 회원 ID (UUID)
+  @override
+  final String? memberId;
+
+  /// 장소 추출 상태 (PENDING, ANALYZING, COMPLETED, FAILED, DELETED)
+  @override
+  final String? status;
 
   @override
   String toString() {
-    return 'AnalyzeResponse(contentId: $contentId)';
+    return 'AnalyzeResponse(contentId: $contentId, memberId: $memberId, status: $status)';
   }
 
   @override
@@ -131,12 +173,15 @@ class _$AnalyzeResponseImpl implements _AnalyzeResponse {
         (other.runtimeType == runtimeType &&
             other is _$AnalyzeResponseImpl &&
             (identical(other.contentId, contentId) ||
-                other.contentId == contentId));
+                other.contentId == contentId) &&
+            (identical(other.memberId, memberId) ||
+                other.memberId == memberId) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, contentId);
+  int get hashCode => Object.hash(runtimeType, contentId, memberId, status);
 
   /// Create a copy of AnalyzeResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -156,15 +201,26 @@ class _$AnalyzeResponseImpl implements _AnalyzeResponse {
 }
 
 abstract class _AnalyzeResponse implements AnalyzeResponse {
-  const factory _AnalyzeResponse({required final int contentId}) =
-      _$AnalyzeResponseImpl;
+  const factory _AnalyzeResponse({
+    required final String contentId,
+    final String? memberId,
+    final String? status,
+  }) = _$AnalyzeResponseImpl;
 
   factory _AnalyzeResponse.fromJson(Map<String, dynamic> json) =
       _$AnalyzeResponseImpl.fromJson;
 
-  /// 폴링용 콘텐츠 ID
+  /// 폴링용 콘텐츠 ID (UUID)
   @override
-  int get contentId;
+  String get contentId;
+
+  /// 회원 ID (UUID)
+  @override
+  String? get memberId;
+
+  /// 장소 추출 상태 (PENDING, ANALYZING, COMPLETED, FAILED, DELETED)
+  @override
+  String? get status;
 
   /// Create a copy of AnalyzeResponse
   /// with the given fields replaced by the non-null parameter values.

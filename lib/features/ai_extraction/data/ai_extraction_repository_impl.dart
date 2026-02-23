@@ -29,13 +29,13 @@ class AiExtractionRepositoryImpl implements AiExtractionRepository {
   }
 
   @override
-  Future<ContentDetailResponse> getContentDetail(int contentId) async {
+  Future<ContentDetailResponse> getContentDetail(String contentId) async {
     debugPrint('📝 AiExtractionRepo: Getting content detail...');
     return await _remoteDataSource.getContentDetail(contentId);
   }
 
   @override
-  Future<void> savePlace(int placeId) async {
+  Future<void> savePlace(String placeId) async {
     debugPrint('📝 AiExtractionRepo: Saving place...');
     return await _remoteDataSource.savePlace(placeId);
   }

@@ -4,15 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common/constants/home_colors.dart';
+import '../../../../common/constants/text_styles.dart';
 import '../../../../routing/route_paths.dart';
 import '../../../auth/presentation/auth_provider.dart';
 import '../home_provider.dart';
+import '../widgets/content_card.dart';
 import '../widgets/home_empty_state.dart';
 import '../widgets/home_error_state.dart';
 import '../widgets/home_loading_shimmer.dart';
-import '../widgets/place_card.dart';
 
-/// 홈 화면 (씀 스타일: 탭 전환 + 미니멀 카드 리스트)
+/// 홈 화면 (콘텐츠 피드: 최신/내 콘텐츠 탭)
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -23,28 +24,17 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
-  final _recentScrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _recentScrollController.addListener(_onRecentScroll);
   }
 
   @override
   void dispose() {
     _tabController.dispose();
-    _recentScrollController.removeListener(_onRecentScroll);
-    _recentScrollController.dispose();
     super.dispose();
-  }
-
-  void _onRecentScroll() {
-    if (_recentScrollController.position.pixels >=
-        _recentScrollController.position.maxScrollExtent - 200) {
-      ref.read(homeNotifierProvider.notifier).fetchMoreRecentPlaces();
-    }
   }
 
   @override
@@ -59,10 +49,8 @@ class _HomePageState extends ConsumerState<HomePage>
         scrolledUnderElevation: 0,
         title: Text(
           'MapSy',
-          style: TextStyle(
+          style: AppTextStyles.heading02.copyWith(
             color: HomeColors.textPrimary,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
           ),
         ),
         actions: [
@@ -85,17 +73,16 @@ class _HomePageState extends ConsumerState<HomePage>
           controller: _tabController,
           labelColor: HomeColors.textPrimary,
           unselectedLabelColor: HomeColors.iconSecondary,
-          labelStyle: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
-          unselectedLabelStyle: TextStyle(
-            fontSize: 15.sp,
+          labelStyle: AppTextStyles.label,
+          unselectedLabelStyle: AppTextStyles.paragraph.copyWith(
             fontWeight: FontWeight.w400,
           ),
           indicatorColor: HomeColors.textPrimary,
           indicatorWeight: 2,
           dividerColor: HomeColors.divider,
           tabs: const [
-            Tab(text: '최신순'),
-            Tab(text: '인기순'),
+            Tab(text: '최신'),
+            Tab(text: '내 콘텐츠'),
           ],
         ),
       ),
@@ -104,16 +91,14 @@ class _HomePageState extends ConsumerState<HomePage>
   }
 
   Widget _buildBody(HomeState state) {
-    // 초기 로딩
     if (!state.isInitialized &&
-        (state.isLoadingRecent || state.isLoadingPopular)) {
+        (state.isLoadingRecent || state.isLoadingMember)) {
       return const SingleChildScrollView(child: HomeLoadingShimmer());
     }
 
-    // 에러 상태 (데이터 없이 에러)
     if (state.errorMessage != null &&
-        state.recentPlaces.isEmpty &&
-        state.popularPlaces.isEmpty) {
+        state.recentContents.isEmpty &&
+        state.memberContents.isEmpty) {
       return HomeErrorState(
         message: state.errorMessage!,
         onRetry: () => ref.read(homeNotifierProvider.notifier).refresh(),
@@ -122,14 +107,14 @@ class _HomePageState extends ConsumerState<HomePage>
 
     return TabBarView(
       controller: _tabController,
-      children: [_buildRecentTab(state), _buildPopularTab(state)],
+      children: [_buildRecentTab(state), _buildMemberTab(state)],
     );
   }
 
-  /// 최신순 탭
+  /// 최신 콘텐츠 탭
   Widget _buildRecentTab(HomeState state) {
-    if (state.recentPlaces.isEmpty && !state.isLoadingRecent) {
-      return const HomeEmptyState(message: '아직 등록된 장소가 없습니다');
+    if (state.recentContents.isEmpty && !state.isLoadingRecent) {
+      return const HomeEmptyState(message: '아직 등록된 콘텐츠가 없습니다');
     }
 
     return RefreshIndicator(
@@ -137,36 +122,19 @@ class _HomePageState extends ConsumerState<HomePage>
       color: HomeColors.textPrimary,
       backgroundColor: HomeColors.background,
       child: ListView.builder(
-        controller: _recentScrollController,
         padding: EdgeInsets.symmetric(vertical: 8.h),
-        itemCount: state.recentPlaces.length + (state.isLoadingMore ? 1 : 0),
+        itemCount: state.recentContents.length,
         itemBuilder: (context, index) {
-          if (index < state.recentPlaces.length) {
-            return PlaceCard(place: state.recentPlaces[index]);
-          }
-          // 무한 스크롤 로딩
-          return Padding(
-            padding: EdgeInsets.all(16.w),
-            child: Center(
-              child: SizedBox(
-                width: 20.w,
-                height: 20.w,
-                child: CircularProgressIndicator(
-                  color: HomeColors.textPrimary,
-                  strokeWidth: 2,
-                ),
-              ),
-            ),
-          );
+          return ContentCard(content: state.recentContents[index]);
         },
       ),
     );
   }
 
-  /// 인기순 탭
-  Widget _buildPopularTab(HomeState state) {
-    if (state.popularPlaces.isEmpty && !state.isLoadingPopular) {
-      return const HomeEmptyState(message: '아직 인기 장소가 없습니다');
+  /// 내 콘텐츠 탭
+  Widget _buildMemberTab(HomeState state) {
+    if (state.memberContents.isEmpty && !state.isLoadingMember) {
+      return const HomeEmptyState(message: '아직 분석한 콘텐츠가 없습니다');
     }
 
     return RefreshIndicator(
@@ -175,9 +143,9 @@ class _HomePageState extends ConsumerState<HomePage>
       backgroundColor: HomeColors.background,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(vertical: 8.h),
-        itemCount: state.popularPlaces.length,
+        itemCount: state.memberContents.length,
         itemBuilder: (context, index) {
-          return PlaceCard(place: state.popularPlaces[index]);
+          return ContentCard(content: state.memberContents[index]);
         },
       ),
     );

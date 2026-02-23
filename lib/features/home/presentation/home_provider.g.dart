@@ -6,7 +6,7 @@ part of 'home_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homeNotifierHash() => r'b8dc0b493c3601ec697650b1450d1f7e12983150';
+String _$homeNotifierHash() => r'037bfa7aff735ac06bfedbf79c34b4f6a508a466';
 
 /// 홈 화면 Notifier
 ///

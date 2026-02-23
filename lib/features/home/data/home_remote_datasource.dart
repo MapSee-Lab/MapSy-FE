@@ -17,58 +17,47 @@ HomeRemoteDataSource homeRemoteDataSource(Ref ref) {
 }
 
 /// 홈 화면 Remote DataSource
-///
-/// 홈 피드에 필요한 백엔드 API를 호출합니다.
 class HomeRemoteDataSource {
   final Dio _dio;
 
   HomeRemoteDataSource(this._dio);
 
-  /// 최근 콘텐츠 목록 조회 (커서 기반 페이지네이션)
+  /// 최근 콘텐츠 목록 조회
   ///
-  /// GET /api/content/recent?cursor={cursor}&size={size}
-  Future<ContentListResponse> fetchRecentContent({
-    int? cursor,
-    int size = 20,
-  }) async {
+  /// GET /api/content/recent
+  Future<RecentContentResponse> fetchRecentContent() async {
     debugPrint('📤 HomeRemoteDataSource: Fetching recent content...');
 
-    final response = await _dio.get(
-      ApiEndpoints.recentContent,
-      queryParameters: {
-        if (cursor != null) 'cursor': cursor,
-        'size': size,
-      },
-    );
+    final response = await _dio.get(ApiEndpoints.recentContent);
 
-    final result = ContentListResponse.fromJson(
+    final result = RecentContentResponse.fromJson(
       response.data as Map<String, dynamic>,
     );
-    debugPrint('✅ Recent content fetched: ${result.content.length} items');
+    debugPrint('✅ Recent content fetched: ${result.contents.length} items');
     return result;
   }
 
-  /// 회원 콘텐츠 목록 조회 (커서 기반 페이지네이션)
+  /// 회원 콘텐츠 목록 조회 (Spring Page 기반 페이지네이션)
   ///
-  /// GET /api/content/member?cursor={cursor}&size={size}
-  Future<ContentListResponse> fetchMemberContent({
-    int? cursor,
-    int size = 30,
+  /// GET /api/content/member?pageSize={pageSize}
+  Future<MemberContentPageResponse> fetchMemberContent({
+    int pageSize = 10,
   }) async {
     debugPrint('📤 HomeRemoteDataSource: Fetching member content...');
 
     final response = await _dio.get(
       ApiEndpoints.memberContent,
       queryParameters: {
-        if (cursor != null) 'cursor': cursor,
-        'size': size,
+        'pageSize': pageSize,
       },
     );
 
-    final result = ContentListResponse.fromJson(
+    final result = MemberContentPageResponse.fromJson(
       response.data as Map<String, dynamic>,
     );
-    debugPrint('✅ Member content fetched: ${result.content.length} items');
+    debugPrint(
+      '✅ Member content fetched: ${result.contentPage.content.length} items',
+    );
     return result;
   }
 }

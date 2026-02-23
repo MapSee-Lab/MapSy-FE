@@ -13,6 +13,7 @@ import '../mypage_provider.dart';
 import '../widgets/nickname_edit_bottom_sheet.dart';
 import '../widgets/profile_card.dart';
 import '../widgets/setting_tile.dart';
+import '../../../saved_places/presentation/widgets/folder_preview_section.dart';
 
 class MypagePage extends ConsumerWidget {
   const MypagePage({super.key});
@@ -49,6 +50,11 @@ class MypagePage extends ConsumerWidget {
             email: email,
             onTap: () => _onProfileTap(context, ref, nickname),
           ),
+
+          _buildDivider(),
+
+          // ─── 내 폴더 미리보기 ───
+          const FolderPreviewSection(),
 
           _buildDivider(),
 

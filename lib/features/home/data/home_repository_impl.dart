@@ -22,26 +22,16 @@ class HomeRepositoryImpl implements HomeRepository {
   HomeRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<ContentListResponse> getRecentContent({
-    int? cursor,
-    int size = 20,
-  }) async {
+  Future<RecentContentResponse> getRecentContent() async {
     debugPrint('📝 HomeRepository: Getting recent content...');
-    return await _remoteDataSource.fetchRecentContent(
-      cursor: cursor,
-      size: size,
-    );
+    return await _remoteDataSource.fetchRecentContent();
   }
 
   @override
-  Future<ContentListResponse> getMemberContent({
-    int? cursor,
-    int size = 30,
+  Future<MemberContentPageResponse> getMemberContent({
+    int pageSize = 10,
   }) async {
     debugPrint('📝 HomeRepository: Getting member content...');
-    return await _remoteDataSource.fetchMemberContent(
-      cursor: cursor,
-      size: size,
-    );
+    return await _remoteDataSource.fetchMemberContent(pageSize: pageSize);
   }
 }

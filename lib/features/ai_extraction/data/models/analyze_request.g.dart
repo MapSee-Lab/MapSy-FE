@@ -7,8 +7,8 @@ part of 'analyze_request.dart';
 // **************************************************************************
 
 _$AnalyzeRequestImpl _$$AnalyzeRequestImplFromJson(Map<String, dynamic> json) =>
-    _$AnalyzeRequestImpl(sourceUrl: json['snsUrl'] as String);
+    _$AnalyzeRequestImpl(snsUrl: json['snsUrl'] as String);
 
 Map<String, dynamic> _$$AnalyzeRequestImplToJson(
   _$AnalyzeRequestImpl instance,
-) => <String, dynamic>{'snsUrl': instance.sourceUrl};
+) => <String, dynamic>{'snsUrl': instance.snsUrl};

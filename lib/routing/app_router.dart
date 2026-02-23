@@ -27,6 +27,7 @@ import '../features/onboarding/presentation/pages/birth_date_step_page.dart';
 import '../features/onboarding/presentation/pages/gender_step_page.dart';
 import '../features/onboarding/presentation/pages/nickname_step_page.dart';
 import '../features/ai_extraction/presentation/pages/ai_extraction_page.dart';
+import '../features/saved_places/presentation/pages/saved_places_page.dart';
 
 /// GoRouter 인스턴스를 제공하는 Riverpod Provider
 ///
@@ -246,6 +247,11 @@ final routerProvider = Provider<GoRouter>((ref) {
                     path: 'privacy-policy',
                     name: RoutePaths.mypagePrivacyPolicyName,
                     builder: (context, state) => const PrivacyPolicyPage(),
+                  ),
+                  GoRoute(
+                    path: 'saved-places',
+                    name: RoutePaths.mypageSavedPlacesName,
+                    builder: (context, state) => const SavedPlacesPage(),
                   ),
                 ],
               ),

@@ -19,9 +19,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AiExtractionState {
   AiExtractionStep get step => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
-  int? get contentId => throw _privateConstructorUsedError;
+  String? get contentId => throw _privateConstructorUsedError;
   List<PlaceModel> get places => throw _privateConstructorUsedError;
-  Set<int> get selectedPlaceIds => throw _privateConstructorUsedError;
+  Set<String> get selectedPlaceIds => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   double get saveProgress => throw _privateConstructorUsedError;
 
@@ -42,9 +42,9 @@ abstract class $AiExtractionStateCopyWith<$Res> {
   $Res call({
     AiExtractionStep step,
     String url,
-    int? contentId,
+    String? contentId,
     List<PlaceModel> places,
-    Set<int> selectedPlaceIds,
+    Set<String> selectedPlaceIds,
     String? errorMessage,
     double saveProgress,
   });
@@ -86,7 +86,7 @@ class _$AiExtractionStateCopyWithImpl<$Res, $Val extends AiExtractionState>
             contentId: freezed == contentId
                 ? _value.contentId
                 : contentId // ignore: cast_nullable_to_non_nullable
-                      as int?,
+                      as String?,
             places: null == places
                 ? _value.places
                 : places // ignore: cast_nullable_to_non_nullable
@@ -94,7 +94,7 @@ class _$AiExtractionStateCopyWithImpl<$Res, $Val extends AiExtractionState>
             selectedPlaceIds: null == selectedPlaceIds
                 ? _value.selectedPlaceIds
                 : selectedPlaceIds // ignore: cast_nullable_to_non_nullable
-                      as Set<int>,
+                      as Set<String>,
             errorMessage: freezed == errorMessage
                 ? _value.errorMessage
                 : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -121,9 +121,9 @@ abstract class _$$AiExtractionStateImplCopyWith<$Res>
   $Res call({
     AiExtractionStep step,
     String url,
-    int? contentId,
+    String? contentId,
     List<PlaceModel> places,
-    Set<int> selectedPlaceIds,
+    Set<String> selectedPlaceIds,
     String? errorMessage,
     double saveProgress,
   });
@@ -164,7 +164,7 @@ class __$$AiExtractionStateImplCopyWithImpl<$Res>
         contentId: freezed == contentId
             ? _value.contentId
             : contentId // ignore: cast_nullable_to_non_nullable
-                  as int?,
+                  as String?,
         places: null == places
             ? _value._places
             : places // ignore: cast_nullable_to_non_nullable
@@ -172,7 +172,7 @@ class __$$AiExtractionStateImplCopyWithImpl<$Res>
         selectedPlaceIds: null == selectedPlaceIds
             ? _value._selectedPlaceIds
             : selectedPlaceIds // ignore: cast_nullable_to_non_nullable
-                  as Set<int>,
+                  as Set<String>,
         errorMessage: freezed == errorMessage
             ? _value.errorMessage
             : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -196,7 +196,7 @@ class _$AiExtractionStateImpl
     this.url = '',
     this.contentId,
     final List<PlaceModel> places = const [],
-    final Set<int> selectedPlaceIds = const {},
+    final Set<String> selectedPlaceIds = const {},
     this.errorMessage,
     this.saveProgress = 0.0,
   }) : _places = places,
@@ -209,7 +209,7 @@ class _$AiExtractionStateImpl
   @JsonKey()
   final String url;
   @override
-  final int? contentId;
+  final String? contentId;
   final List<PlaceModel> _places;
   @override
   @JsonKey()
@@ -219,10 +219,10 @@ class _$AiExtractionStateImpl
     return EqualUnmodifiableListView(_places);
   }
 
-  final Set<int> _selectedPlaceIds;
+  final Set<String> _selectedPlaceIds;
   @override
   @JsonKey()
-  Set<int> get selectedPlaceIds {
+  Set<String> get selectedPlaceIds {
     if (_selectedPlaceIds is EqualUnmodifiableSetView) return _selectedPlaceIds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableSetView(_selectedPlaceIds);
@@ -301,9 +301,9 @@ abstract class _AiExtractionState implements AiExtractionState {
   const factory _AiExtractionState({
     final AiExtractionStep step,
     final String url,
-    final int? contentId,
+    final String? contentId,
     final List<PlaceModel> places,
-    final Set<int> selectedPlaceIds,
+    final Set<String> selectedPlaceIds,
     final String? errorMessage,
     final double saveProgress,
   }) = _$AiExtractionStateImpl;
@@ -313,11 +313,11 @@ abstract class _AiExtractionState implements AiExtractionState {
   @override
   String get url;
   @override
-  int? get contentId;
+  String? get contentId;
   @override
   List<PlaceModel> get places;
   @override
-  Set<int> get selectedPlaceIds;
+  Set<String> get selectedPlaceIds;
   @override
   String? get errorMessage;
   @override

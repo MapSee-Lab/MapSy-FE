@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../routing/route_paths.dart';
@@ -19,11 +20,41 @@ class SplashPage extends ConsumerStatefulWidget {
   ConsumerState<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends ConsumerState<SplashPage> {
+class _SplashPageState extends ConsumerState<SplashPage>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animationController;
+  late final Animation<double> _fadeAnimation;
+  late final Animation<double> _scaleAnimation;
+
   @override
   void initState() {
     super.initState();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+
+    _fadeAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeOutCubic,
+    );
+
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeOutCubic,
+      ),
+    );
+
+    _animationController.forward();
     _navigateToNextScreen();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   /// 인증 상태를 확인하고 적절한 화면으로 이동
@@ -90,6 +121,20 @@ class _SplashPageState extends ConsumerState<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('Splash')));
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: FadeTransition(
+          opacity: _fadeAnimation,
+          child: ScaleTransition(
+            scale: _scaleAnimation,
+            child: Image.asset(
+              'assets/mapsy_logo_transparent.png',
+              width: 160.w,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
