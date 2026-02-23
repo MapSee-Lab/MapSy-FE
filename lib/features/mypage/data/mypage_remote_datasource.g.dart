@@ -7,11 +7,9 @@ part of 'mypage_remote_datasource.dart';
 // **************************************************************************
 
 String _$mypageRemoteDataSourceHash() =>
-    r'c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2';
+    r'bbcf506a0cdd966ba10e577398b7bfe5a841e6d4';
 
-/// Mypage Remote DataSource Provider
-///
-/// Copied from [mypageRemoteDataSource].
+/// See also [mypageRemoteDataSource].
 @ProviderFor(mypageRemoteDataSource)
 final mypageRemoteDataSourceProvider =
     AutoDisposeProvider<MypageRemoteDataSource>.internal(
