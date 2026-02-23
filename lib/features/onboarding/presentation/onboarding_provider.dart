@@ -4,13 +4,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../common/exceptions/app_exception.dart';
-import '../../../auth/data/onboarding_step.dart';
+import '../../auth/data/onboarding_step.dart';
 import '../data/models/gender_request.dart';
 import '../data/onboarding_repository_impl.dart';
 import '../data/onboarding_repository.dart';
 
 // OnboardingStep re-export for convenience
-export '../../../auth/data/onboarding_step.dart';
+export '../../auth/data/onboarding_step.dart';
 
 part 'onboarding_provider.freezed.dart';
 part 'onboarding_provider.g.dart';

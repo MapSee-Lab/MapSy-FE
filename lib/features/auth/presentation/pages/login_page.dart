@@ -9,6 +9,7 @@ import '../../../../common/constants/text_styles.dart';
 import '../../../../common/exceptions/app_exception.dart';
 import '../../../../routing/route_paths.dart';
 import '../../data/models/sign_in_response.dart';
+import '../../data/onboarding_step.dart';
 import '../auth_provider.dart';
 
 /// Google 로그인 화면
