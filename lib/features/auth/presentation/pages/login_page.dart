@@ -134,16 +134,12 @@ class LoginPage extends ConsumerWidget {
             children: [
               const Spacer(flex: 3),
 
-              ClipRRect(
-                borderRadius: AppRadius.xxlarge,
-                child: Image.asset(
-                  'assets/app_icon.png',
-                  width: 120.w,
-                  height: 120.w,
-                ),
+              Image.asset(
+                'assets/mapsy_logo_transparent.png',
+                width: 160.w,
               ),
 
-              const Spacer(flex: 4),
+              const Spacer(flex: 2),
 
               // Google 로그인 버튼
               SizedBox(
