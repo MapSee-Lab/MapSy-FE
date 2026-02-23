@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/constants/app_colors.dart';
 import '../../../../common/constants/spacing_and_radius.dart';
 import '../../../../common/constants/text_styles.dart';
 import '../../../../common/exceptions/app_exception.dart';
@@ -39,7 +41,7 @@ class LoginPage extends ConsumerWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(errorMessage, style: AppTextStyles.toast),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 3),
         ),
@@ -75,7 +77,7 @@ class LoginPage extends ConsumerWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(errorMessage, style: AppTextStyles.toast),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 3),
         ),
@@ -124,70 +126,102 @@ class LoginPage extends ConsumerWidget {
     final authState = ref.watch(authNotifierProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Login', style: AppTextStyles.subHeading)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('로그인', style: AppTextStyles.heading01),
-            SizedBox(height: AppSpacing.vertical40),
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: AppPadding.horizontal20,
+          child: Column(
+            children: [
+              const Spacer(flex: 3),
 
-            // TODO: Google 로그인 버튼 디자인 만들어지면 바뀌어야함
-            ElevatedButton.icon(
-              onPressed: authState.isLoading
-                  ? null // 로딩 중에는 버튼 비활성화
-                  : () => _handleGoogleSignIn(context, ref),
-              icon: const Icon(Icons.login),
-              label: const Text('Google Login'),
-              style: ElevatedButton.styleFrom(
-                padding: AppPadding.buttonPadding,
-                textStyle: AppTextStyles.label,
+              ClipRRect(
+                borderRadius: AppRadius.xxlarge,
+                child: Image.asset(
+                  'assets/app_icon.png',
+                  width: 120.w,
+                  height: 120.w,
+                ),
               ),
-            ),
 
-            // iOS에서만 Apple 로그인 버튼 표시
-            if (Platform.isIOS) ...[
+              const Spacer(flex: 4),
+
+              // Google 로그인 버튼
+              SizedBox(
+                width: double.infinity,
+                height: 52.h,
+                child: OutlinedButton(
+                  onPressed: authState.isLoading
+                      ? null
+                      : () => _handleGoogleSignIn(context, ref),
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: AppColors.textPrimary,
+                    side: const BorderSide(color: AppColors.gray300),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: AppRadius.medium,
+                    ),
+                  ),
+                  child: Text('Google로 계속하기', style: AppTextStyles.label),
+                ),
+              ),
+
+              // iOS에서만 Apple 로그인 버튼 표시
+              if (Platform.isIOS) ...[
+                SizedBox(height: AppSpacing.vertical12),
+                SizedBox(
+                  width: double.infinity,
+                  height: 52.h,
+                  child: ElevatedButton.icon(
+                    onPressed: authState.isLoading
+                        ? null
+                        : () => _handleAppleSignIn(context, ref),
+                    icon: const Icon(Icons.apple, size: 22),
+                    label: Text('Apple로 계속하기', style: AppTextStyles.label),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: AppRadius.medium,
+                      ),
+                      elevation: 0,
+                    ),
+                  ),
+                ),
+              ],
+
+              if (authState.isLoading)
+                Padding(
+                  padding: EdgeInsets.only(top: AppSpacing.vertical20),
+                  child: const CircularProgressIndicator(),
+                ),
+
+              if (authState.hasError && !authState.isLoading)
+                Padding(
+                  padding: EdgeInsets.only(top: AppSpacing.vertical12),
+                  child: Text(
+                    authState.error is AuthException
+                        ? (authState.error as AuthException).message
+                        : '로그인에 실패했습니다.',
+                    style: AppTextStyles.callout.copyWith(
+                      color: AppColors.error,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+
               SizedBox(height: AppSpacing.vertical16),
-              // TODO: Apple 로그인 버튼 디자인 만들어지면 바뀌어야함
-              ElevatedButton.icon(
-                onPressed: authState.isLoading
-                    ? null // 로딩 중에는 버튼 비활성화
-                    : () => _handleAppleSignIn(context, ref),
-                icon: const Icon(Icons.apple),
-                label: const Text('Apple Login'),
-                style: ElevatedButton.styleFrom(
-                  padding: AppPadding.buttonPadding,
-                  textStyle: AppTextStyles.label,
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
+
+              Text(
+                '계속 진행하면 서비스 이용약관 및\n개인정보 처리방침에 동의하는 것으로 간주합니다.',
+                style: AppTextStyles.calloutSmall.copyWith(
+                  color: AppColors.textDisabled,
                 ),
+                textAlign: TextAlign.center,
               ),
+
+              SizedBox(height: AppSpacing.vertical32),
             ],
-
-            // 로딩 인디케이터
-            if (authState.isLoading)
-              Padding(
-                padding: EdgeInsets.only(top: AppSpacing.vertical20),
-                child: const CircularProgressIndicator(),
-              ),
-
-            // 에러 메시지 (선택사항 - SnackBar와 중복이므로 간단하게 표시)
-            if (authState.hasError && !authState.isLoading)
-              Padding(
-                padding: EdgeInsets.only(
-                  top: AppSpacing.vertical20,
-                  left: AppSpacing.horizontal20,
-                  right: AppSpacing.horizontal20,
-                ),
-                child: Text(
-                  authState.error is AuthException
-                      ? (authState.error as AuthException).message
-                      : '로그인에 실패했습니다.',
-                  style: AppTextStyles.paragraph.copyWith(color: Colors.red),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-          ],
+          ),
         ),
       ),
     );

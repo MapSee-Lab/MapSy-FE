@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/constants/spacing_and_radius.dart';
 import '../../../../routing/route_paths.dart';
 import '../../data/onboarding_step.dart';
 import '../auth_provider.dart';
@@ -90,6 +92,18 @@ class _SplashPageState extends ConsumerState<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('Splash')));
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: ClipRRect(
+          borderRadius: AppRadius.xxlarge,
+          child: Image.asset(
+            'assets/app_icon.png',
+            width: 120.w,
+            height: 120.w,
+          ),
+        ),
+      ),
+    );
   }
 }

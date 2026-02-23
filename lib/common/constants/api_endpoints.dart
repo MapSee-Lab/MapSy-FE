@@ -107,4 +107,22 @@ class ApiEndpoints {
 
   /// 저장된 장소 (콘텐츠에서)
   static const String contentSavedPlaces = '/api/content/place/saved';
+
+  // ============================================
+  // Folder API Endpoints
+  // ============================================
+
+  /// 폴더 목록 조회 / 폴더 생성
+  static const String folders = '/api/folders';
+
+  /// 폴더 수정 / 삭제
+  static String folderDetail(String folderId) => '/api/folders/$folderId';
+
+  /// 폴더 내 장소 목록 조회 / 장소 추가
+  static String folderPlaces(String folderId) =>
+      '/api/folders/$folderId/places';
+
+  /// 폴더에서 장소 제거
+  static String folderPlaceDetail(String folderId, String placeId) =>
+      '/api/folders/$folderId/places/$placeId';
 }
