@@ -1,11 +1,35 @@
 {
   "metadata": {
-    "lastUpdated": "2026-02-23T01:19:50Z",
-    "currentVersion": "1.0.40",
+    "lastUpdated": "2026-02-23T02:13:37Z",
+    "currentVersion": "1.0.41",
     "projectType": "flutter",
-    "totalReleases": 11
+    "totalReleases": 12
   },
   "releases": [
+    {
+      "version": "1.0.41",
+      "project_type": "flutter",
+      "date": "2026-02-23",
+      "pr_number": 39,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트\n\n* **New Features**\n  * 탭 기반 네비게이션 구조 도입 (홈, 검색, 지도, 마이페이지)\n  * 하단 네비게이션 바 추가\n  * 새로운 페이지 추가: 검색, 지도, 마이페이지 (준비 중)\n\n* **Chores**\n  * 버전 업데이트 (v1.0.41)",
+      "parsed_changes": {
+        "new_features": {
+          "title": "New Features",
+          "items": [
+            "탭 기반 네비게이션 구조 도입 (홈, 검색, 지도, 마이페이지)",
+            "하단 네비게이션 바 추가",
+            "새로운 페이지 추가: 검색, 지도, 마이페이지 (준비 중)"
+          ]
+        },
+        "chores": {
+          "title": "Chores",
+          "items": [
+            "버전 업데이트 (v1.0.41)"
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "1.0.40",
       "project_type": "flutter",
