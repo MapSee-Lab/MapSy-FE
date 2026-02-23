@@ -5,10 +5,10 @@ import 'package:go_router/go_router.dart';
 import '../constants/home_colors.dart';
 import '../../routing/route_paths.dart';
 
-/// 메인 네비게이션 셸 (하단 네비게이션 바 + FAB)
+/// 메인 네비게이션 셸 (하단 네비게이션 바 + 중앙 AI 추출 버튼)
 ///
 /// StatefulShellRoute의 builder에서 사용되며,
-/// 4탭(홈/검색/지도/마이) + 중앙 FAB(AI 추출) 구조를 제공합니다.
+/// 4탭(홈/검색/지도/마이) + 중앙 버튼(AI 추출) 구조를 제공합니다.
 class MainScaffold extends StatelessWidget {
   const MainScaffold({
     super.key,
@@ -21,41 +21,29 @@ class MainScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: navigationShell,
-      floatingActionButton: SizedBox(
-        width: 56.w,
-        height: 56.w,
-        child: FloatingActionButton(
-          onPressed: () {
-            context.push(RoutePaths.aiExtraction);
-          },
-          elevation: 2,
-          backgroundColor: HomeColors.textPrimary,
-          foregroundColor: HomeColors.background,
-          shape: const CircleBorder(),
-          child: Icon(Icons.add, size: 28.sp),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: _BottomNavBar(
         currentIndex: navigationShell.currentIndex,
         onTap: (index) => navigationShell.goBranch(
           index,
           initialLocation: index == navigationShell.currentIndex,
         ),
+        onAddTap: () => context.push(RoutePaths.aiExtraction),
       ),
     );
   }
 }
 
-/// 하단 네비게이션 바 (4탭 + 중앙 FAB 공간)
+/// 하단 네비게이션 바 (4탭 + 중앙 AI 추출 버튼)
 class _BottomNavBar extends StatelessWidget {
   const _BottomNavBar({
     required this.currentIndex,
     required this.onTap,
+    required this.onAddTap,
   });
 
   final int currentIndex;
   final ValueChanged<int> onTap;
+  final VoidCallback onAddTap;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +74,7 @@ class _BottomNavBar extends StatelessWidget {
                 isSelected: currentIndex == 1,
                 onTap: () => onTap(1),
               ),
-              SizedBox(width: 56.w), // FAB 공간
+              _CenterAddButton(onTap: onAddTap),
               _NavItem(
                 icon: Icons.map_outlined,
                 activeIcon: Icons.map,
@@ -102,6 +90,48 @@ class _BottomNavBar extends StatelessWidget {
                 onTap: () => onTap(3),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// 중앙 + 버튼 (AI 장소 추출 진입점)
+class _CenterAddButton extends StatelessWidget {
+  const _CenterAddButton({
+    required this.onTap,
+  });
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: SizedBox(
+        width: 64.w,
+        child: Center(
+          child: Container(
+            width: 48.w,
+            height: 48.w,
+            decoration: BoxDecoration(
+              color: HomeColors.textPrimary,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: HomeColors.textPrimary.withValues(alpha: 0.2),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Icon(
+              Icons.add,
+              size: 28.sp,
+              color: HomeColors.background,
+            ),
           ),
         ),
       ),
