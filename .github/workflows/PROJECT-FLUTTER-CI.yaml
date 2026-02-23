@@ -283,6 +283,13 @@ jobs:
           flutter pub get
           echo "✅ Dependencies installed"
 
+      # 코드 생성 (Riverpod, Freezed, Retrofit 등)
+      - name: Run build_runner
+        run: |
+          echo "🔧 코드 생성 시작 (build_runner)..."
+          dart run build_runner build --delete-conflicting-outputs
+          echo "✅ 코드 생성 완료"
+
       # Flutter Analyze 실행
       - name: Run Flutter Analyze
         id: analyze
@@ -381,6 +388,13 @@ jobs:
         run: |
           flutter pub get
           echo "✅ Dependencies installed"
+
+      # 코드 생성 (Riverpod, Freezed, Retrofit 등)
+      - name: Run build_runner
+        run: |
+          echo "🔧 코드 생성 시작 (build_runner)..."
+          dart run build_runner build --delete-conflicting-outputs
+          echo "✅ 코드 생성 완료"
 
       # Java 설정
       - name: Set up Java
@@ -492,6 +506,13 @@ jobs:
         run: |
           flutter pub get
           echo "✅ Dependencies installed"
+
+      # 코드 생성 (Riverpod, Freezed, Retrofit 등)
+      - name: Run build_runner
+        run: |
+          echo "🔧 코드 생성 시작 (build_runner)..."
+          dart run build_runner build --delete-conflicting-outputs
+          echo "✅ 코드 생성 완료"
 
       # Ruby 및 CocoaPods 설정
       - name: Set up Ruby
