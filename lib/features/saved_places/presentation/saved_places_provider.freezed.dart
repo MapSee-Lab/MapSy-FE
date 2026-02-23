@@ -21,7 +21,7 @@ mixin _$SavedPlacesState {
   bool get isFoldersLoading => throw _privateConstructorUsedError;
   String? get foldersError => throw _privateConstructorUsedError;
   String? get selectedFolderId => throw _privateConstructorUsedError;
-  List<FolderPlaceModel> get places => throw _privateConstructorUsedError;
+  List<PlaceModel> get places => throw _privateConstructorUsedError;
   bool get isPlacesLoading => throw _privateConstructorUsedError;
   String? get placesError => throw _privateConstructorUsedError;
 
@@ -44,7 +44,7 @@ abstract class $SavedPlacesStateCopyWith<$Res> {
     bool isFoldersLoading,
     String? foldersError,
     String? selectedFolderId,
-    List<FolderPlaceModel> places,
+    List<PlaceModel> places,
     bool isPlacesLoading,
     String? placesError,
   });
@@ -94,7 +94,7 @@ class _$SavedPlacesStateCopyWithImpl<$Res, $Val extends SavedPlacesState>
             places: null == places
                 ? _value.places
                 : places // ignore: cast_nullable_to_non_nullable
-                      as List<FolderPlaceModel>,
+                      as List<PlaceModel>,
             isPlacesLoading: null == isPlacesLoading
                 ? _value.isPlacesLoading
                 : isPlacesLoading // ignore: cast_nullable_to_non_nullable
@@ -123,7 +123,7 @@ abstract class _$$SavedPlacesStateImplCopyWith<$Res>
     bool isFoldersLoading,
     String? foldersError,
     String? selectedFolderId,
-    List<FolderPlaceModel> places,
+    List<PlaceModel> places,
     bool isPlacesLoading,
     String? placesError,
   });
@@ -172,7 +172,7 @@ class __$$SavedPlacesStateImplCopyWithImpl<$Res>
         places: null == places
             ? _value._places
             : places // ignore: cast_nullable_to_non_nullable
-                  as List<FolderPlaceModel>,
+                  as List<PlaceModel>,
         isPlacesLoading: null == isPlacesLoading
             ? _value.isPlacesLoading
             : isPlacesLoading // ignore: cast_nullable_to_non_nullable
@@ -196,7 +196,7 @@ class _$SavedPlacesStateImpl
     this.isFoldersLoading = false,
     this.foldersError,
     this.selectedFolderId,
-    final List<FolderPlaceModel> places = const [],
+    final List<PlaceModel> places = const [],
     this.isPlacesLoading = false,
     this.placesError,
   }) : _folders = folders,
@@ -218,10 +218,10 @@ class _$SavedPlacesStateImpl
   final String? foldersError;
   @override
   final String? selectedFolderId;
-  final List<FolderPlaceModel> _places;
+  final List<PlaceModel> _places;
   @override
   @JsonKey()
-  List<FolderPlaceModel> get places {
+  List<PlaceModel> get places {
     if (_places is EqualUnmodifiableListView) return _places;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_places);
@@ -301,7 +301,7 @@ abstract class _SavedPlacesState implements SavedPlacesState {
     final bool isFoldersLoading,
     final String? foldersError,
     final String? selectedFolderId,
-    final List<FolderPlaceModel> places,
+    final List<PlaceModel> places,
     final bool isPlacesLoading,
     final String? placesError,
   }) = _$SavedPlacesStateImpl;
@@ -315,7 +315,7 @@ abstract class _SavedPlacesState implements SavedPlacesState {
   @override
   String? get selectedFolderId;
   @override
-  List<FolderPlaceModel> get places;
+  List<PlaceModel> get places;
   @override
   bool get isPlacesLoading;
   @override

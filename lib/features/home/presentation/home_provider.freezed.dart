@@ -17,26 +17,19 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HomeState {
-  /// 최신 장소 목록
-  List<PlaceModel> get recentPlaces => throw _privateConstructorUsedError;
+  /// 최근 콘텐츠 목록
+  List<ContentItemModel> get recentContents =>
+      throw _privateConstructorUsedError;
 
-  /// 인기 장소 목록
-  List<PlaceModel> get popularPlaces => throw _privateConstructorUsedError;
+  /// 회원 콘텐츠 목록
+  List<ContentItemModel> get memberContents =>
+      throw _privateConstructorUsedError;
 
-  /// 최신 장소 로딩 중
+  /// 최근 콘텐츠 로딩 중
   bool get isLoadingRecent => throw _privateConstructorUsedError;
 
-  /// 인기 장소 로딩 중
-  bool get isLoadingPopular => throw _privateConstructorUsedError;
-
-  /// 추가 로딩 중 (무한 스크롤)
-  bool get isLoadingMore => throw _privateConstructorUsedError;
-
-  /// 다음 페이지 커서 (최신 장소)
-  int? get recentNextCursor => throw _privateConstructorUsedError;
-
-  /// 다음 페이지 존재 여부 (최신 장소)
-  bool get recentHasNext => throw _privateConstructorUsedError;
+  /// 회원 콘텐츠 로딩 중
+  bool get isLoadingMember => throw _privateConstructorUsedError;
 
   /// 에러 메시지
   String? get errorMessage => throw _privateConstructorUsedError;
@@ -57,13 +50,10 @@ abstract class $HomeStateCopyWith<$Res> {
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
   $Res call({
-    List<PlaceModel> recentPlaces,
-    List<PlaceModel> popularPlaces,
+    List<ContentItemModel> recentContents,
+    List<ContentItemModel> memberContents,
     bool isLoadingRecent,
-    bool isLoadingPopular,
-    bool isLoadingMore,
-    int? recentNextCursor,
-    bool recentHasNext,
+    bool isLoadingMember,
     String? errorMessage,
     bool isInitialized,
   });
@@ -84,45 +74,30 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? recentPlaces = null,
-    Object? popularPlaces = null,
+    Object? recentContents = null,
+    Object? memberContents = null,
     Object? isLoadingRecent = null,
-    Object? isLoadingPopular = null,
-    Object? isLoadingMore = null,
-    Object? recentNextCursor = freezed,
-    Object? recentHasNext = null,
+    Object? isLoadingMember = null,
     Object? errorMessage = freezed,
     Object? isInitialized = null,
   }) {
     return _then(
       _value.copyWith(
-            recentPlaces: null == recentPlaces
-                ? _value.recentPlaces
-                : recentPlaces // ignore: cast_nullable_to_non_nullable
-                      as List<PlaceModel>,
-            popularPlaces: null == popularPlaces
-                ? _value.popularPlaces
-                : popularPlaces // ignore: cast_nullable_to_non_nullable
-                      as List<PlaceModel>,
+            recentContents: null == recentContents
+                ? _value.recentContents
+                : recentContents // ignore: cast_nullable_to_non_nullable
+                      as List<ContentItemModel>,
+            memberContents: null == memberContents
+                ? _value.memberContents
+                : memberContents // ignore: cast_nullable_to_non_nullable
+                      as List<ContentItemModel>,
             isLoadingRecent: null == isLoadingRecent
                 ? _value.isLoadingRecent
                 : isLoadingRecent // ignore: cast_nullable_to_non_nullable
                       as bool,
-            isLoadingPopular: null == isLoadingPopular
-                ? _value.isLoadingPopular
-                : isLoadingPopular // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            isLoadingMore: null == isLoadingMore
-                ? _value.isLoadingMore
-                : isLoadingMore // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            recentNextCursor: freezed == recentNextCursor
-                ? _value.recentNextCursor
-                : recentNextCursor // ignore: cast_nullable_to_non_nullable
-                      as int?,
-            recentHasNext: null == recentHasNext
-                ? _value.recentHasNext
-                : recentHasNext // ignore: cast_nullable_to_non_nullable
+            isLoadingMember: null == isLoadingMember
+                ? _value.isLoadingMember
+                : isLoadingMember // ignore: cast_nullable_to_non_nullable
                       as bool,
             errorMessage: freezed == errorMessage
                 ? _value.errorMessage
@@ -148,13 +123,10 @@ abstract class _$$HomeStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    List<PlaceModel> recentPlaces,
-    List<PlaceModel> popularPlaces,
+    List<ContentItemModel> recentContents,
+    List<ContentItemModel> memberContents,
     bool isLoadingRecent,
-    bool isLoadingPopular,
-    bool isLoadingMore,
-    int? recentNextCursor,
-    bool recentHasNext,
+    bool isLoadingMember,
     String? errorMessage,
     bool isInitialized,
   });
@@ -174,45 +146,30 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? recentPlaces = null,
-    Object? popularPlaces = null,
+    Object? recentContents = null,
+    Object? memberContents = null,
     Object? isLoadingRecent = null,
-    Object? isLoadingPopular = null,
-    Object? isLoadingMore = null,
-    Object? recentNextCursor = freezed,
-    Object? recentHasNext = null,
+    Object? isLoadingMember = null,
     Object? errorMessage = freezed,
     Object? isInitialized = null,
   }) {
     return _then(
       _$HomeStateImpl(
-        recentPlaces: null == recentPlaces
-            ? _value._recentPlaces
-            : recentPlaces // ignore: cast_nullable_to_non_nullable
-                  as List<PlaceModel>,
-        popularPlaces: null == popularPlaces
-            ? _value._popularPlaces
-            : popularPlaces // ignore: cast_nullable_to_non_nullable
-                  as List<PlaceModel>,
+        recentContents: null == recentContents
+            ? _value._recentContents
+            : recentContents // ignore: cast_nullable_to_non_nullable
+                  as List<ContentItemModel>,
+        memberContents: null == memberContents
+            ? _value._memberContents
+            : memberContents // ignore: cast_nullable_to_non_nullable
+                  as List<ContentItemModel>,
         isLoadingRecent: null == isLoadingRecent
             ? _value.isLoadingRecent
             : isLoadingRecent // ignore: cast_nullable_to_non_nullable
                   as bool,
-        isLoadingPopular: null == isLoadingPopular
-            ? _value.isLoadingPopular
-            : isLoadingPopular // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        isLoadingMore: null == isLoadingMore
-            ? _value.isLoadingMore
-            : isLoadingMore // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        recentNextCursor: freezed == recentNextCursor
-            ? _value.recentNextCursor
-            : recentNextCursor // ignore: cast_nullable_to_non_nullable
-                  as int?,
-        recentHasNext: null == recentHasNext
-            ? _value.recentHasNext
-            : recentHasNext // ignore: cast_nullable_to_non_nullable
+        isLoadingMember: null == isLoadingMember
+            ? _value.isLoadingMember
+            : isLoadingMember // ignore: cast_nullable_to_non_nullable
                   as bool,
         errorMessage: freezed == errorMessage
             ? _value.errorMessage
@@ -231,65 +188,48 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 
 class _$HomeStateImpl with DiagnosticableTreeMixin implements _HomeState {
   const _$HomeStateImpl({
-    final List<PlaceModel> recentPlaces = const [],
-    final List<PlaceModel> popularPlaces = const [],
+    final List<ContentItemModel> recentContents = const [],
+    final List<ContentItemModel> memberContents = const [],
     this.isLoadingRecent = false,
-    this.isLoadingPopular = false,
-    this.isLoadingMore = false,
-    this.recentNextCursor,
-    this.recentHasNext = true,
+    this.isLoadingMember = false,
     this.errorMessage,
     this.isInitialized = false,
-  }) : _recentPlaces = recentPlaces,
-       _popularPlaces = popularPlaces;
+  }) : _recentContents = recentContents,
+       _memberContents = memberContents;
 
-  /// 최신 장소 목록
-  final List<PlaceModel> _recentPlaces;
+  /// 최근 콘텐츠 목록
+  final List<ContentItemModel> _recentContents;
 
-  /// 최신 장소 목록
+  /// 최근 콘텐츠 목록
   @override
   @JsonKey()
-  List<PlaceModel> get recentPlaces {
-    if (_recentPlaces is EqualUnmodifiableListView) return _recentPlaces;
+  List<ContentItemModel> get recentContents {
+    if (_recentContents is EqualUnmodifiableListView) return _recentContents;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_recentPlaces);
+    return EqualUnmodifiableListView(_recentContents);
   }
 
-  /// 인기 장소 목록
-  final List<PlaceModel> _popularPlaces;
+  /// 회원 콘텐츠 목록
+  final List<ContentItemModel> _memberContents;
 
-  /// 인기 장소 목록
+  /// 회원 콘텐츠 목록
   @override
   @JsonKey()
-  List<PlaceModel> get popularPlaces {
-    if (_popularPlaces is EqualUnmodifiableListView) return _popularPlaces;
+  List<ContentItemModel> get memberContents {
+    if (_memberContents is EqualUnmodifiableListView) return _memberContents;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_popularPlaces);
+    return EqualUnmodifiableListView(_memberContents);
   }
 
-  /// 최신 장소 로딩 중
+  /// 최근 콘텐츠 로딩 중
   @override
   @JsonKey()
   final bool isLoadingRecent;
 
-  /// 인기 장소 로딩 중
+  /// 회원 콘텐츠 로딩 중
   @override
   @JsonKey()
-  final bool isLoadingPopular;
-
-  /// 추가 로딩 중 (무한 스크롤)
-  @override
-  @JsonKey()
-  final bool isLoadingMore;
-
-  /// 다음 페이지 커서 (최신 장소)
-  @override
-  final int? recentNextCursor;
-
-  /// 다음 페이지 존재 여부 (최신 장소)
-  @override
-  @JsonKey()
-  final bool recentHasNext;
+  final bool isLoadingMember;
 
   /// 에러 메시지
   @override
@@ -302,7 +242,7 @@ class _$HomeStateImpl with DiagnosticableTreeMixin implements _HomeState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeState(recentPlaces: $recentPlaces, popularPlaces: $popularPlaces, isLoadingRecent: $isLoadingRecent, isLoadingPopular: $isLoadingPopular, isLoadingMore: $isLoadingMore, recentNextCursor: $recentNextCursor, recentHasNext: $recentHasNext, errorMessage: $errorMessage, isInitialized: $isInitialized)';
+    return 'HomeState(recentContents: $recentContents, memberContents: $memberContents, isLoadingRecent: $isLoadingRecent, isLoadingMember: $isLoadingMember, errorMessage: $errorMessage, isInitialized: $isInitialized)';
   }
 
   @override
@@ -310,13 +250,10 @@ class _$HomeStateImpl with DiagnosticableTreeMixin implements _HomeState {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'HomeState'))
-      ..add(DiagnosticsProperty('recentPlaces', recentPlaces))
-      ..add(DiagnosticsProperty('popularPlaces', popularPlaces))
+      ..add(DiagnosticsProperty('recentContents', recentContents))
+      ..add(DiagnosticsProperty('memberContents', memberContents))
       ..add(DiagnosticsProperty('isLoadingRecent', isLoadingRecent))
-      ..add(DiagnosticsProperty('isLoadingPopular', isLoadingPopular))
-      ..add(DiagnosticsProperty('isLoadingMore', isLoadingMore))
-      ..add(DiagnosticsProperty('recentNextCursor', recentNextCursor))
-      ..add(DiagnosticsProperty('recentHasNext', recentHasNext))
+      ..add(DiagnosticsProperty('isLoadingMember', isLoadingMember))
       ..add(DiagnosticsProperty('errorMessage', errorMessage))
       ..add(DiagnosticsProperty('isInitialized', isInitialized));
   }
@@ -327,23 +264,17 @@ class _$HomeStateImpl with DiagnosticableTreeMixin implements _HomeState {
         (other.runtimeType == runtimeType &&
             other is _$HomeStateImpl &&
             const DeepCollectionEquality().equals(
-              other._recentPlaces,
-              _recentPlaces,
+              other._recentContents,
+              _recentContents,
             ) &&
             const DeepCollectionEquality().equals(
-              other._popularPlaces,
-              _popularPlaces,
+              other._memberContents,
+              _memberContents,
             ) &&
             (identical(other.isLoadingRecent, isLoadingRecent) ||
                 other.isLoadingRecent == isLoadingRecent) &&
-            (identical(other.isLoadingPopular, isLoadingPopular) ||
-                other.isLoadingPopular == isLoadingPopular) &&
-            (identical(other.isLoadingMore, isLoadingMore) ||
-                other.isLoadingMore == isLoadingMore) &&
-            (identical(other.recentNextCursor, recentNextCursor) ||
-                other.recentNextCursor == recentNextCursor) &&
-            (identical(other.recentHasNext, recentHasNext) ||
-                other.recentHasNext == recentHasNext) &&
+            (identical(other.isLoadingMember, isLoadingMember) ||
+                other.isLoadingMember == isLoadingMember) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.isInitialized, isInitialized) ||
@@ -353,13 +284,10 @@ class _$HomeStateImpl with DiagnosticableTreeMixin implements _HomeState {
   @override
   int get hashCode => Object.hash(
     runtimeType,
-    const DeepCollectionEquality().hash(_recentPlaces),
-    const DeepCollectionEquality().hash(_popularPlaces),
+    const DeepCollectionEquality().hash(_recentContents),
+    const DeepCollectionEquality().hash(_memberContents),
     isLoadingRecent,
-    isLoadingPopular,
-    isLoadingMore,
-    recentNextCursor,
-    recentHasNext,
+    isLoadingMember,
     errorMessage,
     isInitialized,
   );
@@ -375,44 +303,29 @@ class _$HomeStateImpl with DiagnosticableTreeMixin implements _HomeState {
 
 abstract class _HomeState implements HomeState {
   const factory _HomeState({
-    final List<PlaceModel> recentPlaces,
-    final List<PlaceModel> popularPlaces,
+    final List<ContentItemModel> recentContents,
+    final List<ContentItemModel> memberContents,
     final bool isLoadingRecent,
-    final bool isLoadingPopular,
-    final bool isLoadingMore,
-    final int? recentNextCursor,
-    final bool recentHasNext,
+    final bool isLoadingMember,
     final String? errorMessage,
     final bool isInitialized,
   }) = _$HomeStateImpl;
 
-  /// 최신 장소 목록
+  /// 최근 콘텐츠 목록
   @override
-  List<PlaceModel> get recentPlaces;
+  List<ContentItemModel> get recentContents;
 
-  /// 인기 장소 목록
+  /// 회원 콘텐츠 목록
   @override
-  List<PlaceModel> get popularPlaces;
+  List<ContentItemModel> get memberContents;
 
-  /// 최신 장소 로딩 중
+  /// 최근 콘텐츠 로딩 중
   @override
   bool get isLoadingRecent;
 
-  /// 인기 장소 로딩 중
+  /// 회원 콘텐츠 로딩 중
   @override
-  bool get isLoadingPopular;
-
-  /// 추가 로딩 중 (무한 스크롤)
-  @override
-  bool get isLoadingMore;
-
-  /// 다음 페이지 커서 (최신 장소)
-  @override
-  int? get recentNextCursor;
-
-  /// 다음 페이지 존재 여부 (최신 장소)
-  @override
-  bool get recentHasNext;
+  bool get isLoadingMember;
 
   /// 에러 메시지
   @override

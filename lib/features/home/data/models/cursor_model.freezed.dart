@@ -21,13 +21,8 @@ CursorModel _$CursorModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CursorModel {
-  /// 다음 페이지 존재 여부
   bool get hasNext => throw _privateConstructorUsedError;
-
-  /// 다음 커서 값 (다음 페이지 요청 시 사용)
   int? get nextCursor => throw _privateConstructorUsedError;
-
-  /// 현재 페이지 아이템 수
   int get size => throw _privateConstructorUsedError;
 
   /// Serializes this CursorModel to a JSON map.
@@ -150,16 +145,11 @@ class _$CursorModelImpl implements _CursorModel {
   factory _$CursorModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CursorModelImplFromJson(json);
 
-  /// 다음 페이지 존재 여부
   @override
   @JsonKey()
   final bool hasNext;
-
-  /// 다음 커서 값 (다음 페이지 요청 시 사용)
   @override
   final int? nextCursor;
-
-  /// 현재 페이지 아이템 수
   @override
   @JsonKey()
   final int size;
@@ -208,15 +198,10 @@ abstract class _CursorModel implements CursorModel {
   factory _CursorModel.fromJson(Map<String, dynamic> json) =
       _$CursorModelImpl.fromJson;
 
-  /// 다음 페이지 존재 여부
   @override
   bool get hasNext;
-
-  /// 다음 커서 값 (다음 페이지 요청 시 사용)
   @override
   int? get nextCursor;
-
-  /// 현재 페이지 아이템 수
   @override
   int get size;
 

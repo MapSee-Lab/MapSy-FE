@@ -138,7 +138,7 @@ class _FolderPreviewSectionState extends ConsumerState<FolderPreviewSection> {
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         itemCount: folders.length,
-        separatorBuilder: (_, __) => SizedBox(width: 8.w),
+        separatorBuilder: (_, _) => SizedBox(width: 8.w),
         itemBuilder: (context, index) {
           final folder = folders[index];
           return GestureDetector(

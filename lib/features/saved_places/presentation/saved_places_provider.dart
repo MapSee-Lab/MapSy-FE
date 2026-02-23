@@ -4,8 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../data/models/create_folder_request.dart';
 import '../data/models/folder_model.dart';
-import '../data/models/folder_place_model.dart';
 import '../data/models/update_folder_request.dart';
+import '../../../../common/models/place_model.dart';
 import '../data/saved_places_repository_impl.dart';
 
 part 'saved_places_provider.freezed.dart';
@@ -20,7 +20,7 @@ class SavedPlacesState with _$SavedPlacesState {
     String? foldersError,
 
     String? selectedFolderId,
-    @Default([]) List<FolderPlaceModel> places,
+    @Default([]) List<PlaceModel> places,
     @Default(false) bool isPlacesLoading,
     String? placesError,
   }) = _SavedPlacesState;

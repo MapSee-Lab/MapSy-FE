@@ -1,46 +1,84 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'cursor_model.dart';
-import '../../../../common/models/place_model.dart';
-
 part 'content_response.freezed.dart';
 part 'content_response.g.dart';
 
-/// 콘텐츠 아이템 (API 응답 단위)
+/// 콘텐츠 아이템 - 백엔드 ContentDto 매칭
 @freezed
-class ContentItem with _$ContentItem {
-  const factory ContentItem({
-    /// 콘텐츠 ID
-    required int contentId,
+class ContentItemModel with _$ContentItemModel {
+  const factory ContentItemModel({
+    /// 콘텐츠 ID (UUID)
+    required String id,
 
-    /// 원본 URL
-    String? sourceUrl,
+    /// 플랫폼 유형 (INSTAGRAM, YOUTUBE 등)
+    String? platform,
 
-    /// 콘텐츠 상태
+    /// 처리 상태 (PENDING, ANALYZING, COMPLETED, FAILED, DELETED)
     String? status,
 
-    /// 생성일시
-    String? createdAt,
+    /// 업로더 이름
+    String? platformUploader,
 
-    /// 콘텐츠에 포함된 장소 목록
-    @Default([]) List<PlaceModel> places,
-  }) = _ContentItem;
+    /// 캡션
+    String? caption,
 
-  factory ContentItem.fromJson(Map<String, dynamic> json) =>
-      _$ContentItemFromJson(json);
+    /// 썸네일 URL
+    String? thumbnailUrl,
+
+    /// 원본 SNS URL
+    String? originalUrl,
+
+    /// 제목
+    String? title,
+
+    /// 요약 설명
+    String? summary,
+
+    /// 마지막 확인 시각
+    String? lastCheckedAt,
+  }) = _ContentItemModel;
+
+  factory ContentItemModel.fromJson(Map<String, dynamic> json) =>
+      _$ContentItemModelFromJson(json);
 }
 
-/// 콘텐츠 목록 응답 (페이지네이션 포함)
+/// 최근 콘텐츠 목록 응답 - 백엔드 GetRecentContentResponse 매칭
 @freezed
-class ContentListResponse with _$ContentListResponse {
-  const factory ContentListResponse({
-    /// 콘텐츠 아이템 목록
-    @Default([]) List<ContentItem> content,
+class RecentContentResponse with _$RecentContentResponse {
+  const factory RecentContentResponse({
+    @Default([]) List<ContentItemModel> contents,
+  }) = _RecentContentResponse;
 
-    /// 페이지네이션 정보
-    CursorModel? cursor,
-  }) = _ContentListResponse;
+  factory RecentContentResponse.fromJson(Map<String, dynamic> json) =>
+      _$RecentContentResponseFromJson(json);
+}
 
-  factory ContentListResponse.fromJson(Map<String, dynamic> json) =>
-      _$ContentListResponseFromJson(json);
+/// 회원 콘텐츠 목록 응답 - 백엔드 GetMemberContentPageResponse 매칭
+/// Spring `Page<ContentDto>`를 contentPage 필드로 감싸는 구조
+@freezed
+class MemberContentPageResponse with _$MemberContentPageResponse {
+  const factory MemberContentPageResponse({
+    required ContentPage contentPage,
+  }) = _MemberContentPageResponse;
+
+  factory MemberContentPageResponse.fromJson(Map<String, dynamic> json) =>
+      _$MemberContentPageResponseFromJson(json);
+}
+
+/// Spring Page 구조 매칭
+@freezed
+class ContentPage with _$ContentPage {
+  const factory ContentPage({
+    @Default([]) List<ContentItemModel> content,
+    @Default(0) int totalElements,
+    @Default(0) int totalPages,
+    @Default(0) int size,
+    @Default(0) int number,
+    @Default(true) bool first,
+    @Default(true) bool last,
+    @Default(true) bool empty,
+  }) = _ContentPage;
+
+  factory ContentPage.fromJson(Map<String, dynamic> json) =>
+      _$ContentPageFromJson(json);
 }

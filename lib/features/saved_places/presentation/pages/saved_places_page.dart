@@ -122,7 +122,7 @@ class _SavedPlacesPageState extends ConsumerState<SavedPlacesPage> {
         final place = state.places[index];
         return FolderPlaceCard(
           place: place,
-          onRemove: () => _onRemovePlace(place.placeId.toString()),
+          onRemove: () => _onRemovePlace(place.placeId),
         );
       },
     );

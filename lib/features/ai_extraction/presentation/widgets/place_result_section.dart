@@ -20,8 +20,8 @@ class PlaceResultSection extends StatelessWidget {
   });
 
   final List<PlaceModel> places;
-  final Set<int> selectedPlaceIds;
-  final ValueChanged<int> onTogglePlace;
+  final Set<String> selectedPlaceIds;
+  final ValueChanged<String> onTogglePlace;
   final VoidCallback onToggleAll;
   final VoidCallback onSave;
   final bool isSaving;
@@ -203,9 +203,9 @@ class _PlaceSelectItem extends StatelessWidget {
                 width: 56.w,
                 height: 56.w,
                 color: HomeColors.shimmerBase,
-                child: place.imageUrl != null
+                child: place.photoUrls.isNotEmpty
                     ? Image.network(
-                        place.imageUrl!,
+                        place.photoUrls.first,
                         fit: BoxFit.cover,
                         errorBuilder: (_, _, _) => Icon(
                           Icons.place,
@@ -226,7 +226,7 @@ class _PlaceSelectItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    place.placeName,
+                    place.name,
                     style: AppTextStyles.label,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -242,13 +242,15 @@ class _PlaceSelectItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
-                  if (place.category != null) ...[
+                  if (place.description != null) ...[
                     SizedBox(height: 2.h),
                     Text(
-                      place.category!,
+                      place.description!,
                       style: AppTextStyles.callout.copyWith(
                         color: HomeColors.textDisabled,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ],

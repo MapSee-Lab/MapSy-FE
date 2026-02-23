@@ -8,28 +8,26 @@ part of 'place_model.dart';
 
 _$PlaceModelImpl _$$PlaceModelImplFromJson(Map<String, dynamic> json) =>
     _$PlaceModelImpl(
-      placeId: (json['placeId'] as num).toInt(),
-      placeName: json['placeName'] as String,
+      placeId: json['placeId'] as String,
+      name: json['name'] as String,
       address: json['address'] as String?,
-      latitude: (json['latitude'] as num?)?.toDouble(),
-      longitude: (json['longitude'] as num?)?.toDouble(),
-      category: json['category'] as String?,
-      tags:
-          (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      rating: (json['rating'] as num?)?.toDouble(),
+      userRatingsTotal: (json['userRatingsTotal'] as num?)?.toInt(),
+      photoUrls:
+          (json['photoUrls'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
           const [],
-      imageUrl: json['imageUrl'] as String?,
-      contentId: (json['contentId'] as num?)?.toInt(),
+      description: json['description'] as String?,
     );
 
 Map<String, dynamic> _$$PlaceModelImplToJson(_$PlaceModelImpl instance) =>
     <String, dynamic>{
       'placeId': instance.placeId,
-      'placeName': instance.placeName,
+      'name': instance.name,
       'address': instance.address,
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
-      'category': instance.category,
-      'tags': instance.tags,
-      'imageUrl': instance.imageUrl,
-      'contentId': instance.contentId,
+      'rating': instance.rating,
+      'userRatingsTotal': instance.userRatingsTotal,
+      'photoUrls': instance.photoUrls,
+      'description': instance.description,
     };

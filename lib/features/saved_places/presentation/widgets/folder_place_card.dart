@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../common/constants/home_colors.dart';
 import '../../../../common/constants/text_styles.dart';
-import '../../data/models/folder_place_model.dart';
+import '../../../../common/models/place_model.dart';
 
 /// 폴더 내 장소 카드
 class FolderPlaceCard extends StatelessWidget {
@@ -14,7 +14,7 @@ class FolderPlaceCard extends StatelessWidget {
     this.onRemove,
   });
 
-  final FolderPlaceModel place;
+  final PlaceModel place;
   final VoidCallback? onTap;
   final VoidCallback? onRemove;
 
@@ -68,7 +68,7 @@ class FolderPlaceCard extends StatelessWidget {
                         Icon(
                           Icons.star_rounded,
                           size: 14.sp,
-                          color: const Color(0xFFFFC107),
+                          color: HomeColors.starRating,
                         ),
                         SizedBox(width: 2.w),
                         Text(
@@ -126,7 +126,7 @@ class FolderPlaceCard extends StatelessWidget {
             ? Image.network(
                 place.photoUrls.first,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => _buildPlaceholder(),
+                errorBuilder: (_, _, _) => _buildPlaceholder(),
               )
             : _buildPlaceholder(),
       ),

@@ -8,8 +8,8 @@ abstract class AiExtractionRepository {
   Future<AnalyzeResponse> analyze(AnalyzeRequest request);
 
   /// 콘텐츠 상세 조회 (폴링용)
-  Future<ContentDetailResponse> getContentDetail(int contentId);
+  Future<ContentDetailResponse> getContentDetail(String contentId);
 
   /// 장소 저장
-  Future<void> savePlace(int placeId);
+  Future<void> savePlace(String placeId);
 }

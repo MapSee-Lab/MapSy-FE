@@ -26,7 +26,7 @@ class AiExtractionRemoteDataSource {
   /// AI 분석 요청
   /// POST /api/content/analyze
   Future<AnalyzeResponse> analyze(AnalyzeRequest request) async {
-    debugPrint('📤 AiExtraction: Analyzing URL: ${request.sourceUrl}');
+    debugPrint('📤 AiExtraction: Analyzing URL: ${request.snsUrl}');
 
     final response = await _dio.post(
       ApiEndpoints.contentAnalyze,
@@ -42,27 +42,27 @@ class AiExtractionRemoteDataSource {
 
   /// 콘텐츠 상세 조회 (폴링용)
   /// GET /api/content/{contentId}
-  Future<ContentDetailResponse> getContentDetail(int contentId) async {
+  Future<ContentDetailResponse> getContentDetail(String contentId) async {
     debugPrint('📤 AiExtraction: Polling contentId=$contentId');
 
     final response = await _dio.get(
-      ApiEndpoints.contentDetail(contentId.toString()),
+      ApiEndpoints.contentDetail(contentId),
     );
 
-    final result = ContentDetailResponse.fromJson(
+    final result = ContentDetailResponse.fromSnsJson(
       response.data as Map<String, dynamic>,
     );
-    debugPrint('✅ Content status: ${result.status}');
+    debugPrint('✅ Content status: ${result.content.status}');
     return result;
   }
 
   /// 장소 저장
   /// POST /api/place/{placeId}/save
-  Future<void> savePlace(int placeId) async {
+  Future<void> savePlace(String placeId) async {
     debugPrint('📤 AiExtraction: Saving placeId=$placeId');
 
     await _dio.post(
-      ApiEndpoints.savePlace(placeId.toString()),
+      ApiEndpoints.savePlace(placeId),
     );
 
     debugPrint('✅ Place saved: placeId=$placeId');

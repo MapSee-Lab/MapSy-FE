@@ -1,37 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../common/models/place_model.dart';
+
 part 'folder_place_model.freezed.dart';
 part 'folder_place_model.g.dart';
-
-/// 폴더 내 장소 정보 DTO
-@freezed
-class FolderPlaceModel with _$FolderPlaceModel {
-  const factory FolderPlaceModel({
-    /// 장소 ID
-    required int placeId,
-
-    /// 장소명
-    required String name,
-
-    /// 주소
-    String? address,
-
-    /// 평점
-    double? rating,
-
-    /// 사용자 평가 수
-    int? userRatingsTotal,
-
-    /// 사진 URL 목록
-    @Default([]) List<String> photoUrls,
-
-    /// 설명
-    String? description,
-  }) = _FolderPlaceModel;
-
-  factory FolderPlaceModel.fromJson(Map<String, dynamic> json) =>
-      _$FolderPlaceModelFromJson(json);
-}
 
 /// 폴더 내 장소 목록 응답
 @freezed
@@ -39,7 +11,7 @@ class GetFolderPlacesResponse with _$GetFolderPlacesResponse {
   const factory GetFolderPlacesResponse({
     required String folderId,
     required String folderName,
-    @Default([]) List<FolderPlaceModel> places,
+    @Default([]) List<PlaceModel> places,
   }) = _GetFolderPlacesResponse;
 
   factory GetFolderPlacesResponse.fromJson(Map<String, dynamic> json) =>
