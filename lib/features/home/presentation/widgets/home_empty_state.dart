@@ -7,10 +7,7 @@ import '../../../../common/constants/home_colors.dart';
 class HomeEmptyState extends StatelessWidget {
   final String message;
 
-  const HomeEmptyState({
-    super.key,
-    this.message = '아직 등록된 장소가 없습니다',
-  });
+  const HomeEmptyState({super.key, this.message = '아직 등록된 장소가 없습니다'});
 
   @override
   Widget build(BuildContext context) {

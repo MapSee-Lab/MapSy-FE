@@ -67,7 +67,11 @@ class _HomePageState extends ConsumerState<HomePage>
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout, color: HomeColors.iconPrimary, size: 22.sp),
+            icon: Icon(
+              Icons.logout,
+              color: HomeColors.iconPrimary,
+              size: 22.sp,
+            ),
             onPressed: () async {
               await ref.read(authNotifierProvider.notifier).signOut();
               if (context.mounted) {
@@ -81,10 +85,7 @@ class _HomePageState extends ConsumerState<HomePage>
           controller: _tabController,
           labelColor: HomeColors.textPrimary,
           unselectedLabelColor: HomeColors.iconSecondary,
-          labelStyle: TextStyle(
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w600,
-          ),
+          labelStyle: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
           unselectedLabelStyle: TextStyle(
             fontSize: 15.sp,
             fontWeight: FontWeight.w400,
@@ -106,9 +107,7 @@ class _HomePageState extends ConsumerState<HomePage>
     // 초기 로딩
     if (!state.isInitialized &&
         (state.isLoadingRecent || state.isLoadingPopular)) {
-      return const SingleChildScrollView(
-        child: HomeLoadingShimmer(),
-      );
+      return const SingleChildScrollView(child: HomeLoadingShimmer());
     }
 
     // 에러 상태 (데이터 없이 에러)
@@ -123,10 +122,7 @@ class _HomePageState extends ConsumerState<HomePage>
 
     return TabBarView(
       controller: _tabController,
-      children: [
-        _buildRecentTab(state),
-        _buildPopularTab(state),
-      ],
+      children: [_buildRecentTab(state), _buildPopularTab(state)],
     );
   }
 

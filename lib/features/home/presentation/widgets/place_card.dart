@@ -9,11 +9,7 @@ class PlaceCard extends StatelessWidget {
   final PlaceModel place;
   final VoidCallback? onTap;
 
-  const PlaceCard({
-    super.key,
-    required this.place,
-    this.onTap,
-  });
+  const PlaceCard({super.key, required this.place, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +26,7 @@ class PlaceCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 썸네일 (3:2)
-            AspectRatio(
-              aspectRatio: 3 / 2,
-              child: _buildThumbnail(),
-            ),
+            AspectRatio(aspectRatio: 3 / 2, child: _buildThumbnail()),
             // 정보 영역
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
