@@ -6,8 +6,7 @@ part of 'mypage_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appVersionHash() =>
-    r'a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0';
+String _$appVersionHash() => r'e8bdf0eb01e50b65eb7931eadc45c32b561fce64';
 
 /// 앱 버전 Provider
 ///
@@ -27,7 +26,7 @@ final appVersionProvider = AutoDisposeFutureProvider<String>.internal(
 // ignore: unused_element
 typedef AppVersionRef = AutoDisposeFutureProviderRef<String>;
 String _$notificationSettingHash() =>
-    r'b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1';
+    r'c987104be8b6cdf96ccc09887d6fcf0912f1e4a7';
 
 /// 알림 설정 Provider
 ///
@@ -45,8 +44,7 @@ final notificationSettingProvider =
     );
 
 typedef _$NotificationSetting = AutoDisposeAsyncNotifier<bool>;
-String _$nicknameEditorHash() =>
-    r'c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2';
+String _$nicknameEditorHash() => r'e77f1f02d225a93a377fc980eec2ec86d14f254f';
 
 /// 닉네임 수정 Provider
 ///
