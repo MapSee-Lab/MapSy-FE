@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/constants/spacing_and_radius.dart';
-import '../../../../core/constants/text_styles.dart';
-import '../../../../core/errors/app_exception.dart';
-import '../../../../router/route_paths.dart';
+import '../../../../common/constants/spacing_and_radius.dart';
+import '../../../../common/constants/text_styles.dart';
+import '../../../../common/exceptions/app_exception.dart';
+import '../../../../routing/route_paths.dart';
 import '../../data/models/sign_in_response.dart';
-import '../providers/auth_provider.dart';
+import '../auth_provider.dart';
 
 /// Google 로그인 화면
 ///
