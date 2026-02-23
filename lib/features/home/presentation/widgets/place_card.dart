@@ -98,7 +98,7 @@ class PlaceCard extends StatelessWidget {
       return Image.network(
         place.imageUrl!,
         fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) => _buildPlaceholder(),
+        errorBuilder: (_, _, _) => _buildPlaceholder(),
       );
     }
     return _buildPlaceholder();
