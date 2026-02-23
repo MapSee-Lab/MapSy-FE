@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../common/constants/home_colors.dart';
 import '../../data/models/place_model.dart';
 
-/// 최신 장소 카드 (16:9 비율)
+/// 장소 카드 (씀 스타일: 직각 보더, 넓은 여백)
 class PlaceCard extends StatelessWidget {
   final PlaceModel place;
   final VoidCallback? onTap;
@@ -20,23 +20,23 @@ class PlaceCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
         decoration: BoxDecoration(
           color: HomeColors.cardBackground,
-          borderRadius: BorderRadius.circular(12.r),
+          border: Border.all(color: HomeColors.cardBorder, width: 1),
         ),
         clipBehavior: Clip.antiAlias,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 썸네일 (16:9)
+            // 썸네일 (3:2)
             AspectRatio(
-              aspectRatio: 16 / 9,
+              aspectRatio: 3 / 2,
               child: _buildThumbnail(),
             ),
             // 정보 영역
             Padding(
-              padding: EdgeInsets.all(12.w),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -73,12 +73,12 @@ class PlaceCard extends StatelessWidget {
                       children: place.tags.take(3).map((tag) {
                         return Container(
                           padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
+                            horizontal: 10.w,
                             vertical: 4.h,
                           ),
                           decoration: BoxDecoration(
                             color: HomeColors.tagBackground,
-                            borderRadius: BorderRadius.circular(4.r),
+                            borderRadius: BorderRadius.circular(100.r),
                           ),
                           child: Text(
                             '#$tag',
@@ -113,7 +113,7 @@ class PlaceCard extends StatelessWidget {
 
   Widget _buildPlaceholder() {
     return Container(
-      color: HomeColors.surface,
+      color: HomeColors.surfaceLight,
       child: Center(
         child: Icon(
           Icons.place_outlined,
