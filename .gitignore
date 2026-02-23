@@ -52,6 +52,7 @@ app.*.map.json
 # ====================================================================
 /.claude/settings.local.json
 /.report
+/.issue
 CLAUDE.md
 .env
 # Play Store CI/CD - 민감한 파일 (자동 생성됨)
