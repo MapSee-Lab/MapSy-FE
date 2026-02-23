@@ -57,6 +57,19 @@ class RoutePaths {
   static const String home = '/home';
 
   // ============================================================================
+  // Main Navigation Tab Routes
+  // ============================================================================
+
+  /// 검색 화면 (장소/키워드 탐색)
+  static const String search = '/search';
+
+  /// 지도 화면 (북마크/저장 장소 지도 표시)
+  static const String map = '/map';
+
+  /// 마이페이지 화면 (프로필, 설정)
+  static const String mypage = '/mypage';
+
+  // ============================================================================
   // Route Names (for named navigation)
   // ============================================================================
 
@@ -69,4 +82,7 @@ class RoutePaths {
   static const String onboardingGenderName = 'onboarding-gender';
   static const String onboardingNicknameName = 'onboarding-nickname';
   static const String homeName = 'home';
+  static const String searchName = 'search';
+  static const String mapName = 'map';
+  static const String mypageName = 'mypage';
 }

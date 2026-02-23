@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../common/constants/spacing_and_radius.dart';
 import '../common/constants/text_styles.dart';
+import '../common/widgets/main_scaffold.dart';
 import 'route_paths.dart';
 
 // Auth Provider Import
@@ -14,6 +15,9 @@ import '../features/auth/presentation/pages/splash_page.dart';
 import '../features/auth/presentation/pages/login_page.dart';
 import '../features/auth/presentation/pages/onboarding_page.dart';
 import '../features/home/presentation/pages/home_page.dart';
+import '../features/search/presentation/pages/search_page.dart';
+import '../features/map/presentation/pages/map_page.dart';
+import '../features/mypage/presentation/pages/mypage_page.dart';
 
 // Onboarding Step Pages
 import '../features/onboarding/presentation/pages/terms_step_page.dart';
@@ -58,6 +62,12 @@ import '../features/onboarding/presentation/pages/nickname_step_page.dart';
 /// - Deep Link 지원: URL로 직접 특정 페이지 접근
 /// - 404 에러 처리: errorBuilder로 잘못된 경로 처리
 final routerProvider = Provider<GoRouter>((ref) {
+  // Navigator Keys for each tab branch (Provider 내부에서 생성하여 hot restart 안전성 확보)
+  final homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
+  final searchNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'search');
+  final mapNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'map');
+  final mypageNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'mypage');
+
   return GoRouter(
     initialLocation: RoutePaths.splash,
     debugLogDiagnostics: true, // 개발 중 라우팅 로그 확인
@@ -166,12 +176,58 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
 
       // ====================================================================
-      // Home & Main Navigation
+      // Home & Main Navigation (StatefulShellRoute - 4 tabs)
       // ====================================================================
-      GoRoute(
-        path: RoutePaths.home,
-        name: RoutePaths.homeName,
-        builder: (context, state) => const HomePage(),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return MainScaffold(navigationShell: navigationShell);
+        },
+        branches: [
+          // Tab 1: 홈
+          StatefulShellBranch(
+            navigatorKey: homeNavigatorKey,
+            routes: [
+              GoRoute(
+                path: RoutePaths.home,
+                name: RoutePaths.homeName,
+                builder: (context, state) => const HomePage(),
+              ),
+            ],
+          ),
+          // Tab 2: 검색
+          StatefulShellBranch(
+            navigatorKey: searchNavigatorKey,
+            routes: [
+              GoRoute(
+                path: RoutePaths.search,
+                name: RoutePaths.searchName,
+                builder: (context, state) => const SearchPage(),
+              ),
+            ],
+          ),
+          // Tab 3: 지도
+          StatefulShellBranch(
+            navigatorKey: mapNavigatorKey,
+            routes: [
+              GoRoute(
+                path: RoutePaths.map,
+                name: RoutePaths.mapName,
+                builder: (context, state) => const MapPage(),
+              ),
+            ],
+          ),
+          // Tab 4: 마이페이지
+          StatefulShellBranch(
+            navigatorKey: mypageNavigatorKey,
+            routes: [
+              GoRoute(
+                path: RoutePaths.mypage,
+                name: RoutePaths.mypageName,
+                builder: (context, state) => const MypagePage(),
+              ),
+            ],
+          ),
+        ],
       ),
     ],
 
