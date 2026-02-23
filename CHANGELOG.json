@@ -1,11 +1,33 @@
 {
   "metadata": {
-    "lastUpdated": "2026-02-23T07:48:34Z",
+    "lastUpdated": "2026-02-23T08:10:23Z",
     "currentVersion": "1.0.45",
     "projectType": "flutter",
-    "totalReleases": 14
+    "totalReleases": 15
   },
   "releases": [
+    {
+      "version": "1.0.45",
+      "project_type": "flutter",
+      "date": "2026-02-23",
+      "pr_number": 47,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트\n\n* **버전 업데이트**\n  * v1.0.45로 업그레이드됨\n  \n* **버그 수정**\n  * 데이터 모델 직렬화 처리 개선",
+      "parsed_changes": {
+        "버전_업데이트": {
+          "title": "버전 업데이트",
+          "items": [
+            "v1.0.45로 업그레이드됨"
+          ]
+        },
+        "버그_수정": {
+          "title": "버그 수정",
+          "items": [
+            "데이터 모델 직렬화 처리 개선"
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "1.0.45",
       "project_type": "flutter",
