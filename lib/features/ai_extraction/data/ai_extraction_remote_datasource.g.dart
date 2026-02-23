@@ -7,11 +7,9 @@ part of 'ai_extraction_remote_datasource.dart';
 // **************************************************************************
 
 String _$aiExtractionRemoteDataSourceHash() =>
-    r'a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0';
+    r'059941b681a6a9aea74c33f4077c991728e5e679';
 
-/// AI 장소 추출 Remote DataSource Provider
-///
-/// Copied from [aiExtractionRemoteDataSource].
+/// See also [aiExtractionRemoteDataSource].
 @ProviderFor(aiExtractionRemoteDataSource)
 final aiExtractionRemoteDataSourceProvider =
     AutoDisposeProvider<AiExtractionRemoteDataSource>.internal(

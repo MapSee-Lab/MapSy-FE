@@ -7,14 +7,17 @@ part of 'ai_extraction_provider.dart';
 // **************************************************************************
 
 String _$aiExtractionNotifierHash() =>
-    r'c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2';
+    r'd294d9e09204287c142dc5f7892db33f4ce50b32';
 
 /// AI 추출 화면 Notifier
 ///
 /// Copied from [AiExtractionNotifier].
 @ProviderFor(AiExtractionNotifier)
 final aiExtractionNotifierProvider =
-    AutoDisposeNotifierProvider<AiExtractionNotifier, AiExtractionState>.internal(
+    AutoDisposeNotifierProvider<
+      AiExtractionNotifier,
+      AiExtractionState
+    >.internal(
       AiExtractionNotifier.new,
       name: r'aiExtractionNotifierProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')

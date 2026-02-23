@@ -7,11 +7,9 @@ part of 'ai_extraction_repository_impl.dart';
 // **************************************************************************
 
 String _$aiExtractionRepositoryHash() =>
-    r'b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1';
+    r'df3d2a1c9f0772a8565245723dadde6f46b3b162';
 
-/// AI 장소 추출 Repository Provider
-///
-/// Copied from [aiExtractionRepository].
+/// See also [aiExtractionRepository].
 @ProviderFor(aiExtractionRepository)
 final aiExtractionRepositoryProvider =
     AutoDisposeProvider<AiExtractionRepository>.internal(
