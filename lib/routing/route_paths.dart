@@ -70,6 +70,13 @@ class RoutePaths {
   static const String mypage = '/mypage';
 
   // ============================================================================
+  // AI Extraction Routes
+  // ============================================================================
+
+  /// AI 장소 추출 화면
+  static const String aiExtraction = '/ai-extraction';
+
+  // ============================================================================
   // Route Names (for named navigation)
   // ============================================================================
 
@@ -85,4 +92,5 @@ class RoutePaths {
   static const String searchName = 'search';
   static const String mapName = 'map';
   static const String mypageName = 'mypage';
+  static const String aiExtractionName = 'ai-extraction';
 }

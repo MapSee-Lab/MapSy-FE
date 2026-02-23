@@ -24,6 +24,7 @@ import '../features/onboarding/presentation/pages/terms_step_page.dart';
 import '../features/onboarding/presentation/pages/birth_date_step_page.dart';
 import '../features/onboarding/presentation/pages/gender_step_page.dart';
 import '../features/onboarding/presentation/pages/nickname_step_page.dart';
+import '../features/ai_extraction/presentation/pages/ai_extraction_page.dart';
 
 /// GoRouter 인스턴스를 제공하는 Riverpod Provider
 ///
@@ -173,6 +174,15 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.onboardingNickname,
         name: RoutePaths.onboardingNicknameName,
         builder: (context, state) => const NicknameStepPage(),
+      ),
+
+      // ====================================================================
+      // AI Extraction Route
+      // ====================================================================
+      GoRoute(
+        path: RoutePaths.aiExtraction,
+        name: RoutePaths.aiExtractionName,
+        builder: (context, state) => const AiExtractionPage(),
       ),
 
       // ====================================================================

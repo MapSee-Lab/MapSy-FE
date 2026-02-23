@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'cursor_model.dart';
-import 'place_model.dart';
+import 'package:mapsy_flutter/common/models/place_model.dart';
 
 part 'content_response.freezed.dart';
 part 'content_response.g.dart';

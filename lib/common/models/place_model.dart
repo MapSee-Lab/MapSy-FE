@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'place_model.freezed.dart';
 part 'place_model.g.dart';
 
-/// 장소 모델
+/// 장소 모델 (공통)
 @freezed
 class PlaceModel with _$PlaceModel {
   const factory PlaceModel({

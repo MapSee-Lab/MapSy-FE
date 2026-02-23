@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../constants/home_colors.dart';
+import '../../routing/route_paths.dart';
 
 /// 메인 네비게이션 셸 (하단 네비게이션 바 + FAB)
 ///
@@ -25,12 +26,7 @@ class MainScaffold extends StatelessWidget {
         height: 56.w,
         child: FloatingActionButton(
           onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('AI 장소 추출 기능 준비 중'),
-                duration: Duration(seconds: 2),
-              ),
-            );
+            context.push(RoutePaths.aiExtraction);
           },
           elevation: 2,
           backgroundColor: HomeColors.textPrimary,
