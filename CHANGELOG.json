@@ -1,11 +1,33 @@
 {
   "metadata": {
-    "lastUpdated": "2026-02-23T02:13:37Z",
-    "currentVersion": "1.0.41",
+    "lastUpdated": "2026-02-23T04:16:06Z",
+    "currentVersion": "1.0.42",
     "projectType": "flutter",
-    "totalReleases": 12
+    "totalReleases": 13
   },
   "releases": [
+    {
+      "version": "1.0.42",
+      "project_type": "flutter",
+      "date": "2026-02-23",
+      "pr_number": 40,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트\n\n* **새로운 기능**\n  * AI 장소 추출 기능 추가: SNS 링크에서 위치 정보를 자동으로 추출하고, 추출된 장소를 선택하여 저장할 수 있습니다.\n\n* **버전 업데이트**\n  * 버전 1.0.42로 업데이트되었습니다.",
+      "parsed_changes": {
+        "새로운_기능": {
+          "title": "새로운 기능",
+          "items": [
+            "AI 장소 추출 기능 추가: SNS 링크에서 위치 정보를 자동으로 추출하고, 추출된 장소를 선택하여 저장할 수 있습니다."
+          ]
+        },
+        "버전_업데이트": {
+          "title": "버전 업데이트",
+          "items": [
+            "버전 1.0.42로 업데이트되었습니다."
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "1.0.41",
       "project_type": "flutter",
