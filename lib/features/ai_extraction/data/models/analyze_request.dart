@@ -8,7 +8,7 @@ part 'analyze_request.g.dart';
 class AnalyzeRequest with _$AnalyzeRequest {
   const factory AnalyzeRequest({
     /// SNS URL (Instagram, YouTube)
-    required String sourceUrl,
+    @JsonKey(name: 'snsUrl') required String sourceUrl,
   }) = _AnalyzeRequest;
 
   factory AnalyzeRequest.fromJson(Map<String, dynamic> json) =>
