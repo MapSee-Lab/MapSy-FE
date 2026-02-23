@@ -44,7 +44,7 @@ final notificationSettingProvider =
     );
 
 typedef _$NotificationSetting = AutoDisposeAsyncNotifier<bool>;
-String _$nicknameEditorHash() => r'e77f1f02d225a93a377fc980eec2ec86d14f254f';
+String _$nicknameEditorHash() => r'4107eba534e257b9f2c6d00b81e5ae054173d627';
 
 /// 닉네임 수정 Provider
 ///
