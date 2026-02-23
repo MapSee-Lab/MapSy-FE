@@ -22,6 +22,7 @@ AnalyzeRequest _$AnalyzeRequestFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AnalyzeRequest {
   /// SNS URL (Instagram, YouTube)
+  @JsonKey(name: 'snsUrl')
   String get sourceUrl => throw _privateConstructorUsedError;
 
   /// Serializes this AnalyzeRequest to a JSON map.
@@ -41,7 +42,7 @@ abstract class $AnalyzeRequestCopyWith<$Res> {
     $Res Function(AnalyzeRequest) then,
   ) = _$AnalyzeRequestCopyWithImpl<$Res, AnalyzeRequest>;
   @useResult
-  $Res call({String sourceUrl});
+  $Res call({@JsonKey(name: 'snsUrl') String sourceUrl});
 }
 
 /// @nodoc
@@ -80,7 +81,7 @@ abstract class _$$AnalyzeRequestImplCopyWith<$Res>
   ) = __$$AnalyzeRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String sourceUrl});
+  $Res call({@JsonKey(name: 'snsUrl') String sourceUrl});
 }
 
 /// @nodoc
@@ -111,13 +112,16 @@ class __$$AnalyzeRequestImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AnalyzeRequestImpl implements _AnalyzeRequest {
-  const _$AnalyzeRequestImpl({required this.sourceUrl});
+  const _$AnalyzeRequestImpl({
+    @JsonKey(name: 'snsUrl') required this.sourceUrl,
+  });
 
   factory _$AnalyzeRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$AnalyzeRequestImplFromJson(json);
 
   /// SNS URL (Instagram, YouTube)
   @override
+  @JsonKey(name: 'snsUrl')
   final String sourceUrl;
 
   @override
@@ -156,14 +160,16 @@ class _$AnalyzeRequestImpl implements _AnalyzeRequest {
 }
 
 abstract class _AnalyzeRequest implements AnalyzeRequest {
-  const factory _AnalyzeRequest({required final String sourceUrl}) =
-      _$AnalyzeRequestImpl;
+  const factory _AnalyzeRequest({
+    @JsonKey(name: 'snsUrl') required final String sourceUrl,
+  }) = _$AnalyzeRequestImpl;
 
   factory _AnalyzeRequest.fromJson(Map<String, dynamic> json) =
       _$AnalyzeRequestImpl.fromJson;
 
   /// SNS URL (Instagram, YouTube)
   @override
+  @JsonKey(name: 'snsUrl')
   String get sourceUrl;
 
   /// Create a copy of AnalyzeRequest
