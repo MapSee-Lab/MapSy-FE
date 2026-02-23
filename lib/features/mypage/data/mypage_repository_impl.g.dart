@@ -6,23 +6,19 @@ part of 'mypage_repository_impl.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mypageRepositoryHash() =>
-    r'd4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3';
+String _$mypageRepositoryHash() => r'7be682afbfccf672793fb3272aa3a85b75a784b7';
 
-/// Mypage Repository Provider
-///
-/// Copied from [mypageRepository].
+/// See also [mypageRepository].
 @ProviderFor(mypageRepository)
-final mypageRepositoryProvider =
-    AutoDisposeProvider<MypageRepository>.internal(
-      mypageRepository,
-      name: r'mypageRepositoryProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$mypageRepositoryHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+final mypageRepositoryProvider = AutoDisposeProvider<MypageRepository>.internal(
+  mypageRepository,
+  name: r'mypageRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$mypageRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
