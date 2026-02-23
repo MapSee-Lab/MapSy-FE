@@ -69,6 +69,12 @@ class RoutePaths {
   /// 마이페이지 화면 (프로필, 설정)
   static const String mypage = '/mypage';
 
+  /// 마이페이지 - 이용약관
+  static const String mypageTerms = '/mypage/terms';
+
+  /// 마이페이지 - 개인정보처리방침
+  static const String mypagePrivacyPolicy = '/mypage/privacy-policy';
+
   // ============================================================================
   // AI Extraction Routes
   // ============================================================================
@@ -92,5 +98,7 @@ class RoutePaths {
   static const String searchName = 'search';
   static const String mapName = 'map';
   static const String mypageName = 'mypage';
+  static const String mypageTermsName = 'mypage-terms';
+  static const String mypagePrivacyPolicyName = 'mypage-privacy-policy';
   static const String aiExtractionName = 'ai-extraction';
 }

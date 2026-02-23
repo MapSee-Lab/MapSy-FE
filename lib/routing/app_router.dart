@@ -18,6 +18,8 @@ import '../features/home/presentation/pages/home_page.dart';
 import '../features/search/presentation/pages/search_page.dart';
 import '../features/map/presentation/pages/map_page.dart';
 import '../features/mypage/presentation/pages/mypage_page.dart';
+import '../features/mypage/presentation/pages/terms_page.dart';
+import '../features/mypage/presentation/pages/privacy_policy_page.dart';
 
 // Onboarding Step Pages
 import '../features/onboarding/presentation/pages/terms_step_page.dart';
@@ -234,6 +236,18 @@ final routerProvider = Provider<GoRouter>((ref) {
                 path: RoutePaths.mypage,
                 name: RoutePaths.mypageName,
                 builder: (context, state) => const MypagePage(),
+                routes: [
+                  GoRoute(
+                    path: 'terms',
+                    name: RoutePaths.mypageTermsName,
+                    builder: (context, state) => const TermsPage(),
+                  ),
+                  GoRoute(
+                    path: 'privacy-policy',
+                    name: RoutePaths.mypagePrivacyPolicyName,
+                    builder: (context, state) => const PrivacyPolicyPage(),
+                  ),
+                ],
               ),
             ],
           ),
