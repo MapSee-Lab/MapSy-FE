@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:mapsy_flutter/common/models/place_model.dart';
+import 'package:mapsy/common/models/place_model.dart';
 import '../data/home_repository_impl.dart';
 
 part 'home_provider.freezed.dart';
