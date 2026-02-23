@@ -60,7 +60,7 @@ class MypagePage extends ConsumerWidget {
               value: notificationSetting.valueOrNull ?? true,
               onChanged: (_) =>
                   ref.read(notificationSettingProvider.notifier).toggle(),
-              activeColor: AppColors.primary,
+              activeTrackColor: AppColors.primary,
             ),
           ),
 

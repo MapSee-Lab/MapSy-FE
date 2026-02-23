@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -55,8 +56,8 @@ class NicknameEditor extends _$NicknameEditor {
   /// 닉네임 유효성 검증
   String? validate(String nickname) {
     if (nickname.isEmpty) return '닉네임을 입력해주세요.';
-    if (nickname.length < _minLength) return '닉네임은 ${_minLength}자 이상이어야 합니다.';
-    if (nickname.length > _maxLength) return '닉네임은 ${_maxLength}자 이하여야 합니다.';
+    if (nickname.length < _minLength) return '닉네임은 $_minLength자 이상이어야 합니다.';
+    if (nickname.length > _maxLength) return '닉네임은 $_maxLength자 이하여야 합니다.';
     if (nickname.contains(' ')) return '닉네임에 공백을 사용할 수 없습니다.';
     if (!_nicknameRegex.hasMatch(nickname)) return '닉네임은 한글, 영문, 숫자만 사용할 수 있습니다.';
     return null;
